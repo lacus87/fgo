@@ -1,0 +1,16 @@
+/* pages/material/material_info.wxss */
+.weui-navbar__slider {
+  width: 10em;
+}
+.weui-form-preview__label1{
+  font-size: 20px;
+  color: green;
+}
+.weui-cell__bd{
+  display: flex;  
+  flex-direction: column;  
+}
+.rank{
+  font-size: 15px;
+  color: gray;
+}

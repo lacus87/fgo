@@ -1,0 +1,88 @@
+<view class="page" >
+<view>
+    <view class="weui-tab" >
+      <view class="weui-navbar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}" >
+        <block wx:for="{{tabs}}" wx:key="{{index}}">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: 0px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <scroll-view class="weui-tab__panel"  scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+        <view hidden="{{activeIndex != 0}}">
+          <view class="weui-cell weui-cell_access"  >
+              <view class="weui-cell__hd"  data-index="1000">
+                <image src="/images/qb.jpg" style="margin-right: 5px;vertical-align: middle;width:50px; height: 50px;"></image>
+              </view>
+              <view class="weui-cell__bd">
+                  <view class="carts-num1">     
+                  <view style="color:{{model==1?'lightgrey':'black'}};">*</view>
+                  <input type='number' maxlength="12" style='color:{{model==1?"lightgrey":"black"}};' value="{{qpCount}}" bindinput="bindQPChange" data-index="1000"/>
+                  </view>
+                  <view class="rank" style="color:{{model==1?'lightgrey':'#CCC'}};">【{{qpDesc}}】</view>
+                </view>
+            </view>
+          <block wx:for="{{materialList}}" wx:key="id">
+            <block wx:if="{{item.type == '2'}}">
+            <view class="weui-cell weui-cell_access">
+              <view class="weui-cell__hd"  data-index="{{item.id}}" bindtap='getMaterialDetail'>
+                <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:50px; height: 50px;"></image>
+              </view>
+              <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}' data-index="{{item.id}}" bindtap='getMaterialDetail'>{{item.name}}</view>
+              <view class="carts-num" >
+                  <text class="minus {{minusStatuses}}" data-type="-" catchtap='bindNumDelete' data-index="{{item.id}}">-</text>
+                  <input type="number" style='color:{{model==1?"lightgrey":"black"}}' value="{{item.count}}" bindchange="bindNumChange" data-index="{{item.id}}"/>
+                  <text class="plus" data-type="+" catchtap='bindNumAdd' data-index="{{item.id}}">+</text>
+              </view>
+              <view class="weui-cell__ft" style='margin-left:50rpx;'>
+               <icon  type="search" size="20" color='#CCC' bindtap="getMaterialDetail"  data-index="{{item.id}}" />
+              </view>
+            </view>
+            </block>
+          </block>
+        </view>
+        <view hidden="{{activeIndex != 1}}">
+          <block wx:for="{{materialList}}" wx:key="id">
+            <block wx:if="{{item.type == '1'}}">
+            <view class="weui-cell weui-cell_access" >
+              <view class="weui-cell__hd" data-index="{{item.id}}" bindtap='getMaterialDetail'>
+                <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:50px; height: 50px;"></image>
+              </view>
+              <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}' data-index="{{item.id}}" bindtap='getMaterialDetail'>{{item.name}}</view>
+              <view class="carts-num" >
+                  <text class="minus {{minusStatuses}}" data-type="-" catchtap='bindNumDelete' data-index="{{item.id}}">-</text>
+                  <input type="number" style='color:{{model==1?"lightgrey":"black"}}' value="{{item.count}}" bindchange="bindNumChange" data-index="{{item.id}}"/>
+                  <text class="plus" data-type="+" catchtap='bindNumAdd' data-index="{{item.id}}">+</text>
+              </view>
+              <view class="weui-cell__ft" style='margin-left:50rpx;'> 
+                <icon  type="search" size="20" color='#CCC' bindtap="getMaterialDetail"  data-index="{{item.id}}" />
+              </view>
+            </view>
+            </block>
+          </block>
+        </view>
+        <view hidden="{{activeIndex != 2}}">
+          <block wx:for="{{materialList}}" wx:key="id">
+            <block wx:if="{{item.type == '3'}}">
+            <view class="weui-cell weui-cell_access" >
+              <view class="weui-cell__hd" data-index="{{item.id}}" bindtap='getMaterialDetail'>
+                <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:50px; height: 50px;"></image>
+              </view>
+              <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}' data-index="{{item.id}}" bindtap='getMaterialDetail'>{{item.name}}</view>
+              <view class="carts-num" >
+                  <text class="minus {{minusStatuses}}" data-type="-" catchtap='bindNumDelete' data-index="{{item.id}}">-</text>
+                  <input type="number" style='color:{{model==1?"lightgrey":"black"}}' value="{{item.count}}" bindchange="bindNumChange" data-index="{{item.id}}"/>
+                  <text class="plus" data-type="+" catchtap='bindNumAdd' data-index="{{item.id}}">+</text>
+              </view>
+              <view class="weui-cell__ft" style='margin-left:50rpx;'>
+                <icon  type="search" size="20" color='#CCC' bindtap="getMaterialDetail"  data-index="{{item.id}}" />
+              </view>
+            </view>
+            </block>
+          </block>
+        </view>
+      </scroll-view>
+    </view> 
+  </view>
+</view>
