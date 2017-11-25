@@ -1,0 +1,57 @@
+{
+  "pages":[
+    "pages/servant/servant",
+    "pages/servant/servant_detail",
+    "pages/servant/servant_material",
+    "pages/servant/servant_images",
+    "pages/setting/setting",
+    "pages/setting/servant_setting",
+    "pages/setting/setting_account",
+    "pages/setting/setting_details",
+    "pages/setting/setting_help",
+    "pages/material/material",        
+    "pages/material/material_info",
+    "pages/material/material_drop",
+    "pages/material/material_upload",
+    "pages/event/event",
+    "pages/event/event_info"
+  ],
+  "window":{
+    "backgroundTextStyle":"black",
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTitleText": "FGO素材规划",
+    "navigationBarTextStyle":"light"
+  },
+  "tabBar": {
+    "color": "#4F4F4F",
+    "selectedColor": "#02DF82",
+    "borderStyle": "white",
+    "backgroundColor": "#E0E0E0",
+    "list": [
+      {
+        "selectedIconPath": "images/servant.png",
+        "iconPath": "images/servant.png",
+        "pagePath": "pages/servant/servant",
+        "text": "英灵"
+      },
+      {
+        "selectedIconPath": "images/material.png",
+        "iconPath": "images/material.png",
+        "pagePath": "pages/material/material",
+        "text": "素材"
+      },
+      {
+        "selectedIconPath": "images/event.png",
+        "iconPath": "images/event.png",
+        "pagePath": "pages/event/event",
+        "text": "活动"
+      },
+      {
+        "selectedIconPath": "images/progress.png",
+        "iconPath": "images/progress.png",
+        "pagePath": "pages/setting/setting",
+        "text": "设置"
+      }
+    ]
+  }
+}
