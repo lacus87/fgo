@@ -1,0 +1,41 @@
+<!--pages/servant/servant_material.wxml-->
+<view class="page" style="position:absolute;min-height:100%;width:100%;background:{{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="page__hd">
+    <view class="page__desc" style='color:orange;margin-left:15px'>
+      灵基：{{material.rank}}
+      <block wx:if="{{clothFlag == 'Y'}}">  【灵衣】</block>
+    </view>
+    <block wx:for="{{material.skill}}" wx:key="{{index}}">
+      <text style='font-size:12px;margin-left:15px;color:{{model==1?"lightgrey":"black"}}'>技能{{index+1}}：{{item}} </text>
+    </block>
+  </view>
+  <view class="page__bd">
+    <scroll-view scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}" class="weui-cells weui-cells_after-title">
+      <block wx:if="{{material.qp > 0}}">
+        <view url="../material/material_drop?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/qb.jpg" style="margin-right: 5px;vertical-align: middle;width:40px; height: 40px;"></image>
+          </view>
+          <view class="weui-cell__bd">
+            <view style='color:{{model==1?"lightgrey":"black"}}'>*{{material.qp}}[{{material.qpStr}}]</view>
+            <view class="rank" style="font-size:12px;color:{{model==1?(qpFlag==1?'lightgrey':'#FF7575'):(qpFlag == 1?'#8E8E8E':'red')}}">{{qpDesc}}</view>
+          </view>
+          <view class="weui-cell__ft " style='font-size:30rpx;color:{{item.color}}'></view>
+        </view>
+      </block>
+      <block wx:for="{{material.material}}" wx:key="{{index}}">
+        <navigator url="../material/material_drop?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:40px; height: 40px;"></image>
+          </view>
+          <view class="weui-cell__bd">
+            <view style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}*{{item.count}}</view>
+            <view class="rank" style="font-size:10px;color:{{model==1?'lightgrey':'#CCC'}}">{{material.reqDetail[item.id+'']}}</view>
+          </view>
+          <view class="weui-cell__ft " style='font-size:12px;color:{{item.color}}'>{{item.desc}}</view>
+        </navigator>
+      </block>
+    </scroll-view>
+  </view>
+  <button style='width:80%;margin-top:10px;' type='primary' bindtap="reduceMaterial">扣除素材</button>
+</view>

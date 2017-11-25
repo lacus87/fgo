@@ -1,0 +1,165 @@
+/* pages/material/material_info.wxss */
+
+.weui-navbar__slider {
+  width: 10em;
+}
+
+.weui-form-preview__item {
+  display: flex;
+  flex-direction: row;
+}
+
+.weui-form-preview__label {
+  height: 40px;
+  font-size: 20px;
+  color: green;
+  display: flex;
+  flex-direction: row;
+  text-align-last: left;
+  text-align: left;
+}
+
+.weui-cell__bd {
+  display: flex;
+  flex-direction: column;
+}
+
+.rank {
+  font-size: 15px;
+  color: gray;
+}
+
+.weui-grids {
+  position: relative;
+  overflow: hidden;
+  left: 10%;
+  width:90%;
+}
+
+
+.weui-grid {
+  position: relative;
+  float: left;
+  padding: 2px 2px;
+  height: 85px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  direction: column;
+}
+
+.view_grid_img {
+  width: 78px;
+  height: 80px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+}
+.view_grid_info{
+  color:green;
+  position:absolute;
+  font-size: 15px;
+  font-weight:bold;
+  left:2px;
+  bottom:-5px;
+}
+.view_grid_info1{
+  position:relative;
+  left:5px;
+  width: 180px;
+  top:0px;
+  display: flex;
+  flex-direction: column;
+}
+.view_grid_info_item{
+  font-size: 15px;
+  margin-left: 0px;
+  display: flex;
+  flex-direction: row;
+}
+.view_grid_info_item_text{
+  font-size: 15px;
+  width: 18px;
+  margin-right: 6px;
+  color: darkgreen;
+  text-align:center;
+  margin-top: 2px;
+  border-style:solid;
+  border-width: 0.2px;
+  border-color:black;
+  height:16px;   
+  line-height:16px;   
+  overflow:hidden;   
+}
+.top{
+  position:absolute;
+  left:0px;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.view_grid_info_item_icon{
+  margin-left: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.view_grid_info_item_input{
+  font-size: 15px;
+  width: 30px;
+  margin-right: 6px;
+  color: darkgreen;
+  text-align:center;
+  margin-top: 2px;
+  border-style:solid;
+  border-width: 0.2px;
+  border-color:black;
+  height:16px;   
+  line-height:16px;   
+  overflow:hidden; 
+}
+
+/*mask*/
+.drawer_screen { 
+ width: 100%; 
+ height: 100%; 
+ position: fixed; 
+ top: 0; 
+ left: 0; 
+ z-index: 1000; 
+ background: #000; 
+ opacity: 0.5; 
+ overflow: hidden; 
+} 
+  
+/*content*/
+.drawer_box { 
+ width: 650rpx; 
+ overflow: hidden; 
+ position: fixed; 
+ top: 50%; 
+ left: 0; 
+ z-index: 1001; 
+ background: #FAFAFA; 
+ margin: -150px 50rpx 0 50rpx; 
+ border-radius: 3px; 
+} 
+  
+.drawer_title{ 
+ padding:15px; 
+ font: 15px; 
+ text-align: center; 
+} 
+.drawer_content { 
+ height: 210px; 
+ overflow-y: scroll; /*超出父盒子高度可滚动*/
+} 
+.btn_ok{ 
+ padding: 10px; 
+ font: 15px; 
+ text-align: center; 
+ border-top: 1px solid #E0E0E0; 
+ color: #3CC51F; 
+} 
+
+

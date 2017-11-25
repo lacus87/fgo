@@ -1,0 +1,112 @@
+<!--pages/event/event.wxml-->
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <block wx:for="{{questions}}" wx:key="id">
+    <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <view class="weui-cell">
+        <view class="weui-cell__bd" bindtap='showDetail' data-index="{{item.id}}" style='color:{{model==1?"lightgrey":"black"}}'>{{item.id}}、{{item.name}}</view>
+      </view>
+      <block wx:if="{{item.show == 1}}">
+        <scroll-view scroll-y="true" style="height: 130px;background: #F0F0F0;font-size:14px;background:{{model==1?'#9D9D9D':'#F0F0F0'}}">
+          <block wx:if="{{item.id == 1}}">
+            <view class="info"><image src='/images/servant.png' style='width:20px; height: 20px;'/>英灵界面使用
+              <icon type='download' size='15'></icon>排序和
+              <icon type='search' size='15'></icon>筛选进行查找。</view>
+            <view class="info">英灵姓名<text class='important c--green'>绿色</text>为已关注，<text class='important'>黑色</text>为未关注</view>
+            <view class="info">进入英灵页面后点击
+              <icon type='info' size='15' color='#2aa515'></icon>可关注/取消关注</view>
+            <view class="info">设置技能会自动关注，详情见下一条。</view>
+          </block>
+          <block wx:if="{{item.id == 2}}">
+            <view class="info">英灵详情页面选择英灵技能和灵基</view>
+            <view class="info"><text class='c--f60'>30%/1000</text>为技能当前效果</view>
+            <view class="info"><icon type='success' size='15'></icon>设置当前练度，后续规划计算都基于此练度</view>
+            <view class="info"> <image src='/images/cloth_on.png' style='width:20px; height: 20px;'/>英灵存在灵衣时可设置是否查看灵衣材料</view>
+            <view class="info"> <image src='/images/down.png' style='width:20px; height: 20px;'/>在英灵当前练度和310间切换</view>
+            <view class="info">点击英灵头像有小福利【建议wifi环境下查看】</view>
+            <view></view>
+          </block>
+          <block wx:if="{{item.id == 3}}">
+            <view class="info">英灵详情页点击计算进入</view>
+            <view class="info"><text class='important'>凶骨*16</text>为总需求量</view>
+            <view class="info"><text class='c--grey'>技能(5):4X3</text>技能升级4→5需要4个，升级3次</view>
+            <view class="info"><text class='c--red'>拥有10/缺6</text>表示素材不足</view>
+            <view class="info">点击扣除素材会更新英灵技能并扣除对应数量</view>
+            <view></view>
+          </block>
+          <block wx:if="{{item.id == 4}}">
+            <view class="info"><image src='/images/material.png' style='width:20px; height: 20px;'/>素材页查看素材数量</view>
+            <view class="info">官方未提供查询API...无法自动导入(⊙︿⊙)</view>
+            <view class="info">暂只能一个个录入，最大支持999个</view>
+            <view class="info">录入的素材数量会作为英灵升级和规划的依据</view>
+          </block>
+          <block wx:if="{{item.id == 5}}">
+            <view class="info"><image src='/images/material.png' style='width:20px; height: 20px;'/>素材页面点击具体素材进入此页</view>
+            <view class="info"><text class='important c--green'>掉落</text>显示素材掉率前三的地图</view>
+            <view class="info"><text class='important c--green'>英灵</text>显示此素材的需求英灵</view>
+            <view class="info"><icon type='info' size='15' color='greenyellow'></icon>默认显示关注英灵，点击可以显示全部</view>
+            <view class="info">点击英灵修改练度返回后会更新需求数量</view>
+          </block>
+          <block wx:if="{{item.id == 6}}">
+            <view class="info"><image src='/images/event.png' style='width:20px; height: 20px;'/>活动未来视，点击活动查看商店详情</view>
+            <view class="info"><switch checked="1"></switch><text style='padding-top:8px;'>可设置搬空奖池</text></view>
+            <view class="info">素材总量根据设置变化，暂不支持只搬部分素材</view>
+            <view class="info">下方的按钮可还原活动设置(不改素材数量)</view>
+          </block>
+          <block wx:if="{{item.id == 7}}">
+            <view class="info"><image src='/images/event.png' style='width:20px; height: 20px;'/>活动页面点击<image src='/images/detail.png' style='width:20px; height: 20px;'/>进入无限池设置</view>
+            <view class="info"><image src='/images/strong.png' style='width:15px; height: 15px;'/>或<image src='/images/weak.png' style='width:20px; height: 20px;'/>切换肝/取消的池数</view>
+            <view class="info">确认预期结果后，点击<text class='important c--green'>确定</text>将更新素材数量</view>
+            <view class="info">无限池获得的素材也计入（活动）栏中</view>
+          </block>
+          <block wx:if="{{item.id == 8}}">
+            <view class="info"><image src='/images/progress.png' style='width:20px; height: 20px;'/>设置页面<text class='important c--green'>账号</text>页，点击账号可以修改账号名</view>
+            <view class="info"><image src='/images/next3.png' style='width:20px; height: 20px;'/>可同步本地的设置，避免换机后数据丢失</view>
+            <view class="info"><image src='/images/night.png' style='width:20px; height: 20px;'/>和<image src='/images/day.png' style='width:20px; height: 20px;'/>切换日间/夜间模式</view>
+            <view class="info"><image src='/images/switch.png' style='width:20px; height: 20px;'/>可更改账户，最大支持5个本地账户</view>
+            <view class="info">下方为关注英灵/全英灵，点击显示分布详情</view>
+          </block>
+          <block wx:if="{{item.id == 9}}">
+            <view class="info"><image src='/images/progress.png' style='width:20px; height: 20px;'/>设置页面<text class='important c--green'>规划</text>页 1/2/3切换规划列表</view>
+            <view class="info">英灵头像上的<text class='important c--green'>4-6/6/10</text>为当前灵基-技能等级</view>
+            <view class="info"><text class='important'>长按</text>英灵头像可将英灵移出规划列表</view>
+            <view class="info"><image src='/images/add_black.png' style='width:20px; height: 20px;'/>新增英灵进规划列表</view>
+            <view class="info"><image src='/images/down.png' style='width:20px; height: 20px;'/>所有规划英灵设置为310</view>
+            <view class="info"><image src='/images/calculate.png' style='width:20px; height: 20px;'/>计算规划的素材结果</view>
+            <view class="info"><image src='/images/input_on.png' style='width:15px; height: 15px; padding-left:4px;'/>切换技能栏快捷选择/自由输入</view>
+            <view class="info"><image src='/images/clearAll.png' style='width:20px; height: 20px;'/>清空当前规划列表</view>
+          </block>
+          <block wx:if="{{item.id == 10}}">
+            <view class="info"><image src='/images/progress.png' style='width:20px; height: 20px;'/>设置页面<text class='important c--green'>规划</text>页点击<image src='/images/calculate.png' style='width:20px; height: 20px;'/>进入</view>
+            <view class="info"><text class='important c--green'>素材列表</text>显示英灵升级到目标所需求的素材</view>
+            <view class="info">点击素材图标可查看使用于什么英灵</view>
+            <view class="info"><text class='important c--green'>不要点我</text>达成规划预估的体力消耗(未含QP)</view>
+            <view class="info">排序方式为效率优先，可切换成按副本类型排序</view>
+          </block>
+          <block wx:if="{{item.id == 11}}">
+            <view class="info"><text class='important'>11-10：</text>英灵的灵衣素材可进行基本查询，规划时暂未加入</view>
+            <view class="info"><text class='important'>11-06：</text>现在活动素材根据活动失效时间自动更新数量</view>
+            <view class="info"><text class='important'>10-25：</text>取消规划对QP最大值的限制</view>
+            <view class="info"><text class='important'>10-24：</text>更新操作简易说明</view>
+            <view class="info"><text class='important'>10-20：</text>更新素材计算结果显示素材的消耗内容</view>
+            <view class="info"><text class='important'>10-17：</text>更新主页面英灵排序和QP需求计算</view>
+            <view class="info"><text class='important'>10-15：</text>更新点击英灵头像显示灵基高清图</view>
+            <view class="info"><text class='important'>10-12：</text>更新本地配置上传的功能</view>
+            <view class="info" style='padding-left:70px;'>修复规划页面切换不保存的BUG</view>
+            <view class="info"><text class='important'>10-8：</text>为单一账号增加最多3个规划列表</view>
+            <view class="info"><text class='important'>10-7：</text>增加夜间模式（不擅长色彩搭配，见谅）</view>
+            <view class="info"><text class='important'>10-6：</text>支持一次增加多个英灵进规划列表</view>
+            <view class="info"><text class='important'>10-5：</text>规划时增加支持自定义技能级别</view>
+            <view class="info"><text class='important'>10-4：</text>为规划列表增加本地存储</view>
+          </block>
+          <block wx:if="{{item.id == 12}}">
+            <view class="info"><text class='important'>作者很懒，什么联系方式都没有留下</text></view>
+            <view style='height:2000px;'></view>
+            <view class="info">已经到底别拉了...</view>
+            <view class="info">有好的建议/想法请发282457541@qq.com</view>
+          </block>
+        </scroll-view>
+
+      </block>
+    </view>
+  </block>
+</view>

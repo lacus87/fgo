@@ -1,0 +1,10 @@
+<!--pages/servant/servant_images.wxml-->
+<view class="page" style="position:absolute;min-height:100%;width:100%;background:{{model==1?'#000000':'#000000'}}">
+  <swiper indicator-dots="true" autoplay=""  style="height:{{pageHeight}}px;width:{{pageWidth}}px;">
+    <block wx:for="{{images}}" wx:key="{{index}}">
+      <swiper-item>
+        <image src="{{item}}" style="width:100%;height:100%" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

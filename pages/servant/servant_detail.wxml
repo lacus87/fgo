@@ -1,0 +1,79 @@
+<view style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="carts-list">
+    <view class="carts-item" style="{{model==1?'#7B7B7B':'#F0F0F0'}}">
+      <!-- //商品信息 -->
+      <view class="carts-cnt">
+        <block wx:if="{{servant.imgPath}}">
+          <image class="carts-image" style="width:90px; height: 94px;" src="{{servant.imgPath}}" catchtap='showImages' />
+        </block>
+        <view class="carts-info">
+          <view class="carts-title clamp2" style="color:{{model==1?'lightgrey':'black'}}">攻击：{{servant.maxAtk}}</view>
+          <view class="carts-title clamp2" style="color:{{model==1?'lightgrey':'black'}}">血量：{{servant.maxHp}}</view>
+          <view class="carts-subtitle">
+            <text class="carts-price c--f60" style='font-size:16px'>灵基：</text>
+            <!-- //数量加减 -->
+            <view class="carts-num">
+              <text class="minus {{minusStatuses}}" data-type="-" bindtap="bindNumDelete">-</text>
+              <input type="number" style="background:{{model==1?'#ADADAD':''}}" value="{{servant_info[0]}}" disabled='true' />
+              <text class="plus normal" data-type="+" bindtap="bindNumAdd">+</text>
+            </view>
+          </view>
+          <!-- <view class="carts-subtitle">
+            <view class="itemList">
+              <view class="item1" style="background: {{skill==1?'greenyellow':'#F0F0F0'}}" data-index='1' catchtap='changeView'>技能</view>
+              <view class="item1" style="background: {{skill==1?'#F0F0F0':'greenyellow'}}" data-index='2' catchtap='changeView'>宝具</view>
+            </view>
+          </view> -->
+        </view>
+      </view>
+      <!-- //关注 -->
+      <icon class="carts-del" type="info" size="30" color="{{color}}" bindtap="setCare" />
+      <icon class="carts-del" style='margin-right:45px' type="success" size="30" bindtap="setStatus" />
+      <block wx:if="{{servant.clothFlag == 'Y'}}">
+        <block wx:if="{{servant_info[4] != 1}}">
+          <image src='/images/cloth_off.png' style='margin-top:45px;margin-left:10px;width:30px; height: 30px;' bindtap="setCloth" />
+        </block>
+        <block wx:if="{{servant_info[4] == 1}}">
+          <image src='/images/cloth_on.png' style='margin-top:45px;margin-left:10px;width:30px; height: 30px;' bindtap="setCloth" />
+        </block>
+      </block>
+      <block wx:if="{{topFlag == 1}}">
+        <image src='/images/down.png' style='margin-top:45px;margin-left:10px;width:30px; height: 30px;' bindtap="setDefault" />
+      </block>
+      <block wx:if="{{topFlag == 0}}">
+        <image src='/images/top.png' style='margin-top:45px;margin-left:10px;width:30px; height: 30px;' bindtap="setTop" />
+      </block>
+    </view>
+
+
+  </view>
+
+  <view class="container carts-list" hidden="{{skill>1}}">
+    <view wx:for="{{servant.skill}}" wx:key="id" class="carts-item2" data-title="{{item.skillName}}">
+      <view class="carts-item" style='margin-top:0px;padding-top:0px;'>
+        <view>
+          <image class="carts-image1" src="{{imgUrl+item.imgPath}}" mode="aspectFill" />
+        </view>
+        <view class="carts-text1">
+          <view class="carts-title1" style="color:{{model==1?'lightgrey':'black'}}">{{item.skillName}}
+            <text class='c--f60' style='font-size:12px;position:absolute;right: 10px;'>等级：{{item.skillLevelUp}}</text>
+          </view>
+          <view class="carts-subtitle1" style="color:{{model==1?'lightgrey':'#7B7B7B'}}">{{item.skillDesc}}
+            <view class="carts-price c--f60">{{item.lv[item.tarLevel-1]}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="slide-item">
+        <view class="slidewrapName" style="color:{{model==1?'lightgrey':'black'}}">技能等级</view>
+        <slider style='margin-top:0px' class="slidewrap" min='1' max='10' show-value value="{{item.tarLevel}}" catchchange='changeSkillLevel{{item.skillIndex}}' />
+      </view>
+    </view>
+  </view>
+  <view hidden="{{skill>1}}">
+    <button style='width:80%;margin-top:8px' type='primary' catchtap="calMaterial">计算素材</button>
+  </view>
+  <view hidden="{{skill==1}}">
+    <view style='font-size:15px;color:red;'>{{playFlag}}</view>
+    <video id="myVideo" style='width:{{width}}px;height:{{width*9/16}}px;' src="{{movieUrl}}"></video>
+  </view>
+</view>

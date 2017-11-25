@@ -1,0 +1,9 @@
+/* pages/setting/servant_setting.wxss */
+.weui-cell__bd{
+  display: flex;  
+  flex-direction: column;  
+}
+.rank{
+  font-size: 15px;
+  color: gray;
+}

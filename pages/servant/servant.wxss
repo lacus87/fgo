@@ -1,0 +1,22 @@
+/* pages/servant/servant.wxss */
+page,
+.page,
+.page__bd{
+    height: 100%;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.weui-tab__content{
+    padding-top: 60px;
+    text-align: center;
+}
+.page__title{
+  width: 80%;
+  margin-left: 20px;
+  font-size:30px;
+}
+.page__hd{
+  display: flex;
+  flex: row;
+}

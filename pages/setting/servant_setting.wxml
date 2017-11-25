@@ -1,0 +1,27 @@
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="page__hd" style="color:{{model==1?'lightgrey':'black'}}">
+    关注列表
+    <icon style='margin-top:0px;margin-left:20px;' type="search" size="25" bindtap="switchServant" />  
+  </view>
+  <view>
+    <scroll-view scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <view>
+        <block wx:for="{{servantList}}" wx:key="id">
+          <view data-index="{{item.id}}" catchtap='addInSetting' class="weui-cell weui-cell_access">
+            <view class="weui-cell__hd">
+              <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:50px; height: 50px;"></image>
+            </view>
+            <view class="weui-cell__bd">
+              <view style="color:{{item.choose==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}</view>
+              <view class="rank" style="color:{{model==1?'lightgrey':'#CCC'}}">灵基{{item.rank}}/技能{{item.skill}}</view>
+            </view>
+            <view class="weui-cell__ft" >
+              <icon color="{{item.choose == 1?'#2aa515':'#CCC'}}" type="success" size="20"/>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+    <button class="weui-btn" style='width:80%;' type="primary" catchtap="confirmSetting">确定</button>
+  </view>
+</view>
