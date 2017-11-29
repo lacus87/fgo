@@ -320,7 +320,7 @@ Page({
       servant_info[i + 1] = 10;
     }
     servant_info[0] = 4;
-    if(servant.clothFlag == 'Y'){
+    if (servant.clothFlag == 'Y') {
       servant_info[4] = 1;
     }
     this.setData({
@@ -417,11 +417,9 @@ Page({
     }
     //更新有效点击的时间
     app.globalData.lastTapTime = time;
-    if (this.data.servant.sex == '1') {
-      wx.navigateTo({
-        url: "servant_images?id=" + this.data.id + "&name=" + this.data.servant.name
-      });
-    }
+    wx.navigateTo({
+      url: "servant_images?id=" + this.data.id + "&name=" + this.data.servant.name
+    });
   },
   changeView: function (e) {
     var skill = e.currentTarget.dataset.index;

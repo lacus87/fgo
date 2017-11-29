@@ -23,32 +23,32 @@
     "navigationBarTextStyle":"light"
   },
   "tabBar": {
-    "color": "#4F4F4F",
-    "selectedColor": "#02DF82",
+    "color": "#8a8a8a",
+    "selectedColor": "#2aa515",
     "borderStyle": "white",
     "backgroundColor": "#E0E0E0",
     "list": [
       {
-        "selectedIconPath": "images/servant.png",
-        "iconPath": "images/servant.png",
+        "selectedIconPath": "images/servant_on.png",
+        "iconPath": "images/servant_off.png",
         "pagePath": "pages/servant/servant",
         "text": "英灵"
       },
       {
-        "selectedIconPath": "images/material.png",
-        "iconPath": "images/material.png",
+        "selectedIconPath": "images/material_on.png",
+        "iconPath": "images/material_off.png",
         "pagePath": "pages/material/material",
         "text": "素材"
       },
       {
-        "selectedIconPath": "images/event.png",
-        "iconPath": "images/event.png",
+        "selectedIconPath": "images/event_on.png",
+        "iconPath": "images/event_off.png",
         "pagePath": "pages/event/event",
         "text": "活动"
       },
       {
-        "selectedIconPath": "images/progress.png",
-        "iconPath": "images/progress.png",
+        "selectedIconPath": "images/programe_on.png",
+        "iconPath": "images/programe_off.png",
         "pagePath": "pages/setting/setting",
         "text": "设置"
       }

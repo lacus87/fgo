@@ -20,3 +20,6 @@ page,
   display: flex;
   flex: row;
 }
+/* .weui-bar__item_on{
+  background: #E0E0E0;
+} */

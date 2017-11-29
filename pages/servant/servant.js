@@ -23,6 +23,9 @@ Page({
     cur: 0,
     init: 0,
     errMsg:'',
+    hidden: true, // 加载提示框是否显示  
+    inputShowed: false, // 搜索输入框是否显示  
+    inputVal: "", // 搜索的内容  
   },
   onLoad: function () {
     var that = this;
@@ -34,6 +37,9 @@ Page({
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
         });
       }
+    });
+    wx.setNavigationBarTitle({
+      title: '英灵列表'
     });
     wx.showToast({
       title: '正在加载',
@@ -68,13 +74,12 @@ Page({
         })
         that.onShow();
         var servantRarity = new Object;
-        for (var i = 0; i < res.data.data.length; i++) {
-          var servant = res.data.data[i];
-          var id = servant.id;
+        for (var i = 0; i < servantList.length; i++) {
+          var id = servantList[i].id;
           servantRarity[id] = {
-            'rarity': servant.rarity,
-            'clazz': servant.clazz,
-            'imgPath': servant.imgPath
+            'rarity': servantList[i].rarity,
+            'clazz': servantList[i].clazz,
+            'imgPath': servantList[i].imgPath
           };
         }
         wx.setStorageSync('servantRarity', servantRarity);
@@ -224,7 +229,6 @@ Page({
         if (!res.cancel) {
           var id = res.tapIndex;
           var servantList = getApp().globalData.servantList;
-          console.log(servantList);
           var temp = [];
           var item = wx.getStorageSync('srv_list' + "_" + curAccId);
           for (var i = 0; i < servantList.length; i++) {
@@ -306,5 +310,47 @@ Page({
     setTimeout(function () {
       that.loadDataByStep(servantList, step);
     }, 100);
-  }
+  },
+  showInput: function () {
+    this.setData({
+      inputShowed: true,
+    });
+  },
+  // 点击叉叉icon 清除输入内容，同时清空关键字，并加载数据  
+  clearInput: function () {
+    var that = this;
+    that.setData({
+      msgList: [],
+      scrollTop: 0,
+      inputVal: ""
+    });
+    searchTitle = "";
+    pageNum = 1;
+    loadMsgData(that);
+  },
+
+  // 输入内容时 把当前内容赋值给 查询的关键字，并显示搜索记录  
+  inputTyping: function (e) {
+    var that = this;
+    var key = e.detail.value;
+    var servantList = getApp().globalData.servantList;
+    var temp = [];
+    var item = wx.getStorageSync('srv_list' + "_" + curAccId);
+    for (var i = 0; i < servantList.length; i++) {
+      servantList[i].flag = 0;
+      if (item.indexOf(servantList[i].id) >= 0) {
+        servantList[i].flag = 1;
+      }
+      if (servantList[i].name.indexOf(key) >=0) {
+        temp.push(servantList[i]);
+      } else if (servantList[i].sex.indexOf(key) >= 0) {
+        temp.push(servantList[i]);
+      }
+    }
+    servantList = that.sortByCur(temp, that.data.cur);
+    that.setData({
+      servantList: servantList,
+    });
+    that.loadDataByStep(servantList, -30); 
+  }, 
 });

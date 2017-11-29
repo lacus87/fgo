@@ -36,9 +36,9 @@ Page({
     importList: [],
     modelArray: [],
     showModalStatus: false,
-    sortWay:['默认','星级'],
-    sortWayIndex:0,
-    sortCur:0
+    sortWay: ['默认', '星级'],
+    sortWayIndex: 0,
+    sortCur: 0
   },
 
   /**
@@ -69,6 +69,9 @@ Page({
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
         });
       }
+    });
+    wx.setNavigationBarTitle({
+      title: '个人规划'
     });
   },
   onShow: function () {
@@ -631,39 +634,39 @@ Page({
   switchSortWay: function () {
     var index = this.data.sortWayIndex;
     var sortWay = this.data.sortWay;
-    index = (index +1)%sortWay.length;
+    index = (index + 1) % sortWay.length;
     this.setData({
-    	sortWayIndex: index
-    	})
+      sortWayIndex: index
+    })
   },
-  sortProgrameList: function(e){
-  	var cur = e.currentTarget.dataset.index;
-  	var sortWayIndex = this.data.sortWayIndex;
-  	var modelArray = this.data.modelArray;
-  	if(sortWayIndex == 0){
-  		if (cur == 1) {
-	      modelArray.sort(function (a, b) {
-	        return a.id < b.id ? -1 : 1
-	      });
-	    } else {
-	      modelArray.sort(function (a, b) {
-	        return a.id < b.id ? 1 : -1
-	      });
-    	}
-  	}else if (sortWayIndex == 1){
-  		if (cur == 1) {
-	      modelArray.sort(function (a, b) {
+  sortProgrameList: function (e) {
+    var cur = e.currentTarget.dataset.index;
+    var sortWayIndex = this.data.sortWayIndex;
+    var modelArray = this.data.modelArray;
+    if (sortWayIndex == 0) {
+      if (cur == 1) {
+        modelArray.sort(function (a, b) {
+          return a.id < b.id ? -1 : 1
+        });
+      } else {
+        modelArray.sort(function (a, b) {
+          return a.id < b.id ? 1 : -1
+        });
+      }
+    } else if (sortWayIndex == 1) {
+      if (cur == 1) {
+        modelArray.sort(function (a, b) {
           if (a.rarity == b.rarity) return a.id < b.id ? -1 : 1;
-	        return a.rarity < b.rarity ? -1 : 1
-	      });
-	    } else {
-	      modelArray.sort(function (a, b) {
+          return a.rarity < b.rarity ? -1 : 1
+        });
+      } else {
+        modelArray.sort(function (a, b) {
           if (a.rarity == b.rarity) return a.id < b.id ? -1 : 1;;
-	        return a.rarity < b.rarity ? 1 : -1
-	      });
-    	}
-  	}
-  	this.setData({
+          return a.rarity < b.rarity ? 1 : -1
+        });
+      }
+    }
+    this.setData({
       modelArray: modelArray,
       sortCur: cur
     });

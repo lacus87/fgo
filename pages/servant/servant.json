@@ -1,3 +1,9 @@
 {
-  
+    "window": {
+      "navigationBarBackgroundColor": "#ffffff",
+      "navigationBarTextStyle": "black",
+      "navigationBarTitleText": "英灵列表",
+      "backgroundColor": "#eeeeee",
+      "backgroundTextStyle": "light"
+    }
 }

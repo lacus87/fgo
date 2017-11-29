@@ -41,6 +41,9 @@ Page({
         });
       }
     });
+    wx.setNavigationBarTitle({
+      title: '素材列表'
+    });
     var materialList = getApp().globalData.materialList;
     that.setData({
       materialList: materialList
