@@ -29,11 +29,11 @@
         </block>
         <view class="weui-navbar__slider" style="left: 0px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
       </view>
-      <scroll-view class="weui-tab__panel" scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <scroll-view class="weui-tab__panel" scroll-y="true" style="height: {{pageHeight+'px'}};background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
         <view hidden="{{activeIndex != 0}}">
           <block wx:for="{{loadList}}" wx:key="id">
             <block wx:if="{{item.flag==1||flag==0}}">
-              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" >
                 <view class="weui-cell__hd">
                   <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:38px; height: 40px;"></image>
                 </view>
@@ -47,7 +47,7 @@
         <view hidden="{{activeIndex != 1}}">
           <block wx:for="{{loadList}}" wx:key="id">
             <block wx:if="{{item.clazz == 'SABER'&&(item.flag==1||flag==0)}}">
-              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
                   <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:38px; height: 40px;"></image>
                 </view>
@@ -60,7 +60,7 @@
         <view hidden="{{activeIndex != 2}}">
           <block wx:for="{{loadList}}" wx:key="id">
             <block wx:if="{{item.clazz == 'ARCHER'&&(item.flag==1||flag==0)}}">
-              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
                   <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:38px; height: 40px;"></image>
                 </view>
@@ -73,7 +73,7 @@
         <view hidden="{{activeIndex != 3}}">
           <block wx:for="{{loadList}}" wx:key="id">
             <block wx:if="{{item.clazz == 'LANCER'&&(item.flag==1||flag==0)}}">
-              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
                   <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:38px; height: 40px;"></image>
                 </view>
@@ -86,7 +86,7 @@
         <view hidden="{{activeIndex != 4}}">
           <block wx:for="{{loadList}}" wx:key="id">
             <block wx:if="{{item.clazz == 'RIDER'&&(item.flag==1||flag==0)}}">
-              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
                   <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:38px; height: 40px;"></image>
                 </view>
@@ -99,7 +99,7 @@
         <view hidden="{{activeIndex != 5}}">
           <block wx:for="{{loadList}}" wx:key="id">
             <block wx:if="{{item.clazz == 'CASTER'&&(item.flag==1||flag==0)}}">
-              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
                   <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:38px; height: 40px;"></image>
                 </view>
@@ -112,7 +112,7 @@
         <view hidden="{{activeIndex != 6}}">
           <block wx:for="{{loadList}}" wx:key="id">
             <block wx:if="{{item.clazz == 'ASSASSIN'&&(item.flag==1||flag==0)}}">
-              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
                   <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:38px; height: 40px;"></image>
                 </view>
@@ -125,7 +125,7 @@
         <view hidden="{{activeIndex != 7}}">
           <block wx:for="{{loadList}}" wx:key="id">
             <block wx:if="{{item.clazz == 'BERSERKER'&&(item.flag==1||flag==0)}}">
-              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
                   <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:38px; height: 40px;"></image>
                 </view>
@@ -138,7 +138,7 @@
         <view hidden="{{activeIndex != 8}}">
           <block wx:for="{{loadList}}" wx:key="id">
             <block wx:if="{{(item.clazz == 'RULER'||item.clazz == 'AVENGER'||item.clazz == 'ALTEREGO'||item.clazz == 'MOONCANCER')&&(item.flag==1||flag==0)}}">
-              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
                   <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:38px; height: 40px;"></image>
                 </view>

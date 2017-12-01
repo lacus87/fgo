@@ -29,15 +29,6 @@ Page({
   },
   onLoad: function () {
     var that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          pageHeight: res.windowHeight - 45,
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 10,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
-        });
-      }
-    });
     wx.setNavigationBarTitle({
       title: '英灵列表'
     });
@@ -83,8 +74,20 @@ Page({
           };
         }
         wx.setStorageSync('servantRarity', servantRarity);
+        setTimeout(function () {
+          wx.getSystemInfo({
+            success: function (res) {
+              that.setData({
+                pageHeight: res.windowHeight - 46,
+                sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 10,
+                sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+              });
+            }
+          });
+        }, 200);
       }
     });
+    
   },
   onShow: function () {
     var servantList = this.data.loadList;
