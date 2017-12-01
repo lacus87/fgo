@@ -11,3 +11,5 @@ FGO material programe
 
 设置：账号切换，本地数据上传云端，使用指南，以及英灵升级计划
 
+详见example文件夹
+
