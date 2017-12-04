@@ -22,8 +22,7 @@ Page({
     model: 0,
     cur: 0,
     init: 0,
-    errMsg:'',
-    hidden: true, // 加载提示框是否显示  
+    errMsg: '',
     inputShowed: false, // 搜索输入框是否显示  
     inputVal: "", // 搜索的内容  
   },
@@ -39,7 +38,7 @@ Page({
       mask: true
     })
     wx.request({
-      url: app.globalData.url+'/fgo/servant/getServantList.do',
+      url: app.globalData.url + '/fgo/servant/getServantList.do',
       method: 'GET',
       fail: function () {
         wx.showToast({
@@ -87,7 +86,7 @@ Page({
         }, 200);
       }
     });
-    
+
   },
   onShow: function () {
     var servantList = this.data.loadList;
@@ -227,7 +226,7 @@ Page({
   switchServant: function () {
     var that = this;
     wx.showActionSheet({
-      itemList: ['全部', '五星', '四星', '金卡','其他'],
+      itemList: ['全部', '五星', '四星', '金卡', '其他'],
       success: function (res) {
         if (!res.cancel) {
           var id = res.tapIndex;
@@ -314,22 +313,13 @@ Page({
       that.loadDataByStep(servantList, step);
     }, 100);
   },
-  showInput: function () {
-    this.setData({
-      inputShowed: true,
-    });
-  },
-  // 点击叉叉icon 清除输入内容，同时清空关键字，并加载数据  
+  // 点击叉叉icon 清除输入内容，并加载数据  
   clearInput: function () {
-    var that = this;
-    that.setData({
-      msgList: [],
-      scrollTop: 0,
-      inputVal: ""
+    this.setData({
+      inputVal: "",
+      servantList: getApp().globalData.servantList
     });
-    searchTitle = "";
-    pageNum = 1;
-    loadMsgData(that);
+    this.loadDataByStep(getApp().globalData.servantList, -30);
   },
 
   // 输入内容时 把当前内容赋值给 查询的关键字，并显示搜索记录  
@@ -344,7 +334,7 @@ Page({
       if (item.indexOf(servantList[i].id) >= 0) {
         servantList[i].flag = 1;
       }
-      if (servantList[i].name.indexOf(key) >=0) {
+      if (servantList[i].name.indexOf(key) >= 0) {
         temp.push(servantList[i]);
       } else if (servantList[i].sex.indexOf(key) >= 0) {
         temp.push(servantList[i]);
@@ -352,8 +342,13 @@ Page({
     }
     servantList = that.sortByCur(temp, that.data.cur);
     that.setData({
-      servantList: servantList,
+      servantList: servantList
     });
-    that.loadDataByStep(servantList, -30); 
-  }, 
+    that.loadDataByStep(servantList, -30);
+  },
+  inputChange: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    });
+  }
 });
