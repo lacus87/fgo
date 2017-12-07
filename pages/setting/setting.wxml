@@ -3,13 +3,13 @@
   <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};">
     <!--drawer content-->
     <view class="drawer_title" style="align:center;height:30px;background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'black'}}">
-    	规划排序
-    	<text class="view_grid_info_item_text" style="width:30px;color:black;margin-left:20px;padding:3px;background-color:greenyellow;" catchtap="switchSortWay">{{sortWay[sortWayIndex]}}</text>
+      规划排序
+      <text class="view_grid_info_item_text" style="width:30px;color:black;margin-left:20px;padding:3px;background-color:greenyellow;" catchtap="switchSortWay">{{sortWay[sortWayIndex]}}</text>
       <block wx:if="{{sortCur == 0}}">
-    	<image src='/images/up_sort.png' style='margin-left:10px;width:25px; height:25px;vertical-align:middle' data-index="1" catchtap="sortProgrameList" />
+        <image src='/images/up_sort.png' style='margin-left:10px;width:25px; height:25px;vertical-align:middle' data-index="1" catchtap="sortProgrameList" />
       </block>
       <block wx:if="{{sortCur == 1}}">
-    	<image src='/images/down_sort.png' style='margin-left:10px;width:25px; height:25px;vertical-align:middle' data-index="0" catchtap="sortProgrameList" />
+        <image src='/images/down_sort.png' style='margin-left:10px;width:25px; height:25px;vertical-align:middle' data-index="0" catchtap="sortProgrameList" />
       </block>
     </view>
     <scroll-view scroll-y="true " style="height: 210px;border-top: 1px solid #E0E0E0;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
@@ -47,9 +47,12 @@
               </block>
 
               <block wx:if="{{activeIndex != 0 && index !=0}}">
-                <image src='/images/first.png' style='margin-left:10px;width:15px; height:15px;border-style:solid;border-width: 0.2px;border-color:black;background-color:{{curProgrameId==""?"greenyellow":""}};' data-index='' bindtap="changePrograme" />
+                  <image src='/images/delete.png' style='width:25px; height:25px;vertical-align:middle' catchtap='programeDown'></image>
+                  {{curProgrameId==''?'1':curProgrameId+1}}
+                  <image src='/images/plus.png' style='width:25px; height:25px;vertical-align:middle' catchtap='programeUp'></image>
+                <!-- <image src='/images/first.png' style='margin-left:10px;width:15px; height:15px;border-style:solid;border-width: 0.2px;border-color:black;background-color:{{curProgrameId==""?"greenyellow":""}};' data-index='' bindtap="changePrograme" />
                 <image src='/images/second.png' style='margin-left:10px;width:15px; height:15px;border-style:solid;border-width: 0.2px;border-color:black;background-color:{{curProgrameId=="1"?"greenyellow":""}};' data-index='1' bindtap="changePrograme" />
-                <image src='/images/third.png' style='margin-left:10px;width:15px; height:15px;border-style:solid;border-width: 0.2px;border-color:black;background-color:{{curProgrameId=="2"?"greenyellow":""}};' data-index='2' bindtap="changePrograme" />
+                <image src='/images/third.png' style='margin-left:10px;width:15px; height:15px;border-style:solid;border-width: 0.2px;border-color:black;background-color:{{curProgrameId=="2"?"greenyellow":""}};' data-index='2' bindtap="changePrograme" /> -->
               </block>
             </view>
           </view>
@@ -261,9 +264,20 @@
             </view>
           </view>
           <block wx:if="{{importFlag == 'Y'}}">
-            <view wx:for="{{importList}}" style="margin-top:20px">
-              <button style='width:50%;' type='primary' catchtap="importList" data-index="{{item}}">从列表{{item}}导入</button>
-            </view>
+            <block wx:for="{{importList}}" wx:key="{{index}}">
+              <block wx:if="{{item.data.length>0 && item.id != curProgrameId}}">
+                <view>
+                  <view class="weui-grids" style="margin-top:20px">
+                    <view class="weui-grid1" wx:for="{{item.data}}" wx:for-item="items" wx:key="{{index}}">
+                      <view class="weui-grid__icon">
+                        <image src=" {{items.imgPath}}" mode="scaleToFill" />
+                      </view>
+                    </view>
+                  </view>
+                </view>
+                <button style='width:50%;' type='primary' catchtap="importList" data-index="{{item.id}}">导入规划{{item.id==''?'1':item.id+1}}</button>
+              </block>
+            </block>
           </block>
         </scroll-view>
       </view>

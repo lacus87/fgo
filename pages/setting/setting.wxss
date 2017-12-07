@@ -77,6 +77,13 @@
   display: flex;
   flex-direction: row;
 }
+.view_grid_info_item1{
+  position: relative;
+  font-size: 15px;
+  margin-left: 0px;
+  display: flex;
+  flex-direction: row;
+}
 .view_grid_info_item_text{
   font-size: 15px;
   width: 18px;
@@ -162,4 +169,21 @@
  color: #3CC51F; 
 } 
 
+.weui-grid__icon {  
+  width: 46px;  
+  height: 50px;  
+  margin: 0 auto;  
+}  
+.weui-grid__icon image {  
+  display: block;  
+  width: 100%;  
+  height: 100%;  
+}  
+.weui-grid1 {  
+  position: relative;  
+  float: left;  
+  padding: 5px 5px;  
+  width: 20%;  
+  box-sizing: border-box;  
+} 
 

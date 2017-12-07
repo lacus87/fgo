@@ -18,7 +18,7 @@ Page({
     tabs: ["账号", "规划"],
     accountList: [],
     servantList: [],
-    activeIndex: 0,
+    activeIndex: 1,
     sliderOffset: 0,
     sliderLeft: 0,
     pageHeight: 400,
@@ -117,6 +117,25 @@ Page({
       key = key + "_" + this.data.curProgrameId;
     }
     wx.setStorageSync(key, servantList);
+    var allPrograme = wx.getStorageSync("allPrograme");
+    if (allPrograme == undefined || allPrograme == '') {
+      allPrograme = [];
+    }
+    var isNew = true;
+    for (var i = 0; i < allPrograme.length; i++) {
+      if (allPrograme[i].id == this.data.curProgrameId) {
+        allPrograme[i].data = servantList;
+        isNew = false;
+        break;
+      }
+    }
+    if (isNew) {
+      allPrograme.push({ "id": this.data.curProgrameId, "data": servantList });
+    }
+    allPrograme.sort(function (a, b) {
+      return a.id < b.id ? -1 : 1
+    });
+    wx.setStorageSync("allPrograme", allPrograme);
   },
   changeRarity: function () {
     var rarity = wx.getStorageSync('servantRarity');
@@ -492,6 +511,40 @@ Page({
     })
     this.onShow();
   },
+  programeUp: function (e) {
+    this.onHide();
+    var id = this.data.curProgrameId;
+    if(id == ''){
+      id = 0;
+    }else{
+      id = parseInt(id);
+    }
+    id++;
+    if(id >9){
+      id = 9;
+    }
+    this.setData({
+      curProgrameId: id
+    })
+    this.onShow();
+  },
+  programeDown: function (e) {
+    this.onHide();
+    var id = this.data.curProgrameId;
+    if (id == '') {
+      id = 0;
+    } else {
+      id = parseInt(id);
+    }
+    id--;
+    if (id <= 0) {
+      id = '';
+    }
+    this.setData({
+      curProgrameId: id
+    })
+    this.onShow();
+  },
   uploadSetting: function (e) {
     wx.navigateTo({
       url: "../material/material_upload"
@@ -506,26 +559,16 @@ Page({
     var curId = this.data.curProgrameId;
     var servantList = this.data.servantList;
     var importFlag = this.data.servantList.length == 0 ? "Y" : "N";
-    var importIds = [1, 2, 3];
-    var importKey = ["", "1", "2"];
-    var resultKey = [];
-    for (var i = 0; i < importIds.length; i++) {
-      if (curId == importKey[i]) {
-        continue;
-      }
-      resultKey.push(importIds[i]);
-    }
     this.setData({
       importFlag: importFlag,
-      importList: resultKey
+      importList: wx.getStorageSync("allPrograme")
     })
   },
   importList: function (e) {
-    var id = e.currentTarget.dataset.index - 1;
-    var index = ['', '1', '2'];
-    var key = "programe_" + curAccId;
-    if (index[id] != "") {
-      key = key + "_" + index[id];
+    var id = e.currentTarget.dataset.index;
+    var key = "programe_" + curAccId;;
+    if(id != ""){
+      key = key + "_" + id;
     }
     var programeList = wx.getStorageSync(key);
     if (programeList == undefined || programeList == '') {

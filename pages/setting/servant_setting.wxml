@@ -1,7 +1,17 @@
 <view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
   <view class="page__hd" style="color:{{model==1?'lightgrey':'black'}}">
-    关注列表
-    <icon style='margin-top:0px;margin-left:20px;' type="search" size="25" bindtap="switchServant" />  
+    <view class="weui-search-bar"  style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};border:0px;" >
+      <view class="weui-search-bar__form" >
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindconfirm="inputTyping" bindinput="inputChange" confirm-type="search"/>
+          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+      </view>
+     <icon style='margin-top:2px;margin-left:10px;' type="search" size="20" bindtap="switchServant" />   
+    </view>
   </view>
   <view>
     <scroll-view scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">

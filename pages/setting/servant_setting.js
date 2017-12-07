@@ -13,6 +13,8 @@ Page({
     servantList: [],
     pageHeight: 400,
     model:0,
+    inputShowed: false, // 搜索输入框是否显示  
+    inputVal: "", // 搜索的内容  
   },
   onLoad: function () {
     var that = this;
@@ -157,5 +159,36 @@ Page({
     }
     clearInterval(interval); // 清除setInterval 
     time = 0;
+  },
+    // 点击叉叉icon 清除输入内容，并加载数据  
+  clearInput: function () {
+    this.setData({
+      inputVal: "",
+      servantList: this.data.ownList
+    });
+  },
+
+  // 输入内容时 把当前内容赋值给 查询的关键字，并显示搜索记录  
+  inputTyping: function (e) {
+    var that = this;
+    var key = e.detail.value;
+    var servantList = that.data.ownList;
+    var temp = [];
+    var item = wx.getStorageSync('srv_list' + "_" + curAccId);
+    for (var i = 0; i < servantList.length; i++) {
+      if (servantList[i].name.indexOf(key) >= 0) {
+        temp.push(servantList[i]);
+      } else if (servantList[i].sex.indexOf(key) >= 0) {
+        temp.push(servantList[i]);
+      }
+    }
+    that.setData({
+      servantList: temp
+    });
+  },
+  inputChange: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    });
   }
 });
