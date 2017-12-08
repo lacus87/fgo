@@ -133,7 +133,7 @@
         </view>
         <view hidden="{{activeIndex != 8}}">
           <block wx:for="{{loadList}}" wx:key="id">
-            <block wx:if="{{(item.clazz == 'RULER'||item.clazz == 'AVENGER'||item.clazz == 'ALTEREGO'||item.clazz == 'MOONCANCER')&&(item.flag==1||flag==0)}}">
+            <block wx:if="{{item.clazz != 'SABER'&&item.clazz != 'ARCHER'&& item.clazz != 'LANCER'&&item.clazz != 'BERSERKER'&&item.clazz != 'RIDER'&&item.clazz != 'CASTER'&&item.clazz != 'ASSASSIN'&&(item.flag==1||flag==0)}}">
               <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
                   <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:38px; height: 40px;"></image>

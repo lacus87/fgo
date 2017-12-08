@@ -56,12 +56,14 @@
   -moz-background-size: 100% 100%;
 }
 .view_grid_info{
-  color:green;
+  color:white;
   position:absolute;
-  font-size: 15px;
+  font-size: 13px;
   font-weight:bold;
   left:2px;
-  bottom:-5px;
+  bottom:-2px;
+  /* -webkit-text-stroke: 0.2px black; */
+   text-shadow:2px 2px 2px black; 
 }
 .view_grid_info1{
   position:relative;
