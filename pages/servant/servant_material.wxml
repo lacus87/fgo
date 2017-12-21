@@ -1,13 +1,29 @@
 <!--pages/servant/servant_material.wxml-->
 <view class="page" style="position:absolute;min-height:100%;width:100%;background:{{model==1?'#7B7B7B':'#F0F0F0'}}">
   <view class="page__hd">
-    <view class="page__desc" style='color:orange;margin-left:15px'>
-      灵基：{{material.rank}}
-      <block wx:if="{{clothFlag == 'Y'}}">  【灵衣】</block>
+    <view class="weui-grids">
+      <view class="weui-grid">
+        <view class="weui-grid__icon">
+          <view class='view_grid_img' style='background-image: url({{servantImg}})'>
+            <view class='view_grid_info'>{{rank}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-grid" wx:for="{{imgPath}}" wx:key="{{index}}">
+        <view class="weui-grid__icon">
+          <view class='view_grid_img' style='background-image: url({{url+item}})'>
+            <view class='view_grid_info'>{{skill[index]}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-grid" wx:if="{{clothFlag == 'Y'}}">
+        <view class="weui-grid__icon">
+          <view class='view_grid_img' style='background-image: url({{url+"/images/servant/" + id + "Z.jpg"}})'>
+            <view class='view_grid_info'>灵衣</view>
+          </view>
+        </view>
+      </view>
     </view>
-    <block wx:for="{{material.skill}}" wx:key="{{index}}">
-      <text style='font-size:12px;margin-left:15px;color:{{model==1?"lightgrey":"black"}}'>技能{{index+1}}：{{item}} </text>
-    </block>
   </view>
   <view class="page__bd">
     <scroll-view scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}" class="weui-cells weui-cells_after-title">
@@ -37,5 +53,5 @@
       </block>
     </scroll-view>
   </view>
-  <button style='width:80%;margin-top:10px;' type='primary' bindtap="reduceMaterial">扣除素材</button>
+  <button style='width:80%;margin-top:5px;' type='primary' bindtap="reduceMaterial">扣除素材</button>
 </view>

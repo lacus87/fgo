@@ -1,1 +1,40 @@
 /* pages/servant/servant_material.wxss */
+.weui-grids {
+  margin-left: 2%;
+  margin-top: 5px;
+  width:90%;
+  border: none;
+}
+
+.weui-grid {
+  position: relative;  
+  float: left;  
+  padding: 0px 0px;
+  margin-bottom: 2px;
+  width: 20%;  
+  border: none;
+}
+
+.weui-grid__icon {  
+   width: 48px;  
+  height: 48px;   
+  margin: 0 auto;  
+}  
+.view_grid_info{
+  color:white;
+  position:relative;
+  font-size: 15px;
+  font-weight:bold;
+  left:0px;
+  top:28px;
+   -webkit-text-stroke: 0.2px black; 
+   text-shadow:1px 1px 1px black; 
+}
+
+.view_grid_img {
+  width: 48px;
+  height: 48px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+}

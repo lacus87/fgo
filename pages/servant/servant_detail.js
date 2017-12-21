@@ -351,6 +351,7 @@ Page({
     var servant = this.data.servant;
     var id = this.data.id;
     var servant_info = this.data.servant_info;
+    var imgPath = [];
     //var servant_info_old = wx.getStorageSync('srv_' + id + "_" + curAccId);
     id = id + "";
     var allSkillInfo = wx.getStorageSync('srvSkill' + "_" + curAccId);
@@ -375,6 +376,7 @@ Page({
     var skill = '';
     for (var i = 0; i < servant.skill.length; i++) {
       skill = skill + servant_info_old[i + 1] + "_" + servant_info[i + 1] + ",";
+      imgPath.push(servant.skill[i].imgPath);
       if (servant_info_old[i + 1] < servant_info[i + 1]) {
         flag = true;
       }
@@ -397,7 +399,7 @@ Page({
         wx.setStorageSync('srv_list' + "_" + curAccId, item);
       }
       wx.navigateTo({
-        url: "servant_material?id=" + id + "&rank=" + rank + "&skill=" + skill + "&clothFlag=" + clothFlag
+        url: "servant_material?id=" + id + "&rank=" + rank + "&skill=" + skill + "&clothFlag=" + clothFlag + "&imgPath=" + imgPath
       });
     } else {
       wx.showToast({

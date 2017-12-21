@@ -3,8 +3,100 @@
   height: 10px;
 }
 
+.weui-navbar__slider {
+  width: 10em;
+}
+
 .canvas {
     width: 100%;
     height: 300px;
     transform: scale(1)
 }
+
+
+.weui-grids {
+  margin-left: 5%;
+  width:90%;
+  border: none;
+}
+
+.weui-grid {
+  position: relative;  
+  float: left;  
+  padding: 0px 0px;
+  margin-bottom: 2px;
+  width: 20%;  
+  border: none;
+}
+
+.weui-grid__icon {  
+   width: 50px;  
+  height: 50px;   
+  margin: 0 auto;  
+}  
+.view_grid_info{
+  color:white;
+  position:relative;
+  font-size: 13px;
+  font-weight:bold;
+  left:2px;
+  top:30px;
+   -webkit-text-stroke: 0.2px blue; 
+   text-shadow:1px 1px 1px black; 
+}
+
+.view_grid_img {
+  width: 50px;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+}
+.rank {
+  font-size: 15px;
+  color: gray;
+}
+
+/*mask*/
+.drawer_screen { 
+ width: 100%; 
+ height: 100%; 
+ position: fixed; 
+ top: 0; 
+ left: 0; 
+ z-index: 1000; 
+ background: #000; 
+ opacity: 0.5; 
+ overflow: hidden; 
+} 
+  
+/*content*/
+.drawer_box { 
+ width: 650rpx; 
+ overflow: hidden; 
+ position: fixed; 
+ top: 50%; 
+ left: 0; 
+ z-index: 1001; 
+ background: #FAFAFA; 
+ margin: -150px 50rpx 0 50rpx; 
+ border-radius: 3px; 
+} 
+  
+.drawer_title{ 
+ padding:15px; 
+ font: 15px; 
+ text-align: center; 
+} 
+.drawer_content { 
+ height: 210px; 
+ overflow-y: scroll; /*超出父盒子高度可滚动*/
+} 
+  
+.btn_ok{ 
+ padding: 10px; 
+ font: 15px; 
+ text-align: center; 
+ border-top: 1px solid #E0E0E0; 
+ color: #3CC51F; 
+} 

@@ -19,6 +19,12 @@ Page({
     qpDesc: '',
     qpColor: '1',
     clothFlag: 0,
+    imgPath:[],
+    servantImg:'',
+    rank:'',
+    skill:[],
+    url:'',
+    id: '',
   },
 
   /**
@@ -34,6 +40,14 @@ Page({
         });
       }
     });
+    this.setData({
+      servantImg: app.globalData.url + "/fgo/images/servant/" + options.id.substring(1, 4) + ".jpg",
+      imgPath: options.imgPath.split(","),
+      rank: options.rank.replace("_", "→"),
+      skill: options.skill.replace(/_/g, "→").split(","),
+      url: app.globalData.url+"/fgo",
+      id: options.id
+    })
     var account = wx.getStorageSync('account');
     for (var i = 0; i < account.length; i++) {
       if (account[i].status == 1) {
