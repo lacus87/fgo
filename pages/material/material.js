@@ -59,6 +59,12 @@ Page({
     	}
     }
     var materialList = this.data.materialList;
+    if (materialList == null || materialList == undefined || materialList.length == 0){
+      materialList = getApp().globalData.materialList;
+      this.setData({
+        materialList: materialList
+      });
+    }
     var material = wx.getStorageSync('material'+"_"+curAccId);
     var localEvent = wx.getStorageSync('envmat' + "_" + curAccId);
     for (var i = 0; i < materialList.length; i++) {
