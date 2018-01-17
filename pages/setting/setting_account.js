@@ -9,7 +9,7 @@ var app = getApp();
 Page({
   data: {
     flag: 1,
-    tabs: ["英灵分布图", "已消耗素材"],
+    tabs: ["职阶分布", "收集进度"],
     showTopTips: false,
     checkboxItems: [
       { name: '五星', value: '5', count: [1, 1, 1, 1, 1], checked: true },
@@ -25,14 +25,27 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     pageHeight: 400,
-    url: '',
-    modelArray: [],
-    showModalStatus: false,
-    reqCount: 0,
+    ownCount: [0, 0, 0, 0, 0],
+    totalCount: [0, 0, 0, 0, 0],
+    percent: [0, 0, 0, 0, 0],
+    imgPath:""
   },
 
   onLoad: function (options) {
-    var rarity = options.id;
+    wx.setNavigationBarTitle({
+      title: '英灵收集详情'
+    });
+    var that = this;
+    var servantList = getApp().globalData.servantList;
+    var totalCount = [0, 0, 0, 0, 0];
+    for (var i = 0; i < servantList.length; i++) {
+      var index = 5 - parseInt(servantList[i].rarity);
+      totalCount[index] = totalCount[index] + 1;
+    }
+    that.setData({
+      totalCount: totalCount
+    });
+    var rarity = 5;
     var checkboxItems = this.data.checkboxItems;
     for (var i = 0; i < checkboxItems.length; i++) {
       checkboxItems[i].checked = false;
@@ -61,7 +74,28 @@ Page({
       }
     }
     this.drawServant();
-    this.calculate();
+    this.changeRarity();
+  },
+  changeRarity: function () {
+    var rarity = wx.getStorageSync('servantRarity');
+    var item = wx.getStorageSync('srv_list' + "_" + curAccId);
+    var ownCount = [0, 0, 0, 0, 0];
+    var totalCount = this.data.totalCount;
+    for (var i = 0; i < item.length; i++) {
+      var id = item[i] + '';
+      var index = 5 - parseInt(rarity[id].rarity);
+      ownCount[index] = ownCount[index] + 1;
+    }
+    var percent = [];
+    percent.push(Math.floor(ownCount[0] * 100 / totalCount[0]));
+    percent.push(Math.floor(ownCount[1] * 100 / totalCount[1]));
+    percent.push(Math.floor(ownCount[2] * 100 / totalCount[2]));
+    percent.push(Math.floor(ownCount[3] * 100 / totalCount[3]));
+    percent.push(Math.floor(ownCount[4] * 100 / totalCount[4]));
+    this.setData({
+      ownCount: ownCount,
+      percent: percent
+    })
   },
   tabClick: function (e) {
     this.setData({
@@ -70,6 +104,7 @@ Page({
     });
   },
   drawServant: function () {
+    var that = this;
     var width = this.data.pageWidth;
     var servantData = [
       { name: 'SABER', data: 0, color: '#1195db' },
@@ -83,7 +118,8 @@ Page({
       { name: 'AVENGER', data: 0, color: '#88147f' },
       { name: 'SHIELDER', data: 0, color: '#e89abe' },
       { name: 'ALTEREGO', data: 0, color: '#17abe3' },
-      { name: 'MOONCANCER', data: 0, color: '#a4579d' }
+      { name: 'MOONCANCER', data: 0, color: '#a4579d' },
+      { name: 'FOREIGNER', data: 0, color: '#5A5AAD' },
     ];
     var checkboxItems = this.data.checkboxItems;
     var rarityList = [];
@@ -130,6 +166,15 @@ Page({
       width: width,
       height: 300,
       dataLabel: false
+    }).addEventListener('renderComplete' , function(){
+      wx.canvasToTempFilePath({
+        canvasId: 'accountInfo',
+        success: function (res) {
+          that.setData({
+            imgPath: res.tempFilePath
+          });
+        }
+      })
     });
   },
 
@@ -151,147 +196,10 @@ Page({
     });
     this.drawServant();
   },
-  onShow: function () {
 
-  },
-  // 触摸开始事件 
-  touchStart: function (e) {
-    touchDot = e.touches[0].pageX; // 获取触摸时的原点 
-    // 使用js计时器记录时间  
-    interval = setInterval(function () {
-      time++;
-    }, 100);
-  },
-  // 触摸结束事件 
-  touchEnd: function (e) {
-    var touchMove = e.changedTouches[0].pageX;
-    // 向右滑动 
-    if (touchMove - touchDot >= 40 && time < 10 && touchDot < 80) {
-      wx.navigateBack();
-    }
-    clearInterval(interval); // 清除setInterval 
-    time = 0;
-  },
-  calculate: function () {
-    var that = this;
-    var servantList = wx.getStorageSync('srv_list' + "_" + curAccId);
-    var skillList = wx.getStorageSync('srvSkill' + "_" + curAccId);
-    var infoArray = [];
-    for (var i = 0; i < servantList.length; i++) {
-      var servant = new Object;
-      servant.servantId = servantList[i];
-      var id = servantList[i] + "";
-      if (skillList[id] == undefined) {
-        skillList[id] = [0, 1, 1, 1];
-      }
-      servant.rank = "0_" + skillList[id][0];
-      servant.skill1 = "1_" + skillList[id][1];
-      servant.skill2 = "1_" + skillList[id][2];
-      servant.skill3 = "1_" + skillList[id][3];
-      servant.clothFlag = 'N';
-      infoArray.push(servant);
-    }
-    infoArray.sort(function (a, b) {
-      return a.servantId < b.servantId ? -1 : 1;
-    })
-    var routInfo = { "param": infoArray, "ownCount": wx.getStorageSync('material' + "_" + curAccId) };
-    wx.showToast({
-      title: '计算中...',
-      icon: 'loading',
-      duration: 3000,
-      mask: true
-    })
-    wx.request({
-      url: app.globalData.url + "/fgo/material/calculateServantMaterial.do",
-      method: "POST",
-      header: {
-        'content-type': 'application/json'
-      },
-      data: routInfo,
-      complete: function (res) {
-        wx.hideToast();
-      },
-      success: function (res) {
-        var materialData = res.data.data;
-        var array1 = [];
-        var array2 = [];
-        var array3 = [];
-        for (var i = 0; i < materialData.material.length; i++) {
-          var id = materialData.material[i].type;
-          if (id == '1') {
-            array1.push(materialData.material[i]);
-          } else if (id == '2') {
-            array2.push(materialData.material[i]);
-          } else if (id == '3') {
-            array3.push(materialData.material[i]);
-          }
-        }
-        materialData.material1 = array1;
-        materialData.material2 = array2;
-        materialData.material3 = array3;
-        that.setData({
-          materialData: res.data.data
-        })
-      }
-    })
-  },
-  powerDrawer: function (e) {
-    var currentStatu = e.currentTarget.dataset.statu;
-    var id = e.currentTarget.dataset.index + '';
-    var reqCount = e.currentTarget.dataset.count;
-    var array = this.data.materialData.servantReqList[id];
-    this.setData({
-      reqCount: reqCount,
-      modelArray: array
-    })
-    this.util(currentStatu)
-  },
-  util: function (currentStatu) {
-    /* 动画部分 */
-    // 第1步：创建动画实例 
-    var animation = wx.createAnimation({
-      duration: 100, //动画时长 
-      timingFunction: "linear", //线性 
-      delay: 0 //0则不延迟 
-    });
-
-    // 第2步：这个动画实例赋给当前的动画实例 
-    this.animation = animation;
-
-    // 第3步：执行第一组动画 
-    animation.opacity(0).rotateX(-100).step();
-
-    // 第4步：导出动画对象赋给数据对象储存 
-    this.setData({
-      animationData: animation.export()
-    })
-
-    // 第5步：设置定时器到指定时候后，执行第二组动画 
-    setTimeout(function () {
-      // 执行第二组动画 
-      animation.opacity(1).rotateX(0).step();
-      // 给数据对象储存的第一组动画，更替为执行完第二组动画的动画对象 
-      this.setData({
-        animationData: animation
-      })
-
-      //关闭 
-      if (currentStatu == "close") {
-        this.setData(
-          {
-            showModalStatus: false
-          }
-        );
-      }
-    }.bind(this), 100)
-
-    // 显示 
-    if (currentStatu == "open") {
-      this.setData(
-        {
-          showModalStatus: true
-        }
-      );
+  onShareAppMessage(res){
+    return {
+      imageUrl: this.data.imgPath
     }
   }
 });

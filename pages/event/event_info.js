@@ -6,7 +6,7 @@ var touchDot = 0;//触摸时的原点
 var interval = "";
 var flag_hd = true;
 var curAccId = 1;
-var eventQp = { "1003": 4590000,"1007": 8700000,"1018":4470000};
+var eventQp = { "1003": 4590000, "1007": 8700000, "1018": 4470000, "1022": 8700000};
 var app = getApp();
 
 Page({

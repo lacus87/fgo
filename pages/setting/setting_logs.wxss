@@ -1,0 +1,10 @@
+/* pages/setting/setting_logs.wxss */
+.info{
+  font-size: 15px;
+  padding-left: 20px;
+  padding-top: 5px;
+  display: flex;
+}
+.info .important{
+  font-weight:bold;
+}

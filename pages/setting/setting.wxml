@@ -41,18 +41,10 @@
         <block wx:for="{{tabs}}" wx:key="{{index}}">
           <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
             <view class="weui-navbar__title">{{item}}
-              <block wx:if="{{activeIndex != 1 && index !=1}}">
-                <image src='/images/next3.png' style='margin-left:10px;width:20px; height:20px;' bindtap="uploadSetting" />
-                <image src='/images/help.png' style='margin-left:10px;width:20px; height:20px;' bindtap="showHelp" />
-              </block>
-
               <block wx:if="{{activeIndex != 0 && index !=0}}">
-                  <image src='/images/delete.png' style='width:25px; height:25px;vertical-align:middle' catchtap='programeDown'></image>
-                  {{curProgrameId==''?'1':curProgrameId+1}}
-                  <image src='/images/plus.png' style='width:25px; height:25px;vertical-align:middle' catchtap='programeUp'></image>
-                <!-- <image src='/images/first.png' style='margin-left:10px;width:15px; height:15px;border-style:solid;border-width: 0.2px;border-color:black;background-color:{{curProgrameId==""?"greenyellow":""}};' data-index='' bindtap="changePrograme" />
-                <image src='/images/second.png' style='margin-left:10px;width:15px; height:15px;border-style:solid;border-width: 0.2px;border-color:black;background-color:{{curProgrameId=="1"?"greenyellow":""}};' data-index='1' bindtap="changePrograme" />
-                <image src='/images/third.png' style='margin-left:10px;width:15px; height:15px;border-style:solid;border-width: 0.2px;border-color:black;background-color:{{curProgrameId=="2"?"greenyellow":""}};' data-index='2' bindtap="changePrograme" /> -->
+                <image src='/images/delete.png' style='width:25px; height:25px;vertical-align:middle' catchtap='programeDown'></image>
+                {{curProgrameId==''?'1':curProgrameId+1}}
+                <image src='/images/plus.png' style='width:25px; height:25px;vertical-align:middle' catchtap='programeUp'></image>
               </block>
             </view>
           </view>
@@ -103,184 +95,158 @@
               </view>
             </block>
           </block>
-          <view class="weui-form-preview" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-form-preview__hd" data-index="5" catchtap='gotoGraphs'>
-              <view class="weui-form-preview__item">
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-              </view>
-              <view class="weui-media-box__info">
-                <view class="weui-media-box__info__meta" style="width:80%">
-                  <progress percent="{{percent[0]}}" stroke-width="15" />
-                </view>
-                <text class="weui-media-box__info__meta_extra">{{ownCount[0]}}/{{totalCount[0]}}</text>
-              </view>
-            </view>
-            <view class="weui-form-preview__hd" data-index="4" catchtap='gotoGraphs'>
-              <view class="weui-form-preview__item">
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-              </view>
-              <view class="weui-media-box__info">
-                <view class="weui-media-box__info__meta" style="width:80%">
-                  <progress percent="{{percent[1]}}" stroke-width="15" />
-                </view>
-                <text class="weui-media-box__info__meta_extra">{{ownCount[1]}}/{{totalCount[1]}}</text>
-              </view>
-            </view>
-            <view class="weui-form-preview__hd" data-index="3" catchtap='gotoGraphs'>
-              <view class="weui-form-preview__item">
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-              </view>
-              <view class="weui-media-box__info">
-                <view class="weui-media-box__info__meta" style="width:80%">
-                  <progress percent="{{percent[2]}}" stroke-width="15" />
-                </view>
-                <text class="weui-media-box__info__meta_extra">{{ownCount[2]}}/{{totalCount[2]}}</text>
-              </view>
-            </view>
-            <view class="weui-form-preview__hd" data-index="2" catchtap='gotoGraphs'>
-              <view class="weui-form-preview__item">
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-              </view>
-              <view class="weui-media-box__info">
-                <view class="weui-media-box__info__meta" style="width:80%">
-                  <progress percent="{{percent[3]}}" stroke-width="15" />
-                </view>
-                <text class="weui-media-box__info__meta_extra">{{ownCount[3]}}/{{totalCount[3]}}</text>
-              </view>
-            </view>
-            <view class="weui-form-preview__hd" data-index="1" catchtap='gotoGraphs'>
-              <view class="weui-form-preview__item">
-                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
-              </view>
-              <view class="weui-media-box__info">
-                <view class="weui-media-box__info__meta" style="width:80%">
-                  <progress percent="{{percent[4]}}" stroke-width="15" />
-                </view>
-                <text class="weui-media-box__info__meta_extra">{{ownCount[4]}}/{{totalCount[4]}}</text>
+          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <view class="weui-cell">
+              <view class="weui-cell__bd" bindtap='gotoGraphs' style='color:{{model==1?"lightgrey":"black"}}'>
+                <text style="font-size:18px;margin-left:10px;">账号英灵</text>
               </view>
             </view>
           </view>
-
-        </scroll-view>
-      </view>
-      <view hidden="{{activeIndex != 1}}" style="background: #F0F0F0">
-        <scroll-view class="weui-panel__bd weui-tab__panel" scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
-          <view class="weui-grids" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-grid" wx:for="{{servantList}}" wx:key="{{index}}">
-              <block wx:if="{{showLevel == 1}}">
-                <view class='view_grid_img' style='background-image: url({{item.imgPath.length<30?(url+item.imgPath):item.imgPath}})' catchlongpress='removeServant' data-index='{{item.id}}' data-value='{{item.name}}'>
-                  <view class='view_grid_info'>{{item.rank}}-{{item.skill[0]}}/{{item.skill[1]}}/{{item.skill[2]}}</view>
-                </view>
-                <view class='view_grid_info1'>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>灵基：</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='0' style='background-color:{{item.tarRank == 0?"orange":(model==1?"#CCC":"#FFFFFF")}}'>0</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='1' style='background-color:{{item.tarRank == 1?"orange":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='2' style='background-color:{{item.tarRank == 2?"orange":(model==1?"#CCC":"#FFFFFF")}}'>2</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='3' style='background-color:{{item.tarRank == 3?"orange":(model==1?"#CCC":"#FFFFFF")}}'>3</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='4' style='background-color:{{item.tarRank == 4?"orange":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='1' style='background-color:{{item.tarSkill[0] == 1?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='4' style='background-color:{{item.tarSkill[0] == 4?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='6' style='background-color:{{item.tarSkill[0] == 6?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>6</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='9' style='background-color:{{item.tarSkill[0] == 9?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>9</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='10' style='background-color:{{item.tarSkill[0] == 10?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>10</view>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='1' style='background-color:{{item.tarSkill[1] == 1?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='4' style='background-color:{{item.tarSkill[1] == 4?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='6' style='background-color:{{item.tarSkill[1] == 6?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>6</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='9' style='background-color:{{item.tarSkill[1] == 9?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>9</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='10' style='background-color:{{item.tarSkill[1] == 10?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>10</view>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='1' style='background-color:{{item.tarSkill[2] == 1?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='4' style='background-color:{{item.tarSkill[2] == 4?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='6' style='background-color:{{item.tarSkill[2] == 6?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>6</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='9' style='background-color:{{item.tarSkill[2] == 9?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>9</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='10' style='background-color:{{item.tarSkill[2] == 10?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>10</view>
-                  </view>
-                </view>
-                <view class="view_grid_info_item_icon">
-                  <view style="width:30px; height: 2px;"></view>
-                  <image src="/images/next2.png" data-index='{{item.id}}' style="width:30px; height: 20px;" catchtap='upRank'></image>
-                  <view style="width:30px; height: 15px;"></view>
-                  <image src="/images/next.png" data-index='{{item.id}}' style="width:30px; height: 30px;" catchtap='upSkill'></image>
-                </view>
-              </block>
-              <block wx:if="{{showLevel == 0}}">
-                <view class='view_grid_img' style='background-image: url({{item.imgPath.length<30?(url+item.imgPath):item.imgPath}})' catchlongpress='removeServant' data-index='{{item.id}}' data-value='{{item.name}}'>
-                  <view class='view_grid_info'>{{item.rank}}-{{item.skill[0]}}/{{item.skill[1]}}/{{item.skill[2]}}</view>
-                </view>
-                <view class='view_grid_info1'>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>灵基：</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='0' style='background-color:{{item.tarRank == 0?"orange":(model==1?"#CCC":"#FFFFFF")}}'>0</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='1' style='background-color:{{item.tarRank == 1?"orange":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='2' style='background-color:{{item.tarRank == 2?"orange":(model==1?"#CCC":"#FFFFFF")}}'>2</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='3' style='background-color:{{item.tarRank == 3?"orange":(model==1?"#CCC":"#FFFFFF")}}'>3</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='4' style='background-color:{{item.tarRank == 4?"orange":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <image src='/images/delete.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='0' catchtap='skillDown'></image>
-                    <view class='view_grid_info_item_input' style='background-color:greenyellow'>{{item.tarSkill[0]}}</view>
-                    <image src='/images/plus.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='0' catchtap='skillUpOne'></image>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <image src='/images/delete.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='1' catchtap='skillDown'></image>
-                    <view class='view_grid_info_item_input' style='background-color:greenyellow'>{{item.tarSkill[1]}}</view>
-                    <image src='/images/plus.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='1' catchtap='skillUpOne'></image>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <image src='/images/delete.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='2' catchtap='skillDown'></image>
-                    <view class='view_grid_info_item_input' style='background-color:greenyellow'>{{item.tarSkill[2]}}</view>
-                    <image src='/images/plus.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='2' catchtap='skillUpOne'></image>
-                  </view>
-                </view>
-                <view class="view_grid_info_item_icon">
-                  <view style="width:30px; height: 2px;"></view>
-                  <image src="/images/next2.png" data-index='{{item.id}}' style="width:30px; height: 20px;" catchtap='upRank'></image>
-                  <view style="width:30px; height: 15px;"></view>
-                  <image src="/images/next.png" data-index='{{item.id}}' style="width:30px; height: 30px;" catchtap='upSkill2'></image>
-                </view>
-              </block>
+          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <view class="weui-cell">
+              <view class="weui-cell__bd" bindtap='gotoMatCost' style='color:{{model==1?"lightgrey":"black"}}'>
+                <text style="font-size:18px;margin-left:10px;">消耗素材</text>
+              </view>
             </view>
           </view>
-          <block wx:if="{{importFlag == 'Y'}}">
-            <block wx:for="{{importList}}" wx:key="{{index}}">
-              <block wx:if="{{item.data.length>0 && item.id != curProgrameId}}">
-                <view>
-                  <view class="weui-grids" style="margin-top:20px">
-                    <view class="weui-grid1" wx:for="{{item.data}}" wx:for-item="items" wx:key="{{index}}">
-                      <view class="weui-grid__icon">
-                        <image src=" {{items.imgPath}}" mode="scaleToFill" />
-                      </view>
+          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <view class="weui-cell">
+              <view class="weui-cell__bd" bindtap='uploadSetting' style='color:{{model==1?"lightgrey":"black"}}'>
+                <text style="font-size:18px;margin-left:10px;">数据备份</text>
+              </view>
+            </view>
+          </view>
+          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <view class="weui-cell">
+              <view class="weui-cell__bd" bindtap='showHelp' style='color:{{model==1?"lightgrey":"black"}}'>
+                <text style="font-size:18px;margin-left:10px;">使用帮助</text>
+              </view>
+            </view>
+          </view>
+          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <view class="weui-cell">
+              <view class="weui-cell__bd" bindtap='showLogs' style='color:{{model==1?"lightgrey":"black"}}'>
+                <text style="font-size:18px;margin-left:10px;">更新日志</text>
+              </view>
+            </view>
+          </view>
+          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <view class="weui-cell">
+              <view class="weui-cell__bd" bindtap='aboutUs' style='color:{{model==1?"lightgrey":"black"}}'>
+                <text style="font-size:18px;margin-left:10px;">关于FGO素材规划</text>
+              </view>
+            </view>
+          </view>
+      </scroll-view>
+    </view>
+    <view hidden="{{activeIndex != 1}}" style="background: #F0F0F0">
+      <scroll-view class="weui-panel__bd weui-tab__panel" scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+        <view class="weui-grids" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+          <view class="weui-grid" wx:for="{{servantList}}" wx:key="{{index}}">
+            <block wx:if="{{showLevel == 1}}">
+              <view class='view_grid_img' style='background-image: url({{item.imgPath.length<30?(url+item.imgPath):item.imgPath}})' catchlongpress='removeServant' data-index='{{item.id}}' data-value='{{item.name}}'>
+                <view class='view_grid_info'>{{item.rank}}-{{item.skill[0]}}/{{item.skill[1]}}/{{item.skill[2]}}</view>
+              </view>
+              <view class='view_grid_info1'>
+                <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+                  <view>灵基：</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='0' style='background-color:{{item.tarRank == 0?"orange":(model==1?"#CCC":"#FFFFFF")}}'>0</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='1' style='background-color:{{item.tarRank == 1?"orange":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='2' style='background-color:{{item.tarRank == 2?"orange":(model==1?"#CCC":"#FFFFFF")}}'>2</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='3' style='background-color:{{item.tarRank == 3?"orange":(model==1?"#CCC":"#FFFFFF")}}'>3</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='4' style='background-color:{{item.tarRank == 4?"orange":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
+                </view>
+                <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+                  <view>技能：</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='1' style='background-color:{{item.tarSkill[0] == 1?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='4' style='background-color:{{item.tarSkill[0] == 4?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='6' style='background-color:{{item.tarSkill[0] == 6?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>6</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='9' style='background-color:{{item.tarSkill[0] == 9?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>9</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='10' style='background-color:{{item.tarSkill[0] == 10?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>10</view>
+                </view>
+                <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+                  <view>技能：</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='1' style='background-color:{{item.tarSkill[1] == 1?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='4' style='background-color:{{item.tarSkill[1] == 4?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='6' style='background-color:{{item.tarSkill[1] == 6?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>6</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='9' style='background-color:{{item.tarSkill[1] == 9?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>9</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='10' style='background-color:{{item.tarSkill[1] == 10?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>10</view>
+                </view>
+                <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+                  <view>技能：</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='1' style='background-color:{{item.tarSkill[2] == 1?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='4' style='background-color:{{item.tarSkill[2] == 4?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='6' style='background-color:{{item.tarSkill[2] == 6?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>6</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='9' style='background-color:{{item.tarSkill[2] == 9?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>9</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='10' style='background-color:{{item.tarSkill[2] == 10?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>10</view>
+                </view>
+              </view>
+              <view class="view_grid_info_item_icon">
+                <view style="width:30px; height: 2px;"></view>
+                <image src="/images/next2.png" data-index='{{item.id}}' style="width:30px; height: 20px;" catchtap='upRank'></image>
+                <view style="width:30px; height: 15px;"></view>
+                <image src="/images/next.png" data-index='{{item.id}}' style="width:30px; height: 30px;" catchtap='upSkill'></image>
+              </view>
+            </block>
+            <block wx:if="{{showLevel == 0}}">
+              <view class='view_grid_img' style='background-image: url({{item.imgPath.length<30?(url+item.imgPath):item.imgPath}})' catchlongpress='removeServant' data-index='{{item.id}}' data-value='{{item.name}}'>
+                <view class='view_grid_info'>{{item.rank}}-{{item.skill[0]}}/{{item.skill[1]}}/{{item.skill[2]}}</view>
+              </view>
+              <view class='view_grid_info1'>
+                <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+                  <view>灵基：</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='0' style='background-color:{{item.tarRank == 0?"orange":(model==1?"#CCC":"#FFFFFF")}}'>0</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='1' style='background-color:{{item.tarRank == 1?"orange":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='2' style='background-color:{{item.tarRank == 2?"orange":(model==1?"#CCC":"#FFFFFF")}}'>2</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='3' style='background-color:{{item.tarRank == 3?"orange":(model==1?"#CCC":"#FFFFFF")}}'>3</view>
+                  <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='4' style='background-color:{{item.tarRank == 4?"orange":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
+                </view>
+                <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+                  <view>技能：</view>
+                  <image src='/images/delete.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='0' catchtap='skillDown'></image>
+                  <view class='view_grid_info_item_input' style='background-color:greenyellow'>{{item.tarSkill[0]}}</view>
+                  <image src='/images/plus.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='0' catchtap='skillUpOne'></image>
+                </view>
+                <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+                  <view>技能：</view>
+                  <image src='/images/delete.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='1' catchtap='skillDown'></image>
+                  <view class='view_grid_info_item_input' style='background-color:greenyellow'>{{item.tarSkill[1]}}</view>
+                  <image src='/images/plus.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='1' catchtap='skillUpOne'></image>
+                </view>
+                <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+                  <view>技能：</view>
+                  <image src='/images/delete.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='2' catchtap='skillDown'></image>
+                  <view class='view_grid_info_item_input' style='background-color:greenyellow'>{{item.tarSkill[2]}}</view>
+                  <image src='/images/plus.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='2' catchtap='skillUpOne'></image>
+                </view>
+              </view>
+              <view class="view_grid_info_item_icon">
+                <view style="width:30px; height: 2px;"></view>
+                <image src="/images/next2.png" data-index='{{item.id}}' style="width:30px; height: 20px;" catchtap='upRank'></image>
+                <view style="width:30px; height: 15px;"></view>
+                <image src="/images/next.png" data-index='{{item.id}}' style="width:30px; height: 30px;" catchtap='upSkill2'></image>
+              </view>
+            </block>
+          </view>
+        </view>
+        <block wx:if="{{importFlag == 'Y'}}">
+          <block wx:for="{{importList}}" wx:key="{{index}}">
+            <block wx:if="{{item.data.length>0 && item.id != curProgrameId}}">
+              <view>
+                <view class="weui-grids" style="margin-top:20px">
+                  <view class="weui-grid1" wx:for="{{item.data}}" wx:for-item="items" wx:key="{{index}}">
+                    <view class="weui-grid__icon">
+                      <image src=" {{items.imgPath}}" mode="scaleToFill" />
                     </view>
                   </view>
                 </view>
-                <button style='width:50%;' type='primary' catchtap="importList" data-index="{{item.id}}">导入规划{{item.id==''?'1':item.id+1}}</button>
-              </block>
+              </view>
+              <button style='width:50%;' type='primary' catchtap="importList" data-index="{{item.id}}">导入规划{{item.id==''?'1':item.id+1}}</button>
             </block>
           </block>
-        </scroll-view>
-      </view>
+        </block>
+      </scroll-view>
     </view>
   </view>
+</view>
 </view>

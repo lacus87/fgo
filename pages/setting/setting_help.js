@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: "Q&A"//页面标题为路由参数
+      title: "使用帮助"//页面标题为路由参数
     });
     var array = this.data.questions;
     if (array.length == 0) {
@@ -27,8 +27,6 @@ Page({
       array.push({ "id": 8, name: "设置账号信息", show: 0 });
       array.push({ "id": 9, name: "规划英灵升级", show: 0 });
       array.push({ "id": 10, name: "查看规划结果", show: 0 });
-      array.push({ "id": 11, name: "更新日志", show: 0 });
-      array.push({ "id": 12, name: "联系作者", show: 0 });
       this.setData({
         questions: array,
         model: wx.getStorageSync("model")

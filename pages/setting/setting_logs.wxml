@@ -1,0 +1,50 @@
+<page style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+<view class="info">
+  <text class='important'>01-12：</text>设置改版,部分页面增加右上角转发功能</view>
+<view class="info">
+  <text class='important'>01-10：</text>英灵详情页面点击技能图标增加耗材预览</view>
+<view class="info">
+  <image src='/images/happy.png' style='width:25px; height: 25px;'/>
+  <image src='/images/happy.png' style='width:25px; height: 25px;'/>
+  <image src='/images/happy.png' style='width:25px; height: 25px;'/>
+  <image src='/images/happy.png' style='width:25px; height: 25px;'/>
+  <image src='/images/happy.png' style='width:25px; height: 25px;'/>
+  <text class='important'>元旦快乐</text>
+  <image src='/images/happy.png' style='width:25px; height: 25px;'/>
+  <image src='/images/happy.png' style='width:25px; height: 25px;'/>
+  <image src='/images/happy.png' style='width:25px; height: 25px;'/>
+  <image src='/images/happy.png' style='width:25px; height: 25px;'/>
+  <image src='/images/happy.png' style='width:25px; height: 25px;'/>
+  </view>
+<view class="info">
+  <text class='important'>12-27：</text>增加了账号消耗总素材的统计</view>
+<view class="info">
+  <text class='important'>11-30：</text>搜索英灵时可输入声优、俗称查询</view>
+<view class="info">
+  <text class='important'>11-10：</text>英灵的灵衣素材可进行基本查询</view>
+<view class="info">
+  <text class='important'>11-06：</text>活动素材根据活动失效时间自动更新数量</view>
+<view class="info">
+  <text class='important'>10-25：</text>取消规划对QP最大值的限制</view>
+<view class="info">
+  <text class='important'>10-24：</text>更新操作简易说明</view>
+<view class="info">
+  <text class='important'>10-20：</text>更新素材计算结果显示素材的消耗内容</view>
+<view class="info">
+  <text class='important'>10-17：</text>更新主页面英灵排序和QP需求计算</view>
+<view class="info">
+  <text class='important'>10-15：</text>更新点击英灵头像显示灵基高清图</view>
+<view class="info">
+  <text class='important'>10-12：</text>更新本地配置上传的功能</view>
+<view class="info" style='padding-left:70px;'>修复规划页面切换不保存的BUG</view>
+<view class="info">
+  <text class='important'>10-8：</text>为单一账号增加最多3个规划列表</view>
+<view class="info">
+  <text class='important'>10-7：</text>增加夜间模式（不擅长色彩搭配，见谅）</view>
+<view class="info">
+  <text class='important'>10-6：</text>支持一次增加多个英灵进规划列表</view>
+<view class="info">
+  <text class='important'>10-5：</text>规划时增加支持自定义技能级别</view>
+<view class="info">
+  <text class='important'>10-4：</text>为规划列表增加本地存储</view>
+</page>

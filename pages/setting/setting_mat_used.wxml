@@ -1,0 +1,75 @@
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+  <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
+    <!--drawer content-->
+    <view class="drawer_title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'black'}}">{{reqCount}}</view>
+    <scroll-view scroll-y="true " style="height: {{modelArray.length*44>200?210:modelArray.length*44}}px;border-top: 1px solid #E0E0E0;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+      <block wx:for="{{modelArray}}" wx:key="{{index}}">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" style='font-size:15px;white-space:nowrap;overflow:hidden;color:{{model==1?"lightgrey":"black"}}'>{{item[0]}}</view>
+          <view class="weui-cell__ft" style='font-size:12px;color:{{model==1?"lightgrey":"#8E8E8E"}}'>
+            <block wx:if="{{item[1] != '0'}}"> 技能{{item[1]}}</block>
+            <block wx:if="{{item[2] != '0'}}"> 灵基{{item[2]}}</block>
+            <block wx:if="{{item[3] != '0'}}"> 灵衣{{item[3]}}</block>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <view style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}" class="btn_ok" bindtap="powerDrawer" data-statu="close">确定</view>
+  </view>
+  <view>
+    <view class="weui-cell weui-cell_access" style="margin-left: 4%">
+      <view class="weui-cell__hd" data-index="1000">
+        <image src="/images/qb.jpg" style="margin-right: 5px;vertical-align: middle;width:50px; height: 50px;"></image>
+      </view>
+      <view class="weui-cell__bd">
+        <view class="carts-num1">
+          <view style="color:{{model==1?'lightgrey':'black'}};">*{{materialData.qp}}</view>
+        </view>
+        <view class="rank" style="color:{{model==1?'lightgrey':'#CCC'}};">【{{materialData.qpStr}}】</view>
+      </view>
+    </view>
+    <view style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <view>
+        <view class="weui-grids">
+          <view class="weui-grid" wx:for="{{materialData.material2}}" wx:key="{{index}}">
+            <view class="weui-grid__icon">
+              <view class='view_grid_img' style='background-image: url({{item.imgPath.length<40?(url+item.imgPath):item.imgPath}})' data-index='{{item.id}}' data-count='{{item.name}}*{{item.count}}' data-statu="open" catchtap='powerDrawer'>
+                <view class='view_grid_info'>{{item.count}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view>
+        <label class="weui-cell weui-check__label">
+          <view class="weui-cell__bd" style="color: {{model==1?'lightgrey':'black'}}"></view>
+        </label>
+        <view class="weui-grids">
+          <view class="weui-grid" wx:for="{{materialData.material1}}" wx:key="{{index}}">
+            <view class="weui-grid__icon">
+              <view class='view_grid_img' style='background-image: url({{item.imgPath.length<40?(url+item.imgPath):item.imgPath}})' data-index='{{item.id}}' data-count='{{item.name}}*{{item.count}}' data-statu="open" catchtap='powerDrawer'>
+                <view class='view_grid_info'>{{item.count}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view>
+        <label class="weui-cell weui-check__label">
+          <view class="weui-cell__bd" style="color: {{model==1?'lightgrey':'black'}}"></view>
+        </label>
+        <view class="weui-grids">
+          <view class="weui-grid" wx:for="{{materialData.material3}}" wx:key="{{index}}">
+            <view class="weui-grid__icon">
+              <view class='view_grid_img' style='background-image: url({{item.imgPath.length<40?(url+item.imgPath):item.imgPath}})' data-index='{{item.id}}' data-count='{{item.name}}*{{item.count}}' data-statu="open" catchtap='powerDrawer'>
+                <view class='view_grid_info'>{{item.count}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

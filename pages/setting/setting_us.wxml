@@ -1,0 +1,30 @@
+<page style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+<block wx:for="{{questions}}" wx:key="id">
+    <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <view class="weui-cell">
+        <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+        <text style='font-size:18px;'>{{item}}</text>
+        </view>
+      </view>
+        <view style="background: #F0F0F0;font-size:14px;background:{{model==1?'#9D9D9D':'#F0F0F0'}}">
+          <block wx:if="{{index == 0}}">
+            <view class="info">工具灵感来自于IOS工具“咕哒”，因为作者是个苦逼的安卓党所以只能自己做个类似的...</view>
+          </block>
+          <block wx:if="{{index == 1}}">
+            <view class="info">英灵数据来自fgo wiki，掉率数据来自效率剧场，活动数据来自NGA坛友LYC869整理，向各位同志勤勉的劳动表示感谢...</view>
+          </block>
+          <block wx:if="{{index == 2}}">
+            <view class="info">85后大龄码农，06年FSN入坑，伪月厨，微氪，爱好模型，旅游，坐标大蓝鲸</view>
+          </block>
+          <block wx:if="{{index == 3}}">
+            <view class="info c--red">为什么夜间模式这么丑</view>
+            <view class="info">如果能回到从前，我一定不会做这个，本人基本处于CSS色盲状态，有前端大神能帮调下么</view>
+            <view class="info c--red">会不会提供互动功能</view>
+            <view class="info">不会，因为维护不过来（lan）</view>
+            <view class="info c--red">发现有BUG怎么反馈</view>
+            <view class="info">恩基爱上面@下lacus87，一般会在五个工作日内得到反馈</view>
+          </block>
+        </view>
+    </view>
+  </block>
+</page>

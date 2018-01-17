@@ -1,4 +1,20 @@
 <view style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+<view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
+    <!--drawer content-->
+    <view class="drawer_title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'black'}}">{{reqCount}}</view>
+    <scroll-view scroll-y="true " style="height: 360px;border-top: 1px solid #E0E0E0;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+      <block wx:for="{{modelArray}}" wx:key="{{index}}">
+        <view class="weui-cell" style="height:20px;">
+          <view class="weui-cell__bd" style='font-size:15px;white-space:nowrap;overflow:hidden;color:{{model==1?"lightgrey":"black"}}'>{{item.desc}}</view>
+          <block wx:for="{{item.req}}" wx:key="{{index}}" wx:for-item="items">
+              <image src='{{items.imgPath}}' style='margin-left:2px;width:25px; height: 25px;'/>*{{items.count}}
+          </block>
+        </view>
+      </block>
+    </scroll-view>
+    <view style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}" class="btn_ok" bindtap="powerDrawer" data-statu="close">确定</view>
+  </view>
   <view class="carts-list">
     <view class="carts-item" style="{{model==1?'#7B7B7B':'#F0F0F0'}}">
       <!-- //商品信息 -->
@@ -52,7 +68,7 @@
     <view wx:for="{{servant.skill}}" wx:key="id" class="carts-item2" data-title="{{item.skillName}}">
       <view class="carts-item" style='margin-top:0px;padding-top:0px;'>
         <view>
-          <image class="carts-image1" src="{{imgUrl+item.imgPath}}" mode="aspectFill" />
+          <image class="carts-image1" src="{{imgUrl+item.imgPath}}" mode="aspectFill" data-statu="open" catchtap='powerDrawer'/>
         </view>
         <view class="carts-text1">
           <view class="carts-title1" style="color:{{model==1?'lightgrey':'black'}}">{{item.skillName}}

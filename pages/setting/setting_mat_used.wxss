@@ -100,18 +100,3 @@
  border-top: 1px solid #E0E0E0; 
  color: #3CC51F; 
 } 
-
-.weui-form-preview__item {
-  display: flex;
-  flex-direction: row;
-}
-
-.weui-form-preview__label {
-  height: 40px;
-  font-size: 20px;
-  color: green;
-  display: flex;
-  flex-direction: row;
-  text-align-last: left;
-  text-align: left;
-}

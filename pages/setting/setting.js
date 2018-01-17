@@ -23,9 +23,6 @@ Page({
     sliderLeft: 0,
     pageHeight: 400,
     color: 'GREENYELLOW',
-    ownCount: [0, 0, 0, 0, 0],
-    totalCount: [0, 0, 0, 0, 0],
-    percent: [0, 0, 0, 0, 0],
     materialData: new Object(),
     showLevel: 1,
     model: 0,
@@ -47,19 +44,10 @@ Page({
   onLoad: function (options) {
     var that = this;
     var servantList = getApp().globalData.servantList;
-    var totalCount = [0, 0, 0, 0, 0];
-    for (var i = 0; i < servantList.length; i++) {
-      var index = 5 - parseInt(servantList[i].rarity);
-      totalCount[index] = totalCount[index] + 1;
-    }
     var showInputFlag = wx.getStorageSync('showInput') == '0' ? 0 : 1;
     that.setData({
       showLevel: showInputFlag,
       url: app.globalData.url + "/fgo"
-    });
-
-    that.setData({
-      totalCount: totalCount
     });
     wx.getSystemInfo({
       success: function (res) {
@@ -106,7 +94,6 @@ Page({
       accountList: account,
       accountChange: false
     });
-    this.changeRarity();
     this.initServantSkill();
     this.refreshSetting();
   },
@@ -137,27 +124,7 @@ Page({
     });
     wx.setStorageSync("allPrograme", allPrograme);
   },
-  changeRarity: function () {
-    var rarity = wx.getStorageSync('servantRarity');
-    var item = wx.getStorageSync('srv_list' + "_" + curAccId);
-    var ownCount = [0, 0, 0, 0, 0];
-    var totalCount = this.data.totalCount;
-    for (var i = 0; i < item.length; i++) {
-      var id = item[i] + '';
-      var index = 5 - parseInt(rarity[id].rarity);
-      ownCount[index] = ownCount[index] + 1;
-    }
-    var percent = [];
-    percent.push(Math.floor(ownCount[0] * 100 / totalCount[0]));
-    percent.push(Math.floor(ownCount[1] * 100 / totalCount[1]));
-    percent.push(Math.floor(ownCount[2] * 100 / totalCount[2]));
-    percent.push(Math.floor(ownCount[3] * 100 / totalCount[3]));
-    percent.push(Math.floor(ownCount[4] * 100 / totalCount[4]));
-    this.setData({
-      ownCount: ownCount,
-      percent: percent
-    })
-  },
+  
   initServantSkill: function (e) {
     var servantList = this.data.servantList;
     var allSkillInfo = wx.getStorageSync('srvSkill' + "_" + curAccId);
@@ -214,7 +181,6 @@ Page({
             accountList: account,
             accountChange: flag
           });
-          that.changeRarity();
         }
       }
     })
@@ -391,9 +357,13 @@ Page({
     });
   },
   gotoGraphs: function (e) {
-    var value = e.currentTarget.dataset.index;
     wx.navigateTo({
-      url: "setting_account?id=" + value
+      url: "setting_account"
+    });
+  },
+  gotoMatCost: function (e) {
+    wx.navigateTo({
+      url: "setting_mat_used"
     });
   },
   removeServant: function (e) {
@@ -553,6 +523,16 @@ Page({
   showHelp: function (e) {
     wx.navigateTo({
       url: "../setting/setting_help"
+    });
+  },
+  showLogs: function (e) {
+    wx.navigateTo({
+      url: "../setting/setting_logs"
+    });
+  },
+  aboutUs: function (e) {
+    wx.navigateTo({
+      url: "../setting/setting_us"
     });
   },
   refreshSetting: function () {
