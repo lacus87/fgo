@@ -3,11 +3,14 @@
   <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
     <!--drawer content-->
     <view class="drawer_title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'black'}}">{{reqCount}}</view>
-    <scroll-view scroll-y="true " style="height: {{modelArray.length*44>200?210:modelArray.length*44}}px;border-top: 1px solid #E0E0E0;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+    <scroll-view scroll-y="true " style="height: {{modelArray.length*50>200?210:modelArray.length*50}}px;border-top: 1px solid #E0E0E0;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
       <block wx:for="{{modelArray}}" wx:key="{{index}}">
         <view class="weui-cell">
-          <view class="weui-cell__bd" style='font-size:15px;white-space:nowrap;overflow:hidden;color:{{model==1?"lightgrey":"black"}}'>{{item[0]}}</view>
-          <view class="weui-cell__ft" style='font-size:12px;color:{{model==1?"lightgrey":"#8E8E8E"}}'>
+          <view class="weui-cell__hd">
+            <image src="{{item[4]}}" style="margin-right: 5px;vertical-align: middle;width:30px; height:30px;"></image>
+          </view>
+          <view class="weui-cell__bd" style="color:{{model==1?'lightgrey':'black'}}">*{{item[5]}}</view>
+          <view class="weui-cell__ft" style='font-size:15px;color:{{model==1?"lightgrey":"#8E8E8E"}}'>
             <block wx:if="{{item[1] != '0'}}"> 技能{{item[1]}}</block>
             <block wx:if="{{item[2] != '0'}}"> 灵基{{item[2]}}</block>
             <block wx:if="{{item[3] != '0'}}"> 灵衣{{item[3]}}</block>

@@ -144,7 +144,7 @@
         <view class="weui-grids" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
           <view class="weui-grid" wx:for="{{servantList}}" wx:key="{{index}}">
             <block wx:if="{{showLevel == 1}}">
-              <view class='view_grid_img' style='background-image: url({{item.imgPath.length<30?(url+item.imgPath):item.imgPath}})' catchlongpress='removeServant' data-index='{{item.id}}' data-value='{{item.name}}'>
+              <view class='view_grid_img' style='background-image: url({{item.imgPath.length<30?(url+item.imgPath):item.imgPath}})' catchlongpress='removeServant' data-index='{{item.id}}' data-value='{{item.name}}' catchtap="showServantDetail">
                 <view class='view_grid_info'>{{item.rank}}-{{item.skill[0]}}/{{item.skill[1]}}/{{item.skill[2]}}</view>
               </view>
               <view class='view_grid_info1'>

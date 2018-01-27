@@ -27,7 +27,10 @@ Page({
     playFlag: '',
     imgUrl: '',
     modelArray: [],
-    showModalStatus: false
+    showModalStatus: false,
+    tInfo:{},
+    tDesc:[],
+    tLv: [],
   },
 
   /**
@@ -80,29 +83,29 @@ Page({
     // that.setData({
     //   movieUrl: url
     // });
-    wx.getNetworkType({
-      success: function (res) {
-        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
-        var networkType = res.networkType;
-        if (networkType != 'wifi') {
-          that.setData({
-            playFlag: '未连接WIFI，继续播放会消耗约2M流量！'
-          })
-        }
-      }
-    })
-    wx.onNetworkStatusChange(function (res) {
-      var networkType = res.networkType;
-      if (networkType != 'wifi') {
-        that.setData({
-          playFlag: '未连接WIFI，继续播放会消耗约2M流量！'
-        })
-      } else {
-        that.setData({
-          playFlag: ''
-        })
-      }
-    })
+    // wx.getNetworkType({
+    //   success: function (res) {
+    //     // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
+    //     var networkType = res.networkType;
+    //     if (networkType != 'wifi') {
+    //       that.setData({
+    //         playFlag: '未连接WIFI，继续播放会消耗约2M流量！'
+    //       })
+    //     }
+    //   }
+    // })
+    // wx.onNetworkStatusChange(function (res) {
+    //   var networkType = res.networkType;
+    //   if (networkType != 'wifi') {
+    //     that.setData({
+    //       playFlag: '未连接WIFI，继续播放会消耗约2M流量！'
+    //     })
+    //   } else {
+    //     that.setData({
+    //       playFlag: ''
+    //     })
+    //   }
+    // })
     wx.request({
       url: app.globalData.url + '/fgo/servant/getServantInfo.do?servantId=' + options.id,
       method: 'GET',
@@ -114,7 +117,22 @@ Page({
           servant.skill[i].skillLevelUp = servant_info[i + 1];
           servant.skill[i].skillIndex = i;
         }
+        var treasure = servant.treasure;
+        var tName = treasure.tName;
+        var index = tName.indexOf("（");
+        if(index > 0){
+          treasure.tName = tName.substring(0,index);
+          treasure.eName = tName.substring(index+1).replace("）","");
+        }
+        var tDesc = treasure.tDesc.split("-");
+        var tLv = treasure.tLv.split("-");
+        for(var i = 0; i< tLv.length; i++){
+          tLv[i] = tLv[i].split("|");
+        }
         that.setData({
+          tInfo: servant.treasure,
+          tDesc: tDesc,
+          tLv: tLv,
           id: options.id,
           servant_info: servant_info,
           color: color,
@@ -125,7 +143,7 @@ Page({
           title: that.data.servant.name//页面标题为路由参数
         });
         app.globalData.lastTapTime = 0;
-
+        
       }
     });
   },

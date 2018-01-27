@@ -30,6 +30,9 @@ Page({
    */
   onShow: function () {
     var eventList = this.data.eventList;
+    if(eventList.length == 0){
+      eventList = getApp().globalData.eventList;
+    }
 	  var account = wx.getStorageSync('account');
 	    for (var i = 0; i < account.length; i++) {
 	    	if(account[i].status == 1){

@@ -1,5 +1,7 @@
 <page style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
 <view class="info">
+  <text class='important'>01-26：</text>可以在规划页面点击头像进入英灵详情</view>
+<view class="info">
   <text class='important'>01-12：</text>设置改版,部分页面增加右上角转发功能</view>
 <view class="info">
   <text class='important'>01-10：</text>英灵详情页面点击技能图标增加耗材预览</view>

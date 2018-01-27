@@ -1,5 +1,5 @@
 <view style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
-<view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
+  <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
   <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
     <!--drawer content-->
     <view class="drawer_title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'black'}}">{{reqCount}}</view>
@@ -8,7 +8,7 @@
         <view class="weui-cell" style="height:20px;">
           <view class="weui-cell__bd" style='font-size:15px;white-space:nowrap;overflow:hidden;color:{{model==1?"lightgrey":"black"}}'>{{item.desc}}</view>
           <block wx:for="{{item.req}}" wx:key="{{index}}" wx:for-item="items">
-              <image src='{{items.imgPath}}' style='margin-left:2px;width:25px; height: 25px;'/>*{{items.count}}
+            <image src='{{items.imgPath}}' style='margin-left:2px;width:25px; height: 25px;' />*{{items.count}}
           </block>
         </view>
       </block>
@@ -34,14 +34,15 @@
               <text class="plus normal" data-type="+" bindtap="bindNumAdd">+</text>
             </view>
           </view>
-          <!-- <view class="carts-subtitle">
+          <view class="carts-subtitle">
             <view class="itemList">
-              <view class="item1" style="background: {{skill==1?'greenyellow':'#F0F0F0'}}" data-index='1' catchtap='changeView'>技能</view>
-              <view class="item1" style="background: {{skill==1?'#F0F0F0':'greenyellow'}}" data-index='2' catchtap='changeView'>宝具</view>
+              <view class="item1" style="background: {{skill==1?'greenyellow':'#F0F0F0'}};width:50px;padding-left:10px;padding-right:10px;" data-index='1' catchtap='changeView'>技能</view>
+              <view class="item1" style="background: {{skill==1?'#F0F0F0':'greenyellow'}};width:50px;padding-left:10px;padding-right:10px;" data-index='2' catchtap='changeView'>宝具</view>
             </view>
-          </view> -->
+          </view>
         </view>
       </view>
+
       <!-- //关注 -->
       <icon class="carts-del" type="info" size="30" color="{{color}}" bindtap="setCare" />
       <icon class="carts-del" style='margin-right:45px' type="success" size="30" bindtap="setStatus" />
@@ -68,7 +69,7 @@
     <view wx:for="{{servant.skill}}" wx:key="id" class="carts-item2" data-title="{{item.skillName}}">
       <view class="carts-item" style='margin-top:0px;padding-top:0px;'>
         <view>
-          <image class="carts-image1" src="{{imgUrl+item.imgPath}}" mode="aspectFill" data-statu="open" catchtap='powerDrawer'/>
+          <image class="carts-image1" src="{{imgUrl+item.imgPath}}" mode="aspectFill" data-statu="open" catchtap='powerDrawer' />
         </view>
         <view class="carts-text1">
           <view class="carts-title1" style="color:{{model==1?'lightgrey':'black'}}">{{item.skillName}}
@@ -89,7 +90,48 @@
     <button style='width:80%;margin-top:8px' type='primary' catchtap="calMaterial">计算素材</button>
   </view>
   <view hidden="{{skill==1}}">
-    <view style='font-size:15px;color:red;'>{{playFlag}}</view>
-    <video id="myVideo" style='width:{{width}}px;height:{{width*9/16}}px;' src="{{movieUrl}}"></video>
+    <view style='height:20px;'></view>
+    <view class="table">
+      <view class="tr">
+        <view class="th">
+          <block wx:if="{{servant.treasure.tType}}">
+            <view>
+              <image src="{{'/images/skill/'+servant.treasure.tType+'.png'}}" class="carts-image2"></image>
+            </view>
+          </block>
+          <view style='margin-left:20px;'>
+            <view style="color:black">{{servant.treasure.tName}}</view>
+            <view class="rank" style="color:grey;white-space:nowrap; width:220px;">{{servant.treasure.eName}}</view>
+          </view>
+        </view>
+      </view>
+      <block wx:for="{{tDesc}}" wx:key="index">
+        <view class="tr">
+          <view class="td" style="font-size:15px;color:{{model==1?'lightgrey':'#7B7B7B'}};display: table;">
+          <view class="middle">{{item}}</view>
+          </view>
+        </view>
+        <block wx:if="{{tLv[index].length < 5}}">
+          <view class="tr bg-w" style='height:30px;font-size:15px;'>
+            <view class="td">{{tLv[index]}}</view>
+          </view>
+        </block>
+        <block wx:if="{{tLv[index].length == 5}}">
+          <view class="tr bg-w" style='height:30px;font-size:15px;'>
+            <block wx:for="{{tLv[index]}}" wx:for-item="items" wx:key="index">
+              <view class="td" style='width:20%'>{{items}}</view>
+            </block>
+          </view>
+        </block>
+      </block>
+
+      <view class="tr">
+        <view class='th' style="margin-top:30px;">
+          <image id="{{i}}" wx:key="index" class="carts-image2" wx:for="i++" wx:for-index="i" wx:if="{{i < servant.treasure.a}}" src="/images/skill/Arts.png"></image>
+          <image id="{{i}}" wx:key="index" class="carts-image2" wx:for="i++" wx:for-index="i" wx:if="{{i < servant.treasure.b}}" src="/images/skill/Buster.png"></image>
+          <image id="{{i}}" wx:key="index" class="carts-image2" wx:for="i++" wx:for-index="i" wx:if="{{i < servant.treasure.q}}" src="/images/skill/Quick.png"></image>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

@@ -56,6 +56,10 @@
   font-size: 15px;
   color: gray;
 }
+.weui-cell__bd{
+  display: flex;  
+  flex-direction: column;  
+}
 
 /*mask*/
 .drawer_screen { 

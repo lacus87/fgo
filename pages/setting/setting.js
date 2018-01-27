@@ -693,5 +693,11 @@ Page({
       modelArray: modelArray,
       sortCur: cur
     });
+  },
+  showServantDetail: function(e){
+    var servantId = e.currentTarget.dataset.index;
+    wx.navigateTo({
+      url: "../servant/servant_detail?id="+servantId
+    });
   }
 })
