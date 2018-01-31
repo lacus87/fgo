@@ -49,7 +49,7 @@
             </view>
           </view>
         </block>
-        <view class="weui-navbar__slider" style="left: 0px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
         <view hidden="{{activeIndex != 1}}">
           <view class='top'>
             <image src='/images/add_black.png' style='width:35px; height:35px;' catchtap='addServant'></image>
