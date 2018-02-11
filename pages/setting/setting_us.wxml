@@ -11,7 +11,7 @@
             <view class="info">工具灵感来自于IOS工具“咕哒”，因为作者是个苦逼的安卓党所以只能自己做个类似的...</view>
           </block>
           <block wx:if="{{index == 1}}">
-            <view class="info">英灵数据来自fgo wiki，掉率数据来自效率剧场，活动数据来自NGA坛友LYC869整理，向各位同志勤勉的劳动表示感谢...</view>
+            <view class="info">英灵数据来自fgowiki，茹西教王的理想鄉，掉率数据来自效率剧场，活动数据来自NGA坛友LYC869整理，向各位同志勤勉的劳动表示感谢...</view>
           </block>
           <block wx:if="{{index == 2}}">
             <view class="info">85后大龄码农，06年FSN入坑，伪月厨，微氪，爱好模型，旅游，坐标大蓝鲸</view>

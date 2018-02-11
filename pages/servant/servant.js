@@ -52,7 +52,7 @@ Page({
         wx.hideToast();
         if (res.statusCode != 200) {
           that.setData({
-            errMsg: "服务器处于备案过程中，暂无法响应，备案完成后会第一时间开启"
+            errMsg: "服务器正在重启中，暂无法响应，会尽快开启"
           })
           return;
         }

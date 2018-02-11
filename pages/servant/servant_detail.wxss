@@ -197,7 +197,7 @@
   margin-left: 10rpx;
   font-size: 30rpx;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 /*右下部分描述*/
@@ -345,4 +345,43 @@
   height: 55px;
   align-items: center;
   border: solid #aaa 1px;
+}
+
+.weui-grids {
+  margin-left: 5%;
+  width:90%;
+  border: none;
+}
+
+.weui-grid {
+  position: relative;  
+  float: left;  
+  padding: 0px 0px;
+  margin-bottom: 2px;
+  width: 12%;  
+  border: none;
+}
+
+.weui-grid__icon {  
+   width: 40px;  
+  height: 42px;   
+  margin: 0 auto;  
+}  
+
+.view_grid_img {
+  width: 40px;
+  height: 42px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+}
+
+.info{
+  padding-left: 20px;
+  padding-top: 5px;
+  display: flex;
+}
+
+.info .important{
+  font-weight:bold;
 }

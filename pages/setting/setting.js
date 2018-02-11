@@ -35,7 +35,8 @@ Page({
     showModalStatus: false,
     sortWay: ['默认', '星级'],
     sortWayIndex: 0,
-    sortCur: 0
+    sortCur: 0,
+    dropModel:1,
   },
 
   /**
@@ -86,13 +87,16 @@ Page({
     if (programeList == undefined || programeList == '') {
       programeList = [];
     }
+    var dropModel = wx.getStorageSync("dropModel_" + curAccId);
+    if (dropModel == undefined || dropModel == ''){
+      dropModel = 1;
+    }
     this.setData({
       servantList: programeList,
-      model: wx.getStorageSync("model")
-    })
-    this.setData({
+      model: wx.getStorageSync("model"),
       accountList: account,
-      accountChange: false
+      accountChange: false,
+      dropModel: dropModel
     });
     this.initServantSkill();
     this.refreshSetting();
@@ -177,9 +181,14 @@ Page({
           }
           curAccId = id;
           wx.setStorageSync('account', account);
+          var dropModel = wx.getStorageSync("dropModel_" + curAccId);
+          if (dropModel == undefined || dropModel == '') {
+            dropModel = 1;
+          }
           that.setData({
             accountList: account,
-            accountChange: flag
+            accountChange: flag,
+            dropModel: dropModel
           });
         }
       }
@@ -361,6 +370,11 @@ Page({
       url: "setting_account"
     });
   },
+  gotoReward: function (e) {
+    wx.navigateTo({
+      url: "setting_reward"
+    });
+  },
   gotoMatCost: function (e) {
     wx.navigateTo({
       url: "setting_mat_used"
@@ -418,7 +432,11 @@ Page({
       servant.clothFlag = (servantList[i].skill[3] == 1 ? 'N' : 'Y');
       infoArray.push(servant);
     }
-    var routInfo = { "param": infoArray, "ownCount": wx.getStorageSync('material' + "_" + curAccId) };
+    var dropModel = wx.getStorageSync("dropModel_" + curAccId);
+    if (dropModel == undefined || dropModel == ''){
+      dropModel = 1;
+    }
+    var routInfo = { "param": infoArray, "ownCount": wx.getStorageSync('material' + "_" + curAccId) ,"model":dropModel};
     wx.showToast({
       title: '正在计算',
       icon: 'loading',
@@ -699,5 +717,13 @@ Page({
     wx.navigateTo({
       url: "../servant/servant_detail?id="+servantId
     });
+  },
+
+  dropModelChange: function(e){
+    this.setData({
+      dropModel: e.detail.value
+    })
+    var key = "dropModel_" + curAccId;
+    wx.setStorageSync(key, e.detail.value);
   }
 })

@@ -70,7 +70,11 @@ Page({
     infoArray.sort(function (a, b) {
       return a.servantId < b.servantId ? -1 : 1;
     })
-    var routInfo = { "param": infoArray, "ownCount": wx.getStorageSync('material' + "_" + curAccId) };
+    var dropModel = wx.getStorageSync("dropModel_" + curAccId);
+    if (dropModel == undefined || dropModel == ''){
+      dropModel = 1;
+    }
+    var routInfo = { "param": infoArray, "ownCount": wx.getStorageSync('material' + "_" + curAccId),"model":dropModel };
     wx.showToast({
       title: '计算中...',
       icon: 'loading',

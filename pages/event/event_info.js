@@ -59,6 +59,14 @@ Page({
         that.loadCount();
       }
     });
+
+    wx.request({
+      url: app.globalData.url + '/fgo/material/getEventQP.do?',
+      method: 'GET',
+      success: function (res) {
+        eventQp = res.data.data
+      }
+    });
   },
 
   /**

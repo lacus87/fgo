@@ -1,0 +1,14 @@
+/* pages/setting/setting_help.wxss */
+.info{
+  font-size: 15px;
+  padding-left: 20px;
+  padding-top: 5px;
+  display: flex;
+}
+.info .important{
+  font-weight:bold;
+}
+.c--f60{color: #f60;}
+.c--green{color: #2aa515;}
+.c--red{color: red;}
+.c--grey{color: #ADADAD;}

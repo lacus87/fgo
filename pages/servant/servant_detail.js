@@ -31,6 +31,7 @@ Page({
     tInfo:{},
     tDesc:[],
     tLv: [],
+    attackList: {"attack":[],"attacked":[]}
   },
 
   /**
@@ -79,33 +80,6 @@ Page({
         });
       }
     });
-    // var url = app.globalData.url+'/fgo/images/servant/movie/' + options.id + ".mp4";
-    // that.setData({
-    //   movieUrl: url
-    // });
-    // wx.getNetworkType({
-    //   success: function (res) {
-    //     // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
-    //     var networkType = res.networkType;
-    //     if (networkType != 'wifi') {
-    //       that.setData({
-    //         playFlag: '未连接WIFI，继续播放会消耗约2M流量！'
-    //       })
-    //     }
-    //   }
-    // })
-    // wx.onNetworkStatusChange(function (res) {
-    //   var networkType = res.networkType;
-    //   if (networkType != 'wifi') {
-    //     that.setData({
-    //       playFlag: '未连接WIFI，继续播放会消耗约2M流量！'
-    //     })
-    //   } else {
-    //     that.setData({
-    //       playFlag: ''
-    //     })
-    //   }
-    // })
     wx.request({
       url: app.globalData.url + '/fgo/servant/getServantInfo.do?servantId=' + options.id,
       method: 'GET',
@@ -116,6 +90,16 @@ Page({
           servant.skill[i].tarLevel = servant_info[i + 1];
           servant.skill[i].skillLevelUp = servant_info[i + 1];
           servant.skill[i].skillIndex = i;
+          servant.skill[i].skillDesc = servant.skill[i].skillDesc.split("&");
+          var lv = servant.skill[i].lv;
+          for(var j = 0; j< lv.length; j++){
+            lv[j] = lv[j].split("/");
+          }
+          servant.skill[i].lv = lv;
+          var skillName = servant.skill[i].skillName;
+          var keyIndex = skillName.lastIndexOf("（");
+          servant.skill[i].skillName = skillName.substring(0, keyIndex);
+          servant.skill[i].skillCD = parseInt(skillName.substring(keyIndex).replace("（", "").replace("）", ""));
         }
         var treasure = servant.treasure;
         var tName = treasure.tName;
@@ -144,6 +128,16 @@ Page({
         });
         app.globalData.lastTapTime = 0;
         
+      }
+    });
+
+    wx.request({
+      url: app.globalData.url + '/fgo/servant/getServantAttack.do?servantId=' + options.id,
+      method: 'GET',
+      success: function (res) {
+        that.setData({
+          attackList: res.data.data
+        });
       }
     });
   },
@@ -425,7 +419,7 @@ Page({
       });
     } else {
       wx.showToast({
-        title: '请先设置技能',
+        title: '请设置升级技能',
         icon: 'success',
         image: '/images/warning.png',
         duration: 1000

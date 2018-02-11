@@ -38,6 +38,10 @@ Page({
         curAccId = account[i].id;
       }
     }
+    var dropModel = wx.getStorageSync("dropModel_" + curAccId);
+    if (dropModel == undefined || dropModel == ''){
+      dropModel = 1;
+    }
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -49,7 +53,7 @@ Page({
       }
     });
     wx.request({
-      url: app.globalData.url +'/fgo/material/getMaterialDrop.do?materialId=' + materialId,
+      url: app.globalData.url + '/fgo/material/getMaterialDrop.do?materialId=' + materialId + "&model=" + dropModel,
       method: 'GET',
       success: function (res) {
         var servantList = res.data.data.servant;

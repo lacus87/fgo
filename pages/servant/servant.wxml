@@ -41,7 +41,7 @@
         </view>
         <view style='font-size:15px;color:red;'>{{errMsg}}</view>
         <view hidden="{{activeIndex != 1}}">
-          <block wx:for="{{loadList}}" wx:key="id">
+          <block wx:for="{{loadList}}" wx:key="{{item.id}}">
             <block wx:if="{{item.clazz == 'SABER'&&(item.flag==1||flag==0)}}">
               <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
@@ -54,7 +54,7 @@
           </block>
         </view>
         <view hidden="{{activeIndex != 2}}">
-          <block wx:for="{{loadList}}" wx:key="id">
+          <block wx:for="{{loadList}}" wx:key="{{item.id}}">
             <block wx:if="{{item.clazz == 'ARCHER'&&(item.flag==1||flag==0)}}">
               <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
@@ -67,7 +67,7 @@
           </block>
         </view>
         <view hidden="{{activeIndex != 3}}">
-          <block wx:for="{{loadList}}" wx:key="id">
+          <block wx:for="{{loadList}}" wx:key="{{item.id}}">
             <block wx:if="{{item.clazz == 'LANCER'&&(item.flag==1||flag==0)}}">
               <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
@@ -80,7 +80,7 @@
           </block>
         </view>
         <view hidden="{{activeIndex != 4}}">
-          <block wx:for="{{loadList}}" wx:key="id">
+          <block wx:for="{{loadList}}" wx:key="{{item.id}}">
             <block wx:if="{{item.clazz == 'RIDER'&&(item.flag==1||flag==0)}}">
               <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
@@ -93,7 +93,7 @@
           </block>
         </view>
         <view hidden="{{activeIndex != 5}}">
-          <block wx:for="{{loadList}}" wx:key="id">
+          <block wx:for="{{loadList}}" wx:key="{{item.id}}">
             <block wx:if="{{item.clazz == 'CASTER'&&(item.flag==1||flag==0)}}">
               <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
@@ -106,7 +106,7 @@
           </block>
         </view>
         <view hidden="{{activeIndex != 6}}">
-          <block wx:for="{{loadList}}" wx:key="id">
+          <block wx:for="{{loadList}}" wx:key="{{item.id}}">
             <block wx:if="{{item.clazz == 'ASSASSIN'&&(item.flag==1||flag==0)}}">
               <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
@@ -119,7 +119,7 @@
           </block>
         </view>
         <view hidden="{{activeIndex != 7}}">
-          <block wx:for="{{loadList}}" wx:key="id">
+          <block wx:for="{{loadList}}" wx:key="{{item.id}}">
             <block wx:if="{{item.clazz == 'BERSERKER'&&(item.flag==1||flag==0)}}">
               <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">
@@ -132,7 +132,7 @@
           </block>
         </view>
         <view hidden="{{activeIndex != 8}}">
-          <block wx:for="{{loadList}}" wx:key="id">
+          <block wx:for="{{loadList}}" wx:key="{{item.id}}">
             <block wx:if="{{item.clazz != 'SABER'&&item.clazz != 'ARCHER'&& item.clazz != 'LANCER'&&item.clazz != 'BERSERKER'&&item.clazz != 'RIDER'&&item.clazz != 'CASTER'&&item.clazz != 'ASSASSIN'&&(item.flag==1||flag==0)}}">
               <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
                 <view class="weui-cell__hd">

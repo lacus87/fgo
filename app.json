@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages":[    
     "pages/servant/servant",
     "pages/servant/servant_detail",
     "pages/servant/servant_material",
@@ -11,7 +11,8 @@
     "pages/setting/setting_help",
     "pages/setting/setting_logs",      
     "pages/setting/setting_us",
-    "pages/setting/setting_mat_used",  
+    "pages/setting/setting_mat_used", 
+    "pages/setting/setting_reward",            
     "pages/material/material",        
     "pages/material/material_info",
     "pages/material/material_drop",
