@@ -25,6 +25,22 @@ Page({
     errMsg: '',
     inputShowed: false, // 搜索输入框是否显示  
     inputVal: "", // 搜索的内容  
+    checkboxItems: [
+      { name: '五星', value: '5', count: [1, 1, 1, 1, 1], checked: true },
+      { name: '四星', value: '4', count: [1, 1, 1, 1], checked: true },
+      { name: '三星', value: '3', count: [1, 1, 1], checked: true },
+      { name: '二星', value: '2', count: [1, 1], checked: true },
+      { name: '一星', value: '1', count: [1], checked: true }
+    ],
+    showType: "2",
+    checkboxItemsTemp: [
+      { name: '五星', value: '5', count: [1, 1, 1, 1, 1], checked: true },
+      { name: '四星', value: '4', count: [1, 1, 1, 1], checked: true },
+      { name: '三星', value: '3', count: [1, 1, 1], checked: true },
+      { name: '二星', value: '2', count: [1, 1], checked: true },
+      { name: '一星', value: '1', count: [1], checked: true }
+    ],
+    showTypeTemp: "2",
   },
   onLoad: function () {
     var that = this;
@@ -36,6 +52,14 @@ Page({
       icon: 'loading',
       duration: 5000,
       mask: true
+    })
+    var showType = wx.getStorageSync("showType");
+    if (showType == undefined || showType == '') {
+      showType = "2";
+    }
+    this.setData({
+      showType: showType,
+      showTypeTemp: showType
     })
     wx.request({
       url: app.globalData.url + '/fgo/servant/getServantList.do',
@@ -174,92 +198,28 @@ Page({
       flag: flag
     });
   },
-  // 触摸开始事件 
-  touchStart: function (e) {
-    touchDot = e.touches[0].pageX; // 获取触摸时的原点 
-    touchDotH = e.touches[0].pageY;
-    // 使用js计时器记录时间  
-    interval = setInterval(function () {
-      time++;
-    }, 200);
-  },
-  // 触摸结束事件 
-  touchEnd: function (e) {
-    var touchMoveY = e.changedTouches[0].pageY;
-    console.log(touchMoveY - touchDotH);
-    if (touchMoveY - touchDotH <= -150
-      || touchMoveY - touchDotH >= 150) {
-      clearInterval(interval); // 清除setInterval 
-      time = 0;
-      return;
-    }
-
-    var touchMove = e.changedTouches[0].pageX;
-
-    // 向左滑动  
-    if (touchMove - touchDot <= -40 && time < 10) {
-      var index = this.data.activeIndex;
-      if (index < this.data.tabs.length - 1) {
-        index++;
-      }
-      var sliderOffset = this.data.sliderLeft * index * 10;
-      this.setData({
-        activeIndex: index,
-        sliderOffset: sliderOffset
-      });
-    }
-    // 向右滑动 
-    if (touchMove - touchDot >= 40 && time < 10) {
-      var index = this.data.activeIndex;
-      if (index > 0) {
-        index--;
-      }
-      var sliderOffset = this.data.sliderLeft * index * 10;
-      this.setData({
-        activeIndex: index,
-        sliderOffset: sliderOffset
-      });
-    }
-    clearInterval(interval); // 清除setInterval 
-    time = 0;
-  },
   switchServant: function () {
-    var that = this;
-    wx.showActionSheet({
-      itemList: ['全部', '五星', '四星', '金卡', '其他'],
-      success: function (res) {
-        if (!res.cancel) {
-          var id = res.tapIndex;
-          var servantList = getApp().globalData.servantList;
-          var temp = [];
-          var item = wx.getStorageSync('srv_list' + "_" + curAccId);
-          for (var i = 0; i < servantList.length; i++) {
-            servantList[i].flag = 0;
-            if (item.indexOf(servantList[i].id) >= 0) {
-              servantList[i].flag = 1;
-            }
-            var rarity = parseInt(servantList[i].rarity);
-            if (id == 1 && rarity == 5) {
-              temp.push(servantList[i]);
-            } else if (id == 2 && rarity == 4) {
-              temp.push(servantList[i]);
-            } else if (id == 3 && rarity > 3) {
-              temp.push(servantList[i]);
-            } else if (id == 4 && rarity < 4) {
-              temp.push(servantList[i]);
-            } else if (id == 0) {
-              temp.push(servantList[i]);
-            }
-          }
-          servantList = that.sortByCur(temp, that.data.cur);
-          that.setData({
-            servantList: servantList,
-          });
-          that.loadDataByStep(servantList, -30);
+    var checkboxItems = this.data.checkboxItems;
+    var servantList = getApp().globalData.servantList;
+    var temp = [];
+    var item = wx.getStorageSync('srv_list' + "_" + curAccId);
+    for (var i = 0; i < servantList.length; i++) {
+      servantList[i].flag = 0;
+      if (item.indexOf(servantList[i].id) >= 0) {
+        servantList[i].flag = 1;
+      }
+      var rarity = servantList[i].rarity;
+      for (var j = 0; j < checkboxItems.length; j++){
+        if (checkboxItems[j].checked && rarity == checkboxItems[j].value){
+          temp.push(servantList[i]);
         }
       }
-    })
-
+    }
+    servantList = this.sortByCur(temp, this.data.cur);
+    this.setData({
+      servantList: servantList,
+    });
+    this.loadDataByStep(servantList, -30);
   },
   sort: function (e) {
     var time = e.timeStamp;
@@ -350,5 +310,99 @@ Page({
     this.setData({
       inputVal: e.detail.value
     });
+  },
+  showServantDetail: function (e) {
+    //servant_detail?id={{item.id}}
+    var id = e.currentTarget.dataset.index;
+    wx.navigateTo({
+      url: "servant_detail?id=" + id
+    });
+  },
+  powerDrawer: function (e) {
+    var currentStatu = e.currentTarget.dataset.statu;
+    var currentOper = e.currentTarget.dataset.oper;
+    if (currentStatu == "close") {
+      if (currentOper == "confirm") {
+        var showType = this.data.showTypeTemp;
+        var checkboxItems = this.data.checkboxItemsTemp;
+        this.setData({
+          showType: showType,
+          checkboxItems: checkboxItems
+        })
+        this.switchServant();
+        wx.setStorageSync("showType", showType);
+      } else {
+        var showType = this.data.showType;
+        var checkboxItems = this.data.checkboxItems;
+        this.setData({
+          showTypeTemp: showType,
+          checkboxItemsTemp: checkboxItems
+        })
+      }
+    }
+    this.util(currentStatu)
+  },
+  util: function (currentStatu) {
+    /* 动画部分 */
+    // 第1步：创建动画实例 
+    var animation = wx.createAnimation({
+      duration: 300, //动画时长 
+      timingFunction: "linear", //线性 
+      delay: 0 //0则不延迟 
+    });
+    // 第2步：这个动画实例赋给当前的动画实例 
+    this.animation = animation;
+    // 第3步：执行第一组动画 
+    animation.opacity(0).rotateX(-100).step();
+    // 第4步：导出动画对象赋给数据对象储存 
+    this.setData({
+      animationData: animation.export()
+    })
+    // 第5步：设置定时器到指定时候后，执行第二组动画 
+    setTimeout(function () {
+      // 执行第二组动画 
+      animation.opacity(1).rotateX(0).step();
+      // 给数据对象储存的第一组动画，更替为执行完第二组动画的动画对象 
+      this.setData({
+        animationData: animation
+      })
+      //关闭 
+      if (currentStatu == "close") {
+        this.setData(
+          {
+            showModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 100)
+    // 显示 
+    if (currentStatu == "open") {
+      this.setData(
+        {
+          showModalStatus: true
+        }
+      );
+    }
+  },
+
+  checkboxChange: function (e) {
+    var checkboxItems = this.data.checkboxItemsTemp, values = e.detail.value;
+    for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
+      checkboxItems[i].checked = false;
+      for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
+        if (checkboxItems[i].value == values[j]) {
+          checkboxItems[i].checked = true;
+          break;
+        }
+      }
+    }
+    this.setData({
+      checkboxItemsTemp: checkboxItems
+    });
+  },
+  showTypeChange: function (e) {
+    this.setData({
+      showTypeTemp: e.detail.value
+    })
   }
 });

@@ -177,8 +177,8 @@
 }
 
 .carts-image2 {
-  width: 50px;
-  height: 50px;
+  width: 100rpx;
+  height: 100rpx;
 }
 
 /*右部描述*/
@@ -209,49 +209,49 @@
 }
 
 .slide-item {
-  height: 20px;
+  height: 40rpx;
   display: flex;
   flex-direction: row;
 }
 
 .slidewrapName {
-  font-size: 15px;
-  height: 20px;
-  line-height: 20px;
+  font-size: 30rpx;
+  height: 40rpx;
+  line-height: 40rpx;
   text-align: center;
   width: 30%;
 }
 
 .slidewrap {
   width: 80%;
-  height: 20px;
-  line-height: 20px;
+  height: 40rpx;
+  line-height: 40rpx;
   text-align: center;
 }
 
 .slide {
-  height: 20px;
+  height: 40rpx;
 }
 
 .itemList {
-  margin-top: 5px;
-  height: 18px;
-  width: 200px;
+  margin-top: 10rpx;
+  height: 36rpx;
+  width: 400rpx;
   display: flex;
   flex-direction: row;
 }
 
 .item1 {
-  margin-right: 5px;
-  font-size: 15px;
+  margin-right: 10rpx;
+  font-size: 30rpx;
   color: black;
-  width: 35px;
+  width: 70rpx;
   text-align: center;
   border-color: orange;
   border-style: solid;
-  border-width: 1px;
-  height: 18px;
-  line-height: 18px;
+  border-width: 2rpx;
+  height: 36rpx;
+  line-height: 36rpx;
 }
 
 /*mask*/
@@ -283,33 +283,33 @@
 }
 
 .drawer_title {
-  padding: 15px;
-  font: 15px;
+  padding: 30rpx;
+  font: 30rpx;
   text-align: center;
 }
 
 .drawer_content {
-  height: 210px;
+  height: 420rpx;
   overflow-y: scroll; /*超出父盒子高度可滚动*/
 }
 
 .btn_ok {
-  padding: 10px;
-  font: 15px;
+  padding: 20rpx;
+  font: 30rpx;
   text-align: center;
-  border-top: 1px solid #e0e0e0;
+  border-top: 2rpx solid #e0e0e0;
   color: #3cc51f;
 }
 
 .table {
-  border: 1px solid #aaa;
+  border: 2rpx solid #aaa;
 }
 
 .tr {
   display: flex;
   width: 100%;
   justify-content: center;
-  height: 55px;
+  height: 110rpx;
   align-items: center;
 }
 
@@ -318,7 +318,7 @@
   height: 100%;
   justify-content: center;
   text-align: center;
-  border: solid #aaa 1px;
+  border: solid #aaa 2rpx;
 }
 
 .middle {
@@ -342,9 +342,9 @@
   background: #e6f3f9;
   color: green;
   display: flex;
-  height: 55px;
+  height: 110rpx;
   align-items: center;
-  border: solid #aaa 1px;
+  border: solid #aaa 2rpx;
 }
 
 .weui-grids {
@@ -357,28 +357,28 @@
   position: relative;  
   float: left;  
   padding: 0px 0px;
-  margin-bottom: 2px;
+  margin-bottom: 4rpx;
   width: 12%;  
   border: none;
 }
 
 .weui-grid__icon {  
-   width: 40px;  
-  height: 42px;   
+   width: 80rpx;  
+  height: 84rpx;   
   margin: 0 auto;  
 }  
 
 .view_grid_img {
-  width: 40px;
-  height: 42px;
+  width: 80rpx;
+  height: 84rpx;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   -moz-background-size: 100% 100%;
 }
 
 .info{
-  padding-left: 20px;
-  padding-top: 5px;
+  padding-left: 40rpx;
+  padding-top: 10rpx;
   display: flex;
 }
 
