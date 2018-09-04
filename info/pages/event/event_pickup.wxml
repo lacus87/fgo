@@ -1,0 +1,13 @@
+<!--pages/event/event.wxml-->
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <block wx:for="{{eventList}}" wx:key="id">
+    <view wx:if="{{item.status == 1 || showPast == 1}}" class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <view class="weui-cell">
+        <view class="weui-cell__bd" bindtap='showDetail' data-index="{{item.id}}" style='color:{{model==1?"lightgrey":"black"}};font-size:{{item.name.length>20?"22rpx":"26rpx"}}'>{{item.name}}</view>
+        <view class="weui-cell__ft">
+            <icon type='info' size='15' color='lightgrey' bindtap='showDetail' data-index="{{item.id}}"></icon>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,73 @@
+/* pages/event/event.wxss */
+.info{
+  font-size: 30rpx;
+  padding-left: 20px;
+  padding-top: 5px;
+}
+
+.container_text {
+  height: 100%;
+  width:100%;
+  margin-left: 60rpx;
+  margin-top: 70rpx;
+  flex-direction: column;
+  position: absolute;
+} 
+
+.pic_background{
+  position:absolute;
+}
+
+.relative{
+  height: 100%;
+  width:100%;
+  position:relative;
+}
+
+.weui-grids {
+  width:90%;
+  border: none;
+}
+
+.weui-grid {
+  position: relative;  
+  float: left;  
+  padding: 0px 0px;
+  margin-bottom: 4rpx;
+  width: 20%;  
+  border: none;
+}
+
+.weui-grid__icon {  
+   width: 80rpx;  
+  height: 98rpx;   
+  margin: 0 auto;  
+}  
+
+.view_grid_img {
+  width: 80rpx;
+  height: 82rpx;
+  margin-top: 10rpx;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+}
+
+.itemList {
+  margin-top: 10rpx;
+  height: 60rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.item1 {
+  font-size: 30rpx;
+  width: 50%;
+  text-align: center;
+  border-color: lightgray;
+  border-style: solid;
+  border-width: 1rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}

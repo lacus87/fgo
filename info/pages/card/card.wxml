@@ -1,0 +1,86 @@
+<view class="page" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="page__hd" style="width:100%;height:45px;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+    <view class="weui-search-bar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};border:0px;">
+      <view class="weui-search-bar__form" style='width:500rpx;'>
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindconfirm="inputTyping" bindinput="inputChange" confirm-type="search" />
+          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="filter-tab item1" style="margin-top:13px;background: {{model==1?'#7B7B7B':'#F0F0F0'}}; border:none;color:#000000">
+      <text bindtap="setFilterPanel" data-findex="1" class="{{showfilterindex==1?'active':''}}">筛选</text>
+    </view>
+  </view>
+  <view class="filter-flex" wx:if="{{showfilter}}">
+    <scroll-view scroll-y="true" class="filter-content" style="height: {{pageHeight-40}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <view class="group-header" style="background: {{model==1?'#7B7B7B':'#f9f9f9'}};color:{{model==1?'lightgrey':'black'}}">星级</view>
+      <view class="group-body">
+        <view class="filter-tags" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}};margin-left:20rpx;">
+          <checkbox-group bindchange="checkboxChange" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <label wx:for="{{checkboxItemsTemp}}" wx:key="value" style='color:{{model==1?"lightgrey":"black"}}'>
+              <icon class="weui-icon-checkbox_circle" type="circle" size="15" wx:if="{{!item.checked}}"></icon>
+              <icon class="weui-icon-checkbox_success" type="success" size="15" wx:if="{{item.checked}}"></icon>
+              <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+            </label>
+          </checkbox-group>
+        </view>
+      </view>
+      <view class="group-header" style="background: {{model==1?'#7B7B7B':'#f9f9f9'}};color:{{model==1?'lightgrey':'black'}}">类型</view>
+      <view class="group-body">
+        <view class="filter-tags">
+          <text wx:for="{{cardType}}" wx:key="{{item.name}}" data-id="{{item.name}}" bindtap="chooseCardType" class="{{item.checked?'active':''}}" style="color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="group-body">
+        <view class="filter-tags">
+          <text wx:for="{{cardSpec}}" wx:key="{{item.name}}" data-id="{{item.name}}" bindtap="chooseCardSpec" class="{{item.checked?'active':''}}" style="color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="group-header" style="background: {{model==1?'#7B7B7B':'#f9f9f9'}};color:{{model==1?'lightgrey':'black'}}">特性
+        <view style='font-weight:normal;margin-left:80rpx;'>
+          <radio-group class="radio-group" bindchange="propAllMatchChange">
+            <label class="radio" style='font-size: 26rpx;'>
+              <radio value="1" style='transform:scale(.8); ' checked="{{propAllMatch==1}}" />同时匹配
+              <radio value="0" style='transform:scale(.8); ' checked="{{propAllMatch==0}}" />任意匹配
+            </label>
+          </radio-group>
+        </view>
+      </view>
+      <view class="group-body">
+        <view class="filter-tags">
+          <text wx:for="{{props}}" wx:key="{{item.name}}" data-id="{{item.name}}" bindtap="chooseProps" class="{{item.checked?'active':''}}" style="color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="container-footer">
+      <view style='width:40%;'>
+        <button catchtap="powerDrawer" style='height:40px;;line-height:40px;' data-statu="close" data-oper="cancel">
+          取消
+        </button>
+      </view>
+      <view style='padding-left:10rpx;width:60%'>
+        <button type="primary" style='height:40px;;line-height:40px;' data-statu="close" data-oper="confirm" catchtap="powerDrawer">确定</button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{!showfilter}}">
+    <scroll-view scroll-y="true" style="height: {{pageHeight+'px'}};background: {{model==1?'#7B7B7B':'#FFFFFF'}}" bindscrolltolower="loadImgList">
+      <view class="weui-grids">
+        <block wx:for="{{showList}}" wx:key="id">
+            <view class="weui-grid">
+              <view class="weui-grid__icon" data-index='{{item.id}}' catchtap='showCardDetail'>
+                <view class="relative">
+                  <image class="view_grid_img pic_background" src="{{item.imgPath}}"></image>
+                </view>
+              </view>
+            </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+</view>

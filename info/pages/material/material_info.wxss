@@ -1,0 +1,27 @@
+/* pages/material/material_info.wxss */
+.weui-navbar__slider {
+  width: 375rpx;
+  font-size: 40rpx;
+}
+.weui-form-preview__label1{
+  font-size: 36rpx;
+  color: green;
+}
+.weui-cell__bd{
+  display: flex;  
+  flex-direction: column;  
+}
+.rank{
+  font-size: 30rpx;
+  color: gray;
+}
+
+.item1 {
+  font-size: 15px;
+  color: white;
+  padding:5px; 
+  text-align: center;
+  background-color: green;
+  height: 18px;
+  line-height: 18px;
+}

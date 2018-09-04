@@ -1,0 +1,90 @@
+<!--pages/event/event.wxml-->
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+    <view class="weui-cell">
+      <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+        <radio-group class="radio-group" bindchange="starChange">
+          <label class="radio " style='font-size: 26rpx;'>
+            <radio value="5" style='transform:scale(.8);' checked="{{star==5}}" />五星
+            <radio value="4" style='transform:scale(.8);' checked="{{star==4}}" />四星
+            <radio value="3" style='transform:scale(.8);' checked="{{star==3}}" />三星
+            <radio value="2" style='transform:scale(.8);' checked="{{star==2}}" />二星
+            <radio value="1" style='transform:scale(.8);' checked="{{star==1}}" />一星
+          </label>
+        </radio-group>
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFF'}}">
+    <view class="weui-cell" catchtap='toggleDialog'>
+      <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+        规划等级:
+        <text class='c--f60'>{{lvMin}}→{{lvMax}}</text>
+      </view>
+    </view>
+  </view>
+  <button class="weui-btn" style='width:90%' type="primary" catchtap="calculateExp">计算</button>
+  <view wx:if="reqInfo.lenght>0" style="padding-top:40rpx;">
+  <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+    <view class="weui-cell">
+      <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+        <radio-group class="radio-group" bindchange="isSameChange">
+          <label class="radio " style='font-size: 26rpx;'>
+            <radio value="1" style='transform:scale(.8);' checked="{{isSame==1}}" />同职介狗粮
+            <radio value="0" style='transform:scale(.8);' checked="{{isSame==0}}" />不同职介狗粮
+          </label>
+        </radio-group>
+      </view>
+    </view>
+  </view>
+    <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+      <view class="weui-cell">
+        <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+          <text>合计：</text>
+          <image src="/images/material/4StarExp.png" class="mat_img"></image>
+          <text class='c--f60'>*{{total.goldCount}}</text>
+          <image src="/images/material/3StarExp.png" class="mat_img"></image>
+          <text class='c--f60'>*{{total.silCount}}</text>
+          <image src="/images/qb.jpg" class="mat_img"></image>
+          <text class='c--f60'>*{{total.QP}}万</text>
+        </view>
+        <view wx:if="{{total.CUP > 0}}">
+          <image src="/images/material/cup.jpg" class='mat_img'></image>
+          <text class='c--f60'>*{{total.CUP}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}" wx:for="{{req}}" wx:key="{{index}}">
+      <view class="weui-cell">
+        <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+          <text>{{item.lv[0]}}~{{item.lv[1]}}:</text>
+          <image src="/images/material/4StarExp.png" class="mat_img"></image>
+          <text class='c--f60'>*{{item.goldCount}}</text>
+          <image src="/images/material/3StarExp.png" class="mat_img"></image>
+          <text class='c--f60'>*{{item.silCount}}</text>
+          <image src="/images/qb.jpg" class="mat_img"></image>
+          <text class='c--f60'>*{{item.RANKQP+item.qp}}</text>
+        </view>
+        <image wx:if="{{item.CUP == 1}}" src="/images/material/cup.jpg" class='mat_img'></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="free-dialog {{ showDialog ? 'free-dialog--show' : '' }}">
+    <view class="free-dialog__mask" bindtap="toggleDialog" />
+    <view class="free-dialog__container" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'#707070'}}">
+      <view style="padding:2% 2% 5%;">
+        <view class="free-button free-dialog-reset">请点击选择起始等级和目标等级</view>
+        <view class="table">
+          <view class='tr' wx:for="{{[0,1,2,3,4,5,6,7,8,9]}}" wx:key="{{index}}" wx:for-item="i">
+            <view class='td' wx:for="{{[1,2,3,4,5,6,7,8,9,10]}}" wx:key="{{index}}" wx:for-item="j">
+              <view class='{{((i*10+j)==lvMin||(i*10+j)==lvMax)?"selected":(((i*10+j)>lvMin&&(i*10+j)<lvMax)?"area":"")}}' data-index="{{i*10+j}}" catchtap="lvChange">
+                {{i*10+j}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

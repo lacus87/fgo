@@ -1,0 +1,20 @@
+/* pages/setting/setting_tools.wxss */
+.weui-navbar__slider {
+  width: 375rpx;
+}
+
+.rank{
+  font-size: 15px;
+  color: gray;
+}
+.rank1{
+  font-size: 10px;
+  color: gray;
+}
+
+.info{
+  font-size: 40rpx;
+  padding-left: 20px;
+  padding-top: 5px;
+  display: flex;
+}

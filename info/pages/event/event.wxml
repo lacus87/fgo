@@ -1,0 +1,36 @@
+<!--pages/event/event.wxml-->
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <block wx:for="{{eventList}}" wx:key="id">
+    <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <view class="weui-cell">
+        <view class="weui-cell__bd" bindtap='showDetail' data-index="{{item.id}}" style='color:{{model==1?"lightgrey":"black"}}'>{{item.name}}</view>
+        <block wx:if="{{item.type == 2}}">
+          <view class="weui-cell__ft">
+            <image src="/images/detail.png" data-index="{{item.id}}" style="width:30px; height: 30px;" catchtap='showEventDetail'></image>
+          </view>
+        </block>
+        <block wx:if="{{item.exit == 0}}">
+          <view class="weui-cell__ft">
+            <switch style='margin-left: 20px;' checked="{{item.flag == 1}}" catchchange="switchChange" data-index="{{item.id}}" />
+          </view>
+        </block>
+      </view>
+      <block wx:if="{{item.show == 1}}">
+        <scroll-view scroll-y="true" style="height: 250px;background:{{model==1?'#9D9D9D':'#F0F0F0'}}">
+          <block wx:for="{{item.material}}" wx:key="{{index}}" wx:for-item="items">
+            <view class="weui-cell">
+              <view class="weui-cell__hd">
+                <image src="{{items.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+              </view>
+              <view class="weui-cell__bd">{{items.name}}*{{items.count>10000?items.count/10000+'万':items.count}}</view>
+              <view class="weui-cell__ft" style='font-size:12px;color:{{model==1?"lightgrey":"grey"}}'>现有：{{items.ownCount}}(活动{{items.eventCount>10000?items.eventCount/10000+'万':items.eventCount}})</view>
+            </view>
+          </block>
+        </scroll-view>
+      </block>
+    </view>
+  </block>
+  <block wx:if="{{eventList.length>0}}">
+    <button class="weui-btn" style='width:90%' type="primary" catchtap="clearEventInfo">还原活动设置</button>
+  </block>
+</view>

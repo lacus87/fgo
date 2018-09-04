@@ -1,14 +1,14 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.5.4",
+	"libVersion": "2.2.1",
 	"appid": "wx47209fe8bea2a0fe",
 	"projectname": "fgo",
 	"condition": {
@@ -20,9 +20,42 @@
 			"current": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"plugin": {
 			"current": -1,
 			"list": []
+		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 1,
+			"list": [
+				{
+					"id": 0,
+					"name": "掉落",
+					"pathName": "info/pages/servant/servant_detail",
+					"query": "id=1002&count=12"
+				},
+				{
+					"id": 1,
+					"name": "帮助",
+					"pathName": "info/pages/card/card_detail",
+					"query": "id=754"
+				},
+				{
+					"id": 2,
+					"name": "工具",
+					"pathName": "info/pages/card/card",
+					"query": "id=1012"
+				},
+				{
+					"id": 3,
+					"name": "工具",
+					"pathName": "info/pages/index/exp_calculate",
+					"query": "id=1012"
+				}
+			]
 		}
 	}
 }

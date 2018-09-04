@@ -1,0 +1,53 @@
+/* pages/servant/servant_detail.wxss */
+
+.tr{
+  display: flex;
+  flex-direction: row;
+  padding: 0rpx 20rpx;
+}
+
+.th{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.td{
+  background:  #dfffdf;
+  min-height: 60rpx;
+  line-height: 60rpx;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid lightgray;
+}
+
+.three{
+  height: 60rpx;
+}
+
+.title{
+  font-size: 32rpx;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+.text{
+  font-size: 30rpx;
+  text-align: center;
+  width: 100%;
+}
+
+.small{
+  font-size:24rpx;
+}
+
+.bg-w {
+  background: #e6f3f9;
+}
+
+.card_img{
+  width: 160rpx;
+  height: 176rpx;
+  padding: 6rpx 10rpx 6rpx 10rpx;
+}

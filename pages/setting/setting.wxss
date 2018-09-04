@@ -1,7 +1,7 @@
 /* pages/material/material_info.wxss */
 
 .weui-navbar__slider {
-  width: 10em;
+  width: 375rpx;
 }
 
 .weui-form-preview__item {

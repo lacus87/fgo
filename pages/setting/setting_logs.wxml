@@ -1,5 +1,19 @@
 <page style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
 <view class="info">
+  <text class='important'>08-31：</text>酝酿很久的宝具动画试运行...如果流量消耗太大可能会下线(*^▽^*)</view>
+<view class="info">
+  <text class='important'>08-30：</text>更新狗粮计算器</view>
+<view class="info">
+  <text class='important'>08-24：</text>礼装数据终于录完了...</view>
+<view class="info">
+  <text class='important'>08-21：</text>增加卡池信息</view>
+<view class="info">
+  <text class='important'>08-02：</text>规划增加支持重复英灵、批量操作</view>
+<view class="info">
+  <text class='important'>07-20：</text>优化UI，增加宝具、技能强化历史记录</view>
+<view class="info">
+  <text class='important'>03-12：</text>增加宝具伤害计算,默认满级1000芙芙</view>
+<view class="info">
   <text class='important'>02-01：</text>开启素材图像解析试用功能</view>
 <view class="info">
   <text class='important'>01-26：</text>可以在规划页面点击头像进入英灵详情</view>

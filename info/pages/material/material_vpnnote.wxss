@@ -1,0 +1,11 @@
+page{
+    background-color: #FFFFFF;
+}
+image{
+    margin: 4px 0;
+}
+
+.c--f60{color: #f60;}
+.c--green{color: #2aa515;}
+.c--red{color: red;}
+.c--grey{color: #ADADAD;}

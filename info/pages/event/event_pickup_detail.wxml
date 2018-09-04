@@ -1,0 +1,67 @@
+<!--pages/event/event.wxml-->
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'black'}};">
+  <image src='{{curPickup.imgPath}}' style='width:{{width+"px"}}; height:{{width*9/25+"px"}}'></image>
+  <view class="carts-list">
+    <view class="itemList">
+      <view class="item1" data-index='-1' catchtap='changeView'>上一个</view>
+      <view class="item1" data-index='1' catchtap='changeView'>下一个</view>
+    </view>
+  </view>
+  <view class='info' style='font-size:{{item.name.length>20?"22rpx":"26rpx"}}'>
+    <view>{{curPickup.name}}</view>
+    <view wx:if="curPickup.info != ''">{{curPickup.info}}</view>
+  </view>
+  <view class="info">
+    <text style="font-size:22rpx;">卡池时间：{{curPickup.date}}</text>
+  </view>
+  <view class="info">
+    <text style="font-size:22rpx;">礼装UP：{{curPickup.card == ''?'无':curPickup.card}}</text>
+  </view>
+  
+  <view style='padding-top:10rpx;' wx:for="{{servantList}}" wx:key="{{index}}">
+    <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#959595':'#FFFFFF'}};font-size:26rpx;">
+      <view class="info" wx:if="{{index == 0}}">
+        <image src='/images/star.png' style='width:30rpx;height:30rpx;' />从者当期有单独UP</view>
+      <view class="weui-cell" style='color:{{model==1?"lightgrey":"black"}};'>
+        <view style='width:15%;'>五星：</view>
+        <view class="weui-grids">
+          <block wx:for="{{item}}" wx:key="{{items.servantId}}" wx:for-item="items">
+            <view class="weui-grid" wx:if="{{items.rarity==5}}">
+              <view class="weui-grid__icon" data-index='{{items.servantId}}' catchtap='showServantDetail'>
+                <view class="relative">
+                  <image class="view_grid_img pic_background" src="{{items.imgPath}}"></image>
+                  <view class="container_text" wx:if="{{items.ownFlag == 1}}">
+                    <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                  </view>
+                  <view class="container_text" wx:if="{{items.pickType == 1}}" style='margin-top:-2rpx;margin-left:-15rpx;'>
+                    <image src='/images/star.png' style='width:30rpx;height:30rpx;' />
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+      <view class="weui-cell " style='color:{{model==1?"lightgrey ":"black "}};font-size:26rpx;'>
+        <view style='width:15%;'>四星：</view>
+        <view class="weui-grids">
+          <block wx:for="{{item}}" wx:key="{{items.servantId}}" wx:for-item="items">
+            <view class="weui-grid" wx:if="{{items.rarity==4}}">
+              <view class="weui-grid__icon" data-index='{{items.servantId}}' catchtap='showServantDetail'>
+                <view class="relative">
+                  <image class="view_grid_img pic_background" src="{{items.imgPath}}"></image>
+                  <view class="container_text" wx:if="{{items.ownFlag == 1}}">
+                    <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                  </view>
+                  <view class="container_text" wx:if="{{items.pickType == 1}}" style='margin-top:-2rpx;margin-left:-15rpx;'>
+                    <image src='/images/star.png' style='width:30rpx;height:30rpx;' />
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

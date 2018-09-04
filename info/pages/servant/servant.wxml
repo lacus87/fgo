@@ -1,0 +1,440 @@
+<view class="page" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="page__hd" style="width:100%;height:45px;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+    <view class="weui-search-bar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};border:0px;">
+      <view class="weui-search-bar__form" style='width:350rpx;'>
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindconfirm="inputTyping" bindinput="inputChange" confirm-type="search" />
+          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="item1" style='margin-top:13px;margin-right:20rpx;width:100rpx;' catchtap='switchChange'>{{flag==1?'关注':(flag==2?'其他':'全部')}}</view>
+    <view class="filter-tab item1" style="margin-top:13px;background: {{model==1?'#7B7B7B':'#F0F0F0'}}; border:none;color:#000000">
+      <text bindtap="setFilterPanel" data-findex="1" class="{{showfilterindex==1?'active':''}}">筛选</text>
+    </view>
+  </view>
+  <view class="filter-flex" wx:if="{{showfilter}}">
+    <scroll-view scroll-y="true" class="filter-content"  style="height: {{pageHeight-40}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <view class="group-header" style="background: {{model==1?'#7B7B7B':'#f9f9f9'}};color:{{model==1?'lightgrey':'black'}}">显示</view>
+      <view class="group-body" style='display: flex; flex-direction: row;'>
+        <view class="filter-tags" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}};color:{{model==1?'lightgrey':'black'}};margin-left:20rpx;">
+          <radio-group class="radio-group" bindchange="showTypeChange">
+            <label class="radio " style='font-size: 26rpx;'>
+              <radio value="1" style='transform:scale(.8);' checked="{{showType==1}}" />列表
+              <radio value="2" style='transform:scale(.8);' checked="{{showType==2}}" />头像
+            </label>
+          </radio-group>
+        </view>
+        <view class="filter-tags" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}};color:{{model==1?'lightgrey':'black'}};margin-left:120rpx;">
+          <radio-group class="radio-group" bindchange="sortTypeChange">
+            <label class="radio " style='font-size: 26rpx;'>
+              <radio value="1" style='transform:scale(.8);' checked="{{cur==1}}" />正序
+              <radio value="2" style='transform:scale(.8);' checked="{{cur==0}}" />逆序
+            </label>
+          </radio-group>
+        </view>
+      </view>
+      <view class="group-header" style="background: {{model==1?'#7B7B7B':'#f9f9f9'}};color:{{model==1?'lightgrey':'black'}}">星级</view>
+      <view class="group-body">
+        <view class="filter-tags" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}};margin-left:20rpx;">
+          <checkbox-group bindchange="checkboxChange" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <label wx:for="{{checkboxItemsTemp}}" wx:key="value" style='color:{{model==1?"lightgrey":"black"}}'>
+              <icon class="weui-icon-checkbox_circle" type="circle" size="15" wx:if="{{!item.checked}}"></icon>
+              <icon class="weui-icon-checkbox_success" type="success" size="15" wx:if="{{item.checked}}"></icon>
+              <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+            </label>
+          </checkbox-group>
+        </view>
+      </view>
+      <view class="group-header" style="background: {{model==1?'#7B7B7B':'#f9f9f9'}};color:{{model==1?'lightgrey':'black'}}">宝具</view>
+      <view class="group-body">
+        <view class="filter-tags">
+          <text wx:for="{{cardType}}" wx:key="{{item.name}}" data-id="{{item.name}}" bindtap="chooseCardType" class="{{item.checked?'active':''}}" style="color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="group-body">
+        <view class="filter-tags">
+          <text wx:for="{{cardSpec}}" wx:key="{{item.name}}" data-id="{{item.name}}" bindtap="chooseCardSpec" class="{{item.checked?'active':''}}" style="color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="group-header" style="background: {{model==1?'#7B7B7B':'#f9f9f9'}};color:{{model==1?'lightgrey':'black'}}">阵营&性别</view>
+      <view class="group-body">
+        <view class="filter-tags">
+          <text wx:for="{{camp1}}" wx:key="{{item.name}}" data-id="{{item.name}}" bindtap="chooseCamp1" class="{{item.checked?'active':''}}" style="color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="group-body">
+        <view class="filter-tags">
+          <text wx:for="{{camp2}}" wx:key="{{item.name}}" data-id="{{item.name}}" bindtap="chooseCamp2" class="{{item.checked?'active':''}}" style="color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="group-body">
+        <view class="filter-tags">
+          <text wx:for="{{camp3}}" wx:key="{{item.name}}" data-id="{{item.name}}" bindtap="chooseCamp3" class="{{item.checked?'active':''}}" style="color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="group-body">
+        <view class="filter-tags">
+          <text wx:for="{{sex}}" wx:key="{{item.name}}" data-id="{{item.name}}" bindtap="chooseSex" class="{{item.checked?'active':''}}" style="color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="group-header" style="background: {{model==1?'#7B7B7B':'#f9f9f9'}};color:{{model==1?'lightgrey':'black'}}">特性
+        <view style='font-weight:normal;margin-left:80rpx;'>
+          <radio-group class="radio-group" bindchange="propAllMatchChange">
+            <label class="radio" style='font-size: 26rpx;'>
+              <radio value="1" style='transform:scale(.8); ' checked="{{propAllMatch==1}}" />同时匹配
+              <radio value="0" style='transform:scale(.8); ' checked="{{propAllMatch==0}}" />任意匹配
+            </label>
+          </radio-group>
+        </view>
+      </view>
+      <view class="group-body">
+        <view class="filter-tags">
+          <text wx:for="{{props}}" wx:key="{{item.name}}" data-id="{{item.name}}" bindtap="chooseProps" class="{{item.checked?'active':''}}" style="color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+        </view>
+      </view>
+      
+
+    </scroll-view>
+    <view class="container-footer">
+        <view style='width:40%;'>
+          <button catchtap="powerDrawer" style='height:40px;;line-height:40px;' data-statu="close" data-oper="cancel">
+            取消
+          </button>
+        </view>
+        <view style='padding-left:10rpx;width:60%'>
+          <button type="primary" style='height:40px;;line-height:40px;' data-statu="close" data-oper="confirm" catchtap="powerDrawer">确定</button>
+        </view>
+      </view>
+  </view>
+
+  <view>
+    <view class="weui-tab" wx:if="{{!showfilter}}">
+      <view class="weui-navbar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+        <block wx:for="{{tabs}}" wx:key="{{index}}">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" catchtap="tabClick">
+            <view class="weui-navbar__title" style="color:{{activeIndex == index ?(model==1?'lightgreen':'green'):(model==1?'white':'black')}}">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <scroll-view class="weui-tab__panel" scroll-y="true" style="height: {{pageHeight+'px'}};background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+        <block wx:if="{{showType=='1'}}">
+          <view hidden="{{activeIndex != 0}}">
+            <block wx:for="{{loadList}}" wx:key="id">
+              <block wx:if="{{(item.flag==flag%2)||flag==0}}">
+                <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__hd">
+                    <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:76rpx; height: 80rpx;"></image>
+                  </view>
+                  <view class="weui-cell__bd" style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}
+                    <view class="rank" style='font-size:22rpx;'>{{item.additionDesc}}
+                    </view>
+                  </view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </block>
+          </view>
+          <view style='font-size:15px;color:red;'>{{errMsg}}</view>
+          <view hidden="{{activeIndex != 1}}">
+            <block wx:for="{{loadList}}" wx:key="{{item.id}}">
+              <block wx:if="{{item.clazz == 'SABER'&&((item.flag==flag%2)||flag==0)}}">
+                <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__hd">
+                    <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:76rpx; height: 80rpx;"></image>
+                  </view>
+                  <view class="weui-cell__bd" style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}
+                    <view class="rank" style='font-size:22rpx;'>{{item.additionDesc}}
+                    </view>
+                  </view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </block>
+          </view>
+          <view hidden="{{activeIndex != 2}}">
+            <block wx:for="{{loadList}}" wx:key="{{item.id}}">
+              <block wx:if="{{item.clazz == 'ARCHER'&&((item.flag==flag%2)||flag==0)}}">
+                <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__hd">
+                    <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:76rpx; height: 80rpx;"></image>
+                  </view>
+                  <view class="weui-cell__bd" style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}
+                    <view class="rank" style='font-size:22rpx;'>{{item.additionDesc}}
+                    </view>
+                  </view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </block>
+          </view>
+          <view hidden="{{activeIndex != 3}}">
+            <block wx:for="{{loadList}}" wx:key="{{item.id}}">
+              <block wx:if="{{item.clazz == 'LANCER'&&((item.flag==flag%2)||flag==0)}}">
+                <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__hd">
+                    <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:76rpx; height: 80rpx;"></image>
+                  </view>
+                  <view class="weui-cell__bd" style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}
+                    <view class="rank" style='font-size:22rpx;'>{{item.additionDesc}}
+                    </view>
+                  </view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </block>
+          </view>
+          <view hidden="{{activeIndex != 4}}">
+            <block wx:for="{{loadList}}" wx:key="{{item.id}}">
+              <block wx:if="{{item.clazz == 'RIDER'&&((item.flag==flag%2)||flag==0)}}">
+                <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__hd">
+                    <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:76rpx; height: 80rpx;"></image>
+                  </view>
+                  <view class="weui-cell__bd" style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}
+                    <view class="rank" style='font-size:22rpx;'>{{item.additionDesc}}
+                    </view>
+                  </view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </block>
+          </view>
+          <view hidden="{{activeIndex != 5}}">
+            <block wx:for="{{loadList}}" wx:key="{{item.id}}">
+              <block wx:if="{{item.clazz == 'CASTER'&&((item.flag==flag%2)||flag==0)}}">
+                <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__hd">
+                    <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:76rpx; height: 80rpx;"></image>
+                  </view>
+                  <view class="weui-cell__bd" style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}
+                    <view class="rank" style='font-size:22rpx;'>{{item.additionDesc}}
+                    </view>
+                  </view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </block>
+          </view>
+          <view hidden="{{activeIndex != 6}}">
+            <block wx:for="{{loadList}}" wx:key="{{item.id}}">
+              <block wx:if="{{item.clazz == 'ASSASSIN'&&((item.flag==flag%2)||flag==0)}}">
+                <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__hd">
+                    <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:76rpx; height: 80rpx;"></image>
+                  </view>
+                  <view class="weui-cell__bd" style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}
+                    <view class="rank" style='font-size:22rpx;'>{{item.additionDesc}}
+                    </view>
+                  </view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </block>
+          </view>
+          <view hidden="{{activeIndex != 7}}">
+            <block wx:for="{{loadList}}" wx:key="{{item.id}}">
+              <block wx:if="{{item.clazz == 'BERSERKER'&&((item.flag==flag%2)||flag==0)}}">
+                <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__hd">
+                    <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:76rpx; height: 80rpx;"></image>
+                  </view>
+                  <view class="weui-cell__bd" style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}
+                    <view class="rank" style='font-size:22rpx;'>{{item.additionDesc}}
+                    </view>
+                  </view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </block>
+          </view>
+          <view hidden="{{activeIndex != 8}}">
+            <block wx:for="{{loadList}}" wx:key="{{item.id}}">
+              <block wx:if="{{item.clazz != 'SABER'&&item.clazz != 'ARCHER'&& item.clazz != 'LANCER'&&item.clazz != 'BERSERKER'&&item.clazz != 'RIDER'&&item.clazz != 'CASTER'&&item.clazz != 'ASSASSIN'&&((item.flag==flag%2)||flag==0)}}">
+                <navigator url="servant_detail?id={{item.id}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__hd">
+                    <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:76rpx; height: 80rpx;"></image>
+                  </view>
+                  <view class="weui-cell__bd" style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}
+                    <view class="rank" style='font-size:22rpx;'>{{item.additionDesc}}
+                    </view>
+                  </view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </block>
+          </view>
+        </block>
+        <block wx:if="{{showType=='2'}}">
+          <view hidden="{{activeIndex != 0}}">
+            <view class="weui-grids">
+              <block wx:for="{{loadList}}" wx:key="id">
+                <block wx:if="{{(item.flag==flag%2)||flag==0}}">
+                  <view class="weui-grid">
+                    <view class="weui-grid__icon" data-index='{{item.id}}' catchtap='showServantDetail'>
+                      <view class="relative">
+                        <image class="view_grid_img pic_background" src="{{item.imgPath}}"></image>
+                        <view class="container_text" wx:if="{{item.flag==1}}">
+                          <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </block>
+            </view>
+          </view>
+          <view style='font-size:15px;color:red;'>{{errMsg}}</view>
+          <view hidden="{{activeIndex != 1}}">
+            <view class="weui-grids">
+              <block wx:for="{{loadList}}" wx:key="id">
+                <block wx:if="{{item.clazz == 'SABER'&&((item.flag==flag%2)||flag==0)}}">
+                  <view class="weui-grid">
+                    <view class="weui-grid__icon" data-index='{{item.id}}' catchtap='showServantDetail'>
+                      <view class="relative">
+                        <image class="view_grid_img pic_background" src="{{item.imgPath}}"></image>
+                        <view class="container_text" wx:if="{{item.flag==1}}">
+                          <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </block>
+            </view>
+          </view>
+          <view hidden="{{activeIndex != 2}}">
+            <view class="weui-grids">
+              <block wx:for="{{loadList}}" wx:key="id">
+                <block wx:if="{{item.clazz == 'ARCHER'&&((item.flag==flag%2)||flag==0)}}">
+                  <view class="weui-grid">
+                    <view class="weui-grid__icon" data-index='{{item.id}}' catchtap='showServantDetail'>
+                      <view class="relative">
+                        <image class="view_grid_img pic_background" src="{{item.imgPath}}"></image>
+                        <view class="container_text" wx:if="{{item.flag==1}}">
+                          <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </block>
+            </view>
+          </view>
+          <view hidden="{{activeIndex != 3}}">
+            <view class="weui-grids">
+              <block wx:for="{{loadList}}" wx:key="id">
+                <block wx:if="{{item.clazz == 'LANCER'&&((item.flag==flag%2)||flag==0)}}">
+                  <view class="weui-grid">
+                    <view class="weui-grid__icon" data-index='{{item.id}}' catchtap='showServantDetail'>
+                      <view class="relative">
+                        <image class="view_grid_img pic_background" src="{{item.imgPath}}"></image>
+                        <view class="container_text" wx:if="{{item.flag==1}}">
+                          <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </block>
+            </view>
+          </view>
+          <view hidden="{{activeIndex != 4}}">
+            <view class="weui-grids">
+              <block wx:for="{{loadList}}" wx:key="id">
+                <block wx:if="{{item.clazz == 'RIDER'&&((item.flag==flag%2)||flag==0)}}">
+                  <view class="weui-grid">
+                    <view class="weui-grid__icon" data-index='{{item.id}}' catchtap='showServantDetail'>
+                      <view class="relative">
+                        <image class="view_grid_img pic_background" src="{{item.imgPath}}"></image>
+                        <view class="container_text" wx:if="{{item.flag==1}}">
+                          <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </block>
+            </view>
+          </view>
+          <view hidden="{{activeIndex != 5}}">
+            <view class="weui-grids">
+              <block wx:for="{{loadList}}" wx:key="id">
+                <block wx:if="{{item.clazz == 'CASTER'&&((item.flag==flag%2)||flag==0)}}">
+                  <view class="weui-grid">
+                    <view class="weui-grid__icon" data-index='{{item.id}}' catchtap='showServantDetail'>
+                      <view class="relative">
+                        <image class="view_grid_img pic_background" src="{{item.imgPath}}"></image>
+                        <view class="container_text" wx:if="{{item.flag==1}}">
+                          <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </block>
+            </view>
+          </view>
+          <view hidden="{{activeIndex != 6}}">
+            <view class="weui-grids">
+              <block wx:for="{{loadList}}" wx:key="id">
+                <block wx:if="{{item.clazz == 'ASSASSIN'&&((item.flag==flag%2)||flag==0)}}">
+                  <view class="weui-grid">
+                    <view class="weui-grid__icon" data-index='{{item.id}}' catchtap='showServantDetail'>
+                      <view class="relative">
+                        <image class="view_grid_img pic_background" src="{{item.imgPath}}"></image>
+                        <view class="container_text" wx:if="{{item.flag==1}}">
+                          <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </block>
+            </view>
+          </view>
+          <view hidden="{{activeIndex != 7}}">
+            <view class="weui-grids">
+              <block wx:for="{{loadList}}" wx:key="id">
+                <block wx:if="{{item.clazz == 'BERSERKER'&&((item.flag==flag%2)||flag==0)}}">
+                  <view class="weui-grid">
+                    <view class="weui-grid__icon" data-index='{{item.id}}' catchtap='showServantDetail'>
+                      <view class="relative">
+                        <image class="view_grid_img pic_background" src="{{item.imgPath}}"></image>
+                        <view class="container_text" wx:if="{{item.flag==1}}">
+                          <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </block>
+            </view>
+          </view>
+          <view hidden="{{activeIndex != 8}}">
+            <view class="weui-grids">
+              <block wx:for="{{loadList}}" wx:key="id">
+                <block wx:if="{{item.clazz != 'SABER'&&item.clazz != 'ARCHER'&& item.clazz != 'LANCER'&&item.clazz != 'BERSERKER'&&item.clazz != 'RIDER'&&item.clazz != 'CASTER'&&item.clazz != 'ASSASSIN'&&((item.flag==flag%2)||flag==0)}}">
+                  <view class="weui-grid">
+                    <view class="weui-grid__icon" data-index='{{item.id}}' catchtap='showServantDetail'>
+                      <view class="relative">
+                        <image class="view_grid_img pic_background" src="{{item.imgPath}}"></image>
+                        <view class="container_text" wx:if="{{item.flag==1}}">
+                          <image src='/images/cared.png' style='width:30rpx;height:30rpx;' />
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </block>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+</view>

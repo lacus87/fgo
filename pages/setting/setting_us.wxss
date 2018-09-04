@@ -1,8 +1,8 @@
 /* pages/setting/setting_help.wxss */
 .info{
-  font-size: 15px;
-  padding-left: 20px;
-  padding-top: 5px;
+  font-size: 26rpx;
+  padding-left: 40rpx;
+  padding-top: 10rpx;
   display: flex;
 }
 .info .important{

@@ -1,0 +1,82 @@
+/* pages/index/bar.wxss */
+.free-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+}
+.free-dialog__container {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  transform: translateY(150%);
+  transition: all 0.4s ease;
+  z-index: 11;
+}
+.free-dialog--show .free-dialog__container {
+  transform: translateY(0);
+}
+.free-dialog--show .free-dialog__mask {
+  display: block;
+}
+/*模态框中的内容*/
+.free-button{
+  display: inline-block;
+  width:100%;
+  text-align: center;
+  font-size:40rpx;
+  margin-bottom:20rpx;
+}
+.free-dialog-submit{
+  float: right;
+  color:#48c23d;
+}
+
+.c--f60 {
+  color: #f60;
+}
+
+.table{
+  display: flex;
+  flex-direction: column;
+}
+
+.tr{
+  display: flex;
+  flex-direction: row;
+}
+
+.td{
+  flex: 1;
+  background: #e6f3f9;
+  border: 1px solid lightgray;
+  margin: 4rpx 2rpx;
+  text-align: center;
+}
+
+.area{
+  background: #dfffdf;
+}
+
+.selected{
+  color: #f60;
+  background: #dfffdf;
+}
+
+.mat_img{
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 20rpx;
+  margin-right: 10rpx;
+  vertical-align: middle;
+}
+
+.weui-cell{
+  font-size: 26rpx;
+}

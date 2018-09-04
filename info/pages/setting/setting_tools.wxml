@@ -1,0 +1,113 @@
+<view>
+  <view class="weui-tab">
+    <view class="weui-navbar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+      <block wx:for="{{tabs}}" wx:key="{{index}}">
+        <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+          <view class="weui-navbar__title" style="color:{{activeIndex == index ?(model==1?'lightgreen':'green'):(model==1?'white':'black')}}">{{item}}
+          </view>
+        </view>
+      </block>
+
+      <view class="weui-navbar__slider " style="left: 0px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); "></view>
+    </view>
+    <view hidden="{{activeIndex !=0 }}">
+      <scroll-view class="weui-tab__panel " scroll-y="true " style="height: {{pageHeight}}px;background: {{model==1? '#7B7B7B':'#F0F0F0'}} ">
+        <block wx:for="{{materialList}}" wx:key="id">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">
+              <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" data-id='{{index}}'>
+                <view class="picker" style='font-size:36rpx;margin-left:10px;'>
+                  {{item.name}}
+                </view>
+              </picker>
+            </view>
+            <view class="weui-search-bar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};border:0px;">
+              <view class="weui-search-bar__form" style='width:250rpx;height:60rpx;'>
+                <view class="weui-search-bar__box">
+                  <input type="number" maxlength='3' class="weui-search-bar__input" placeholder="需求数" value="{{item.count == 0?'':item.count}}" bindinput="inputChange" data-id='{{index}}' />
+                </view>
+              </view>
+            </view>
+            <view class="weui-cell__ft" style='margin-left:50rpx;'>
+              <icon type="clear" size="20" bindtap="deleteMaterial" data-id="{{index}}" />
+            </view>
+          </view>
+        </block>
+        <view class="weui-cell weui-cell_access">
+          <view class="weui-cell__bd">
+            <image src='/images/add_black.png' style='width:60rpx; height:60rpx; ' catchtap='addMaterial'></image>
+            <button class="weui-btn" type="primary" size='mini' catchtap='queryRoute' style='margin-left:150rpx;width:300rpx; height:60rpx; '>查询</button>
+          </view>
+        </view>
+
+        <block wx:if="{{dropList.totalCount> 0}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">
+              <view style='color:{{model==1?"lightgrey":"black"}}'>战斗总数：{{dropList.totalCount}}</view>
+            </view>
+            <view class="weui-cell__ft" style='margin-left:50rpx;'>
+              总消耗：{{dropList.totalAp}}AP
+            </view>
+          </view>
+        </block>
+        <block wx:for="{{dropList.mapList}}" wx:key="id">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd" data-id = "{{item.name}}" catchtap='showMapDetail'>
+              <view style='color:{{model==1?"lightgrey":"black"}}'>{{item.name}}</view>
+              <view class="rank1" style='color:{{model==1?"lightgrey":"grey"}}'>掉落：{{item.desc}}</view>
+            </view>
+            <view class="weui-cell__ft" style='margin-left:50rpx;'>
+              {{item.count}}次*{{item.ap}}AP
+            </view>
+          </view>
+        </block>
+
+      </scroll-view>
+    </view>
+    <view hidden="{{activeIndex != 1}}">
+      <scroll-view class="weui-tab__panel " scroll-y="true " style="height: {{pageHeight}}px;background: {{model==1? '#7B7B7B':'#F0F0F0'}} ">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <picker mode="multiSelector" bindchange="bindMultiPickerChange2" bindcolumnchange="bindMultiPickerColumnChange2" value="{{multiIndex2}}" bindcancel="bindcancel" range="{{multiArray2}}">
+              <view class="picker">
+                已选择：{{chooseMap}}
+              </view>
+            </picker>
+          </view>
+        </view>
+        <block wx:for="{{curMap}}" wx:key="id">
+          <view class="weui-form-preview" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <!-- <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                  <view class="weui-form-preview__label weui-form-preview__label1" style='color:{{model==1?"lightgreen":"green"}}'>{{item.ap}}AP</view>
+                </view>
+              </view> -->
+            <view class="weui-form-preview__bd">
+              <block wx:for="{{item.stage}}" wx:key="{{index}}" wx:for-item="items">
+                <view class="weui-form-preview__item">
+                  <view class="weui-form-preview__label" style='font-size:12px;text-align-last:left;'>战斗{{index+1}}/{{item.stage.length}}：{{items}}</view>
+                </view>
+              </block>
+
+            </view>
+          </view>
+        </block>
+        <block wx:for="{{mapDropList}}" wx:key="{{index}}" wx:for-item="item">
+          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <view class="weui-cell">
+              <view class="weui-cell__hd">
+                <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:60rpx; height: 60rpx;"></image>
+              </view>
+              <view class="weui-cell__bd" bindtap='showDetail' data-index="{{item.id}}" style='color:{{model==1?"lightgrey":"black"}};'>
+                <text style='padding-left:20rpx;'>{{item.name}}</text>
+              </view>
+              <view class="weui-cell__ft" style='width:{{item.id == 5?240:420}}rpx;'>
+                {{item.ap}}AP/个
+              </view>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+</view>

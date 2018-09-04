@@ -1,0 +1,50 @@
+<page style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view>
+    <view class="info">为方便输入，提供了通过第三方代理来初始化数据的方式，代理工具为未来视MAX数据同步助手，此软件通过代理和设置https信任证书的方式抓取游戏通讯数据包并解析，可以同步所有英灵练度/素材数量</view>
+    <view wx:if="{{showInfo != 1}}" class="info">同步助手使用请参考页面下方<text class='c--f60'>使用声明</text></view>
+    <view wx:if="{{showInfo == 1}}" class="info">使用方式请加试用QQ群交流：<text class='c--f60'>549414997</text></view>
+    <view class="info">为数据安全考虑，需输入B站UID和PY码才可同步信息，B站UID登录B站后从账号资料中可以查到</view>
+    <!-- <view class="info c--red">请注意</view>
+      <view class="info c--red">1、VPN使用有风险，请勿在VPN连接情况下输入任何密码</view>
+      <view class="info">2、登录游戏后连接VPN，进行一次战斗，关闭VPN</view>
+      <view class="info">3、在下方输入PY码和区服即可同步数据</view>
+      <view class="info">4、感谢zhangheng607朋友提供的VPN</view> -->
+    <view style='height:100rpx;'></view>
+    <view class="weui-search-bar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};border:0px;">
+    <view class="weui-search-bar__form" style='height:32px;'>
+        <view class="weui-search-bar__box">
+          <input class="weui-search-bar__input" type='number' maxlength='12' placeholder="请输入UID" bindinput='bindInput2' value='{{inputValue2}}' />
+        </view>
+      </view>
+      <view class="weui-search-bar__form" style='height:32px;'>
+        <view class="weui-search-bar__box">
+          <input class="weui-search-bar__input" type='number' maxlength='12' placeholder="请输入PY码" bindinput='bindInput' value='{{inputValue}}' />
+        </view>
+      </view>
+        
+    </view>
+    <view style='height:20rpx;'></view>
+    <view class="info">
+          <radio-group class="radio-group" bindchange="mcTypeChange">
+            <label class="radio">
+              <radio value="24" checked="{{mcType==24}}" />安卓
+              <radio value="996" checked="{{mcType==996}}" />IOS
+              <radio value="10" checked="{{mcType==10}}" />WIKI
+            </label>
+          </radio-group>
+        </view>
+    <view style='height:20rpx;'></view>
+    <checkbox-group bindchange="checkboxChange" class="info">
+      <checkbox value="1" checked="{{autoSync==1}}"/>启动小程序时自动同步
+    </checkbox-group>
+    <button class="weui-btn" style='width:90%' type="primary" catchtap="syncAccount" disabled="{{inputValue.length!=12 || inputValue2.length<4}}">同步</button>
+
+  </view>
+
+      <view class="weui-footer" style='position:fixed; bottom:20rpx;margin:0 auto;left:0;right:0;'>
+            <view class="weui-footer__links">
+                <navigator url="material_vpnnote" class="weui-footer__link">使用声明</navigator>
+            </view>
+            <view class="weui-footer__text">Copyright © 2017-2019</view>
+        </view>
+</page>

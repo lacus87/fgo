@@ -1,0 +1,164 @@
+/* pages/servant/servant.wxss */
+.page__bd{
+    height: 100%;
+}
+.weui-navbar__slider{
+  width: 84rpx;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.weui-tab__content{
+    padding-top:120rpx;
+    text-align: center;
+}
+
+.weui-cell__bd{
+  display: flex;  
+  flex-direction: column;  
+  font-size:34rpx;
+}
+
+.page__title{
+  width: 80%;
+  margin-left: 40rpx;
+  font-size:60rpx;
+}
+.page__hd{
+  display: flex;
+  flex: row;
+}
+/* .weui-bar__item_on{
+  background: #E0E0E0;
+} */
+
+.weui-grids {
+  margin-left: 2%;
+  width:96%;
+  border: none;
+}
+
+.weui-grid {
+  position: relative;  
+  float: left;  
+  padding: 0px 0px;
+  margin-bottom: 4rpx;
+  width: 20%;  
+  border: none;
+}
+
+.weui-grid__icon {  
+   width: 120rpx;  
+  height: 126rpx;   
+  margin: 0 auto;  
+}  
+
+.view_grid_img {
+  width: 120rpx;
+  height: 126rpx;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+}
+
+/*mask*/
+.drawer_screen { 
+ width: 100%; 
+ height: 100%; 
+ position: fixed; 
+ top: 0; 
+ left: 0; 
+ z-index: 1000; 
+ background: #000; 
+ opacity: 0.5; 
+ overflow: hidden; 
+} 
+  
+/*content*/
+.drawer_box { 
+ width: 650rpx; 
+ overflow: hidden; 
+ position: fixed; 
+ top: 50%; 
+ left: 0; 
+ z-index: 1001; 
+ background: #FAFAFA; 
+ margin: -150px 50rpx 0 50rpx; 
+ border-radius: 3px; 
+} 
+  
+.drawer_title{ 
+ padding:30rpx; 
+ font: 30rpx; 
+ text-align: center; 
+} 
+.drawer_content { 
+ height: 420rpx; 
+ overflow-y: scroll; /*超出父盒子高度可滚动*/
+} 
+.btn_ok{ 
+ padding: 20rpx; 
+ font: 30rpx; 
+ text-align: center; 
+ border-top: 2rpx solid #E0E0E0; 
+ color: #3CC51F; 
+} 
+
+.item1 {
+  font-size: 15px;
+  width: 120rpx;
+  color: white;
+  padding:5px; 
+  margin: 10px;
+  text-align: center;
+  background-color: green;
+  height: 18px;
+  line-height: 18px;
+}
+
+.relative{
+  height: 100%;
+  width:100%;
+  position:relative;
+}
+ 
+.pic_background{
+  position:absolute;
+}
+ 
+.container_text {
+  height: 100%;
+  width:100%;
+  margin-left: 90rpx;
+  flex-direction: column;
+  position: absolute;
+} 
+.filter-tags{
+  padding:6rpx;
+}
+.filter-tags text{
+	padding: 10rpx 20rpx;
+	border: 1rpx solid #ddd;
+	display: inline-block;
+  line-height: 1;
+	color: #666;
+	font-size: 26rpx;
+	border-radius: 2rpx;
+	margin-left: 30rpx;
+	white-space: nowrap;
+}
+.filter-tags text.active{
+	background: #f7982a;
+	color: #fff;
+	border-color: #f7982a;
+}
+
+.radio{
+  font-size:15px;
+}
+
+.group-header{
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+}

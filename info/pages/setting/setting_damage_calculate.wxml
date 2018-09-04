@@ -1,0 +1,504 @@
+<page id="j_page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view>
+    <!-- <view class="info">日服最新进度,忽略固伤|智障|场景BUFF,满级990芙芙,如需详细的请使用nga版头excel版计算器</view> -->
+    <block wx:for="{{settings}}" wx:key="id">
+      <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" bindtap='showDetail' data-index="{{item.id}}" style='color:{{model==1?"lightgrey":"black"}};'>{{item.name}}
+            <block wx:if="{{item.show == 1 &&item.id !=1}}">
+              <image src='/images/close.png' style='width:20rpx;height:20rpx;'></image>
+            </block>
+            <block wx:if="{{item.show == 0&&item.id !=1}}">
+              <image src='/images/open.png' style='width:20rpx;height:20rpx;'></image>
+            </block>
+          </view>
+          <block wx:if="{{item.id == 5}}">
+            <view class="weui-cell__bd">
+              <checkbox-group bindchange="skillFlagChange" style='font-size:30rpx;color:{{model==1?"lightgrey":"black"}};'>
+                <checkbox value="0" checked="{{skillFlag==0}}" />不开技能
+              </checkbox-group>
+            </view>
+          </block>
+          <view class="weui-cell__ft" style='width:{{item.id == 5?240:420}}rpx;'>
+
+            <block wx:if="{{item.id == 6}}">
+              <text style='font-size:26rpx;' data-index="{{item.id}}" bindtap='showDetail'>{{progress == 999?progressList[selectProgressIndex].eventName:(progress==1?'国服':'日服')}}</text>
+            </block>
+            <block wx:if="{{item.id == 1}}">
+              <view class="section">
+                <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" bindcancel="bindcancel" range="{{multiArray}}">
+                  <view class="picker" style='font-size:26rpx;'>
+                    <image src="{{chooseImg}}" style="margin-right: 5px;vertical-align: middle;width:48rpx; height: 50rpx;"></image>
+                    {{desc}}
+                  </view>
+                </picker>
+              </view>
+            </block>
+            <block wx:if="{{item.id == 2}}">
+              <text style='font-size:26rpx;' data-index="{{item.id}}" bindtap='showDetail'>{{buff[selectBuff].desc}}</text>
+            </block>
+            <block wx:if="{{item.id == 3}}">
+              <text style='font-size:26rpx;' data-index="{{item.id}}" bindtap='showDetail'>攻击力+{{atk}} {{card[selectCard].desc}} {{cloth[selectCloth].desc}}</text>
+            </block>
+            <block wx:if="{{item.id == 4}}">
+              <text style='font-size:26rpx;' data-index="{{item.id}}" bindtap='showDetail'>五星{{treaLv[5]}}宝 四星{{treaLv[4]}}宝 OC{{overCharge}}</text>
+            </block>
+            <block wx:if="{{item.id == 5}}">
+              <block wx:if="{{servantLimit == 0}}">
+                <text style='font-size:26rpx;' data-index="{{item.id}}" bindtap='showDetail'>{{skillModel == 1?"按310":"按当前练度"}}</text>
+              </block>
+              <block wx:if="{{servantLimit == 1}}">
+                <image src="{{chooseImg2}}" data-index="{{item.id}}" bindtap='showDetail' style="margin-right: 5px;vertical-align: middle;width:48rpx; height: 50rpx;">
+                </image>
+                <text style='font-size:26rpx;' data-index="{{item.id}}" bindtap='showDetail'>{{servantSkill2[0]}}/{{servantSkill2[1]}}/{{servantSkill2[2]}} {{limitTreaLv}}宝</text>
+              </block>
+            </block>
+          </view>
+        </view>
+        <block wx:if="{{item.show == 1}}">
+          <view style="font-size:14px;background:{{model==1?'#9D9D9D':'#F0F0F0'}}">
+            <block wx:if="{{item.id == 6}}">
+              <view class="weui-cell">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:30rpx;margin-left:10px;">进度</text>
+                </view>
+                <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="progressChange">
+                    <label class="radio" style='font-size:26rpx;'>
+                      <radio value="1" checked="{{progress==1}}" style='transform:scale(.8)' />国服
+                      <radio value="0" checked="{{progress==0}}" style='transform:scale(.8)' />日服
+                      <radio value="999" checked="{{progress==999}}" style='transform:scale(.8)' />其他
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+            </block>
+            <block wx:if="{{item.id == 6 && progress == '999'}}">
+              <view class="weui-cell">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:30rpx;margin-left:10px;">选择</text>
+                </view>
+                <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <view class="section ">
+                    <picker bindchange="bindProgressPickerChange" value="{{selectProgressIndex}}" range="{{progressList}}" range-key="{{'eventName'}}">
+                      <view class="picker" style='font-size:26rpx;'>
+                        {{progressList[selectProgressIndex].eventName}}
+                      </view>
+                    </picker>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <block wx:if="{{item.id == 2}}">
+              <view class="weui-cell">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="buffChange">
+                    <label class="radio radio1">
+                      <block wx:for="{{buff}}" wx:key="{{index}}">
+                        <view style='width:25%;font-size:24rpx;' >
+                          <radio value="{{item.id}}" checked="{{selectBuff == item.id}}" style='transform:scale(.8)' />{{item.name}}
+                        </view>
+                      </block>
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view wx:if="{{selectBuff == buff.length-1 }}" class="weui-cells weui-cells_after-title">
+                <view class="weui-search-bar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};border:0px;">
+                  攻击提升：
+                  <view class="weui-search-bar__form" style='width:100rpx;height:26px;'>
+                    <view>
+                      <input type="number" maxlength='3' data-id='11' value="{{buff[buff.length-1][11]}}" bindinput="inputChange" />
+                    </view>
+                  </view>
+                  宝具提升：
+                  <view class="weui-search-bar__form" style='width:100rpx;height:26px;'>
+                    <view>
+                      <input type="number" maxlength='3' data-id='61' value="{{buff[buff.length-1][61]}}" bindinput="inputChange" />
+                    </view>
+                  </view>
+                </view>
+                <view class="weui-search-bar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};border:0px;">
+                  Buster：
+                  <view class="weui-search-bar__form" style='width:50rpx;height:26px;'>
+                    <view>
+                      <input type="number" maxlength='3' data-id='21' value="{{buff[buff.length-1][21]}}" bindinput="inputChange" />
+                    </view>
+                  </view>
+                  Arts：
+                  <view class="weui-search-bar__form" style='width:50rpx;height:26px;'>
+                    <view>
+                      <input type="number" maxlength='3' data-id='31' value="{{buff[buff.length-1][31]}}" bindinput="inputChange" />
+                    </view>
+                  </view>
+                  Quick：
+                  <view class="weui-search-bar__form" style='width:50rpx;height:26px;'>
+                    <view>
+                      <input type="number" maxlength='3' data-id='41' value="{{buff[buff.length-1][41]}}" bindinput="inputChange" />
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <block wx:if="{{item.id == 3}}">
+              <view class="weui-cell">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="cardChange">
+                    <label class="radio radio1">
+                      <block wx:for="{{card}}" wx:key="id">
+                        <view style='width:33%;font-size:24rpx;'>
+                          <radio value="{{item.id}}" checked="{{selectCard == item.id}}" style='width:69rpx;transform:scale(.8)' />{{item.name}}
+                        </view>
+                      </block>
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view wx:if="{{selectCard == card.length-1 }}" class="weui-cells weui-cells_after-title">
+                <view class="weui-search-bar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};border:0px;">
+                  <!-- <picker bindchange="bindPickerChange" value="{{arrIndex}}" range="{{array}}">
+                    <view class="picker">
+                      {{array[arrIndex]}}：
+                    </view>
+                  </picker> -->
+
+                  <picker-view style="width: 220rpx;" value="{{arrIndex}}" bindchange="bindPickerChange">
+                    <picker-view-column>
+                      <view wx:for="{{array}}" wx:key="index" style="background:{{model==1?'#9D9D9D':'#F0F0F0'}}">{{item}}</view>
+                    </picker-view-column>
+                    <image src='/images/scroll.png' style='width:30rpx;height:25px;'></image>
+                  </picker-view>：
+                  <view class="weui-search-bar__form" style='width:100rpx;height:26px;'>
+                    <view>
+                      <input type="number" maxlength='2' data-id='{{arrayId[arrIndex]}}' value="{{card[card.length-1][arrayId[arrIndex]]}}" bindinput="cardBuffChange" />
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class='weui-cells weui-cells_after-title'>
+                <view class="weui-search-bar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};border:0px;">
+                  <view style="width: 220rpx;">攻击力增加</view>：
+                  <view class="weui-search-bar__form" style='width:100rpx;height:26px; line-height:26px;'>
+                    <view>
+                      <input type="number" maxlength='4' bindinput="atkChange" value='{{atk}}' />
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class="weui-cell">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="clothChange">
+                    <label class="radio radio1">
+                      <block wx:for="{{cloth}}" wx:key="id">
+                        <view style='width:25%;font-size:24rpx;'>
+                          <radio value="{{item.id}}" checked="{{selectCloth == item.id}}" style='width:80rpx;transform:scale(.8)' />{{item.name}}
+                        </view>
+                      </block>
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+            </block>
+            <block wx:if="{{item.id == 4}}">
+              <view class="weui-cell">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:15px;margin-left:10px;">OC</text>
+                </view>
+                <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="overChargeChange">
+                    <label class="radio">
+                      <radio value="1" checked="{{overCharge==1}}" style='transform:scale(.8)' />1
+                      <radio value="2" checked="{{overCharge==2}}" style='transform:scale(.8)' />2
+                      <radio value="3" checked="{{overCharge==3}}" style='transform:scale(.8)' />3
+                      <radio value="4" checked="{{overCharge==4}}" style='transform:scale(.8)' />4
+                      <radio value="5" checked="{{overCharge==5}}" style='transform:scale(.8)' />5
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view class="weui-cell">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:15px;margin-left:10px;">五星</text>
+                </view>
+                <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="treaLvChange5">
+                    <label class="radio">
+                      <radio value="1" checked="{{treaLv[5]==1}}" style='transform:scale(.8)' />1
+                      <radio value="2" checked="{{treaLv[5]==2}}" style='transform:scale(.8)' />2
+                      <radio value="3" checked="{{treaLv[5]==3}}" style='transform:scale(.8)' />3
+                      <radio value="4" checked="{{treaLv[5]==4}}" style='transform:scale(.8)' />4
+                      <radio value="5" checked="{{treaLv[5]==5}}" style='transform:scale(.8)' />5
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view class="weui-cell">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:15px;margin-left:10px;">四星</text>
+                </view>
+                <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="treaLvChange4">
+                    <label class="radio">
+                      <radio value="1" checked="{{treaLv[4]==1}}" style='transform:scale(.8)' />1
+                      <radio value="2" checked="{{treaLv[4]==2}}" style='transform:scale(.8)' />2
+                      <radio value="3" checked="{{treaLv[4]==3}}" style='transform:scale(.8)' />3
+                      <radio value="4" checked="{{treaLv[4]==4}}" style='transform:scale(.8)' />4
+                      <radio value="5" checked="{{treaLv[4]==5}}" style='transform:scale(.8)' />5
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view class="weui-cell">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:15px;margin-left:10px;">三星和活动从者默认满宝</text>
+                </view>
+              </view>
+            </block>
+            <block wx:if="{{item.id == 5}}">
+              <view class="weui-cell">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:15px;margin-left:10px;">指定英灵</text>
+                </view>
+                <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="servantLimitChange">
+                    <label class="radio">
+                      <radio value="0" checked="{{servantLimit==0}}" style='transform:scale(.8)' />不指定
+                      <radio value="1" checked="{{servantLimit==1}}" style='transform:scale(.8)' />指定
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view class="weui-cell" wx:if="{{servantLimit==0}}">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:15px;margin-left:10px;">已有英灵</text>
+                </view>
+                <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="skillModelChange">
+                    <label class="radio">
+                      <radio value="2" checked="{{skillModel==2}}" style='transform:scale(.8)' />按当前练度
+                      <radio value="1" checked="{{skillModel==1}}" style='transform:scale(.8)' />按310
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view class="weui-cell" wx:if="{{servantLimit==0}}">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:15px;margin-left:10px;">其他英灵</text>
+                </view>
+                <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="dropModelChange">
+                    <label class="radio">
+                      <radio value="1" checked="true" style='transform:scale(.8)' />按310
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view class="weui-cell" wx:if="{{servantLimit==1}}">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:15px;margin-left:10px;">宝具</text>
+                </view>
+                <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="limitTreaLvChange">
+                    <label class="radio">
+                      <radio value="1" checked="{{limitTreaLv==1}}" style='transform:scale(.8)' />1
+                      <radio value="2" checked="{{limitTreaLv==2}}" style='transform:scale(.8)' />2
+                      <radio value="3" checked="{{limitTreaLv==3}}" style='transform:scale(.8)' />3
+                      <radio value="4" checked="{{limitTreaLv==4}}" style='transform:scale(.8)' />4
+                      <radio value="5" checked="{{limitTreaLv==5}}" style='transform:scale(.8)' />5
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view class="weui-cell" wx:if="{{servantLimit==1}}">
+                <picker mode="multiSelector" bindchange="bindMultiPickerChange2" bindcolumnchange="bindMultiPickerColumnChange2" value="{{multiIndex2}}" range="{{multiArray2}}">
+                  <view class="picker" style='font-size:15px;margin-left:10px;'>
+                    {{desc2}}
+                  </view>
+
+                </picker>
+                <view class="weui-search-bar" style="background:{{model==1?'#9D9D9D':'#F0F0F0'}};border:0px;">
+
+                  <view class="weui-search-bar__form" style='width:50rpx;padding-left:20rpx;'>
+                    <view>
+                      <input type="number" maxlength='2' data-id='0' value="{{servantSkill2[0]}}" bindinput="inputSkillChange" />
+                    </view>
+                  </view>
+
+                  <view class="weui-search-bar__form" style='width:50rpx;padding-left:20rpx;'>
+                    <view>
+                      <input type="number" maxlength='2' data-id='1' value="{{servantSkill2[1]}}" bindinput="inputSkillChange" />
+                    </view>
+                  </view>
+
+                  <view class="weui-search-bar__form" style='width:50rpx;padding-left:20rpx;'>
+                    <view>
+                      <input type="number" maxlength='2' data-id='2' value="{{servantSkill2[2]}}" bindinput="inputSkillChange" />
+                    </view>
+                  </view>
+                </view>
+              </view>
+
+
+            </block>
+          </view>
+        </block>
+      </view>
+    </block>
+    <button class="weui-btn" style='width:90%' type="primary" catchtap="calculateDamage" disabled='{{targetList.length == 0 || chooseImg == ""|| (chooseImg2 == ""&& servantLimit==1)}}'>计算</button>
+
+    <view style='padding-top:20rpx;' wx:if="{{damageData.length > 0}}">
+      <view class="weui-cells weui-cells_after-title" wx:if="{{servantLimit == 0}}" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}};font-size:26rpx;'>
+            <checkbox-group bindchange="checkboxChange" style='font-size:30rpx;'>
+              <checkbox value="1" checked="{{showOwn==1}}" />只看已有英灵
+            </checkbox-group>
+          </view>
+          <view class="weui-cell__ft" style='width:420rpx;font-size:26rpx;color:{{model==1?"lightgrey":"black"}}'>
+            <radio-group class="radio-group" bindchange="sortChange">
+              <label class="radio">
+                <radio value="1" checked="{{sort==1}}" />光炮
+                <radio value="2" checked="{{sort==2}}" />单体
+                <radio value="3" checked="{{sort==3}}" />所有
+              </label>
+            </radio-group>
+          </view>
+        </view>
+      </view>
+      <view wx:for="{{showData}}" wx:if="{{servantLimit == 0}}" wx:key="{{item.servantId}}" class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" style="height:30rpx;background: {{model==1?'#7B7B7B':'#FFFFFF'}}" catchtap='showDamageDetail' data-index="{{item.servantId}}">
+          <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+            <text style="font-size:30rpx;margin-left:20rpx;">{{index+1}}：</text>
+            <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:42rpx; height: 45rpx;"></image>
+            <text style="font-size:30rpx;margin-left:20rpx;">{{item.damage}}</text>
+          </view>
+          <view class="weui-cell__ft" style='display: table;'>
+            <view class="weui-media-box__info" style='display: table-cell; vertical-align: middle;'>
+              <view class="weui-media-box__info__meta" style="width:380rpx;margin-top:15rpx;">
+                <progress percent="{{item.damage*100/showData[0].damage}}" stroke-width="15" color="#00E3E3" />
+              </view>
+              <block wx:if="{{showServantId != item.servantId}}">
+                <image src='/images/close.png' style='width:20rpx;height:20rpx;margin-top:20rpx;'></image>
+              </block>
+              <block wx:if="{{showServantId == item.servantId}}">
+                <image src='/images/open.png' style='width:20rpx;height:20rpx;margin-top:20rpx;'></image>
+              </block>
+            </view>
+          </view>
+        </view>
+        <view style="font-size:14px;background:{{model==1?'#9D9D9D':'#F0F0F0'}}" hidden='{{showServantId != item.servantId}}'>
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <text style="font-size:15px;margin-left:10px;">伤害区间</text>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              {{item.damageRange}}
+            </view>
+          </view>
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <text style="font-size:15px;margin-left:10px;">攻击力{{item.atk}}</text>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              攻击提升{{item.attackBuff}}%
+            </view>
+          </view>
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <text style="font-size:15px;margin-left:10px;">{{item.damageType == 1?'光炮':'单体'}}</text>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              基础倍率{{item.treasurePercent}}% 宝具提升{{item.treasureBuff}}%
+            </view>
+          </view>
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <image src="/images/skill/{{item.cardType}}.png" style="margin-left:10px;vertical-align: middle;width:45rpx; height: 45rpx;"></image>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              性能提升{{item.cardBuff}}%
+            </view>
+          </view>
+
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <text style="font-size:15px;margin-left:10px;">职阶补正{{item.classBuff}}</text>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              职阶克制{{item.classSet}} 阵营克制{{item.campSet}}
+            </view>
+          </view>
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <text style="font-size:15px;margin-left:10px;">特攻</text>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              技能{{item.spAttackBuff == 0?'无':item.spAttackBuff+'%'}} 宝具{{item.treasureSpAtkBuff == 100?'无':item.treasureSpAtkBuff+'%'}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{showData.length == 20}}" class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}" catchtap='showAllDamage'>
+          <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}; text-align:center;'>
+            显示全部
+          </view>
+        </view>
+      </view>
+
+      <view wx:for="{{damageData}}" wx:if="{{servantLimit == 1 && damageData.length == 1}}" wx:key="{{item.servantId}}" class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" style='height:30rpx;' style="height:30rpx;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+          <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+            <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:42rpx; height: 45rpx;"></image>
+            <text style="font-size:30rpx;margin-left:20rpx;">{{item.damageRange}} 平均伤害{{item.damage}}</text>
+          </view>
+        </view>
+        <view style="font-size:14px;background:{{model==1?'#9D9D9D':'#F0F0F0'}}">
+
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <text style="font-size:15px;margin-left:10px;">攻击力{{item.atk}}</text>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              攻击提升{{item.attackBuff}}%
+            </view>
+          </view>
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <text style="font-size:15px;margin-left:10px;">{{item.damageType == 1?'光炮':'单体'}}</text>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              基础倍率{{item.treasurePercent}}% 宝具提升{{item.treasureBuff}}%
+            </view>
+          </view>
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <image src="/images/skill/{{item.cardType}}.png" style="margin-left:10px;vertical-align: middle;width:45rpx; height: 45rpx;"></image>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              性能提升{{item.cardBuff}}%
+            </view>
+          </view>
+
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <text style="font-size:15px;margin-left:10px;">职阶补正{{item.classBuff}}</text>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              职阶克制{{item.classSet}} 阵营克制{{item.campSet}}
+            </view>
+          </view>
+          <view class="weui-cell">
+            <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+              <text style="font-size:15px;margin-left:10px;">特攻</text>
+            </view>
+            <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+              技能{{item.spAttackBuff == 0?'无':item.spAttackBuff+'%'}} 宝具{{item.treasureSpAtkBuff == 100?'无':item.treasureSpAtkBuff+'%'}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</page>

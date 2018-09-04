@@ -1,0 +1,16 @@
+<view style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <swiper class="index-banner" indicator-dots="{{true}}" style='width:100%; height:{{pageHeight}}px;'
+    autoplay="{{true}}" interval="{{4000}}" duration="{{1000}}">
+    <block wx:for="{{imgUrls}}" wx:key="*this">
+      <swiper-item>
+        <image src="{{item}}" style='width:100%; height:{{pageHeight}}px;' class="slide-image" mode='aspectFit'/>
+      </swiper-item>
+    </block>
+  </swiper>
+	<view class="index-menu" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+		<navigator class="index-menu-item" wx:for="{{indexmenu}}" wx:key="{{index}}" url="../../info/pages/{{item.url}}">
+			<image src="{{item.icon}}"></image>
+			<text style='color:{{model==1?"lightgrey":"black"}}'>{{item.text}}</text>
+		</navigator>
+	</view>
+</view>

@@ -1,0 +1,47 @@
+<!--pages/material/material_upload.wxml-->
+<view class='page' style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="userinfo">
+    <button style='margin-top:100px;' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权使用</button>
+    <block wx:else>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      <view class="page__bd" >
+      <view class="weui-form-preview" style="width:{{width}}px;background: {{model==1?'#7B7B7B':'#F0F0F0'}}" >
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">{{localData}}</view>
+                    <view class="weui-form-preview__value_in-hd" style='font-size:20px;'>本地配置</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">主账号英灵数</view>
+                    <view class="weui-form-preview__value">{{localSetting[0].srv_list.length}}</view>
+                </view>
+            </view>
+            <block wx:if="{{remoteSetting.date}}">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">{{remoteSetting.date}}</view>
+                    <view class="weui-form-preview__value_in-hd" style='font-size:20px;'>远程配置</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">主账号英灵数</view>
+                    <view class="weui-form-preview__value">{{remoteSetting.localSetting[0].srv_list.length}}</view>
+                </view>
+            </view>
+            </block>
+            <view class="weui-form-preview__ft">
+            <view class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active" catchtap='uploadLocalSetting'>上传本地</view>
+                <view class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" catchtap='syncLocalSetting'>同步远程</view>
+            </view>
+        </view>
+        </view>
+    </block>
+  </view>
+  <view wx:if="{{!hasUserInfo && canIUse}}" class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>

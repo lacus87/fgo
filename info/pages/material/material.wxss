@@ -1,0 +1,92 @@
+/* pages/material/material.wxss */
+
+.weui-navbar__slider {
+  width: 188rpx;
+}
+
+.carts-num {
+  border: 1rpx solid #aaa;
+  border-radius: 5rpx;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 50rpx;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 0.6;
+}
+
+.carts-num1 {
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.weui-cell__ft{
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 0.2;
+}
+
+.carts-num input {
+  border-left: 1rpx solid #aaa;
+  border-right: 1rpx solid #aaa;
+  font-size: 30rpx;
+  font-family: arial;
+  height: 50rpx;
+  line-height: 50rpx;
+  width: 70%;
+}
+
+.carts-num .minus, .carts-num .plus {
+  color: #000;
+  text-align: center;
+  line-height: 50rpx;
+  width: 40rpx;
+}
+
+.carts-num .minus {
+  font-size: 30rpx;
+  width: 25%;
+}
+
+.carts-num .minus.disabled {
+  color: #ccc;
+}
+
+.carts-num .plus {
+  font-size: 34rpx;
+  width: 25%;
+}
+
+.weui-cell__bd{
+  display: flex;  
+  flex-direction: column;  
+  font-size:36rpx;
+}
+
+.rank{
+  font-size: 30rpx;
+  color: gray;
+}
+
+
+.info{
+  font-size: 15px;
+  padding-left: 20px;
+  padding-top: 5px;
+  display: flex;
+}
+.info .important{
+  font-weight:bold;
+}
+.c--f60{color: #f60;}
+.c--green{color: #2aa515;}
+.c--red{color: red;}
+.c--grey{color: #ADADAD;}
+
+.mini{
+  height: 80%;
+  padding-top: 10px; 
+}

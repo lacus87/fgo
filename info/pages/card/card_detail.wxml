@@ -1,0 +1,66 @@
+<view style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="carts-list">
+    <view class='tr'>
+      <view class="th" style='flex:1'>
+        <view class='td'>
+          <view class="title bg-w">{{cardInfo.nameCn}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="th">
+        <view class='td'>
+          <image class='card_img' src='{{cardInfo.avastar}}' catchtap='showImg'></image>
+        </view>
+      </view>
+      <view class="th" style='flex:1'>
+        <view class='td three'>
+          <view class='text bg-w' style='flex:0 0 25%; border-right:1px solid lightgrey;'>画师</view>
+          <view class='text small' style='font-size:{{cardInfo.illust.length>10?"20rpx":""}};line-height:{{cardInfo.illust.length>10?"1.5":""}}'>{{cardInfo.illust}}</view>
+        </view>
+        <view class='td three'>
+          <view class='text small bg-w' style='border-right:1px solid lightgrey;'>稀有度</view>
+          <view class='text small' style='border-right:1px solid lightgrey;'>{{cardInfo.star}}星</view>
+          <view class='text small bg-w' style='border-right:1px solid lightgrey;'>COST</view>
+          <view class='text small'>{{cardInfo.cost}}</view>
+        </view>
+        <view class='td three'>
+          <view class='text small bg-w' style='border-right:1px solid lightgrey;'>ATK</view>
+          <view class='text small' style='border-right:1px solid lightgrey;'>{{cardInfo.lv1Atk}}/{{cardInfo.lvmaxAtk}}</view>
+          <view class='text small bg-w' style='border-right:1px solid lightgrey;'>HP</view>
+          <view class='text small' style=''>{{cardInfo.lv1Hp}}/{{cardInfo.lvmaxHp}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="th" style='flex:1'>
+        <view class='td'>
+          <view class='text bg-w' style='flex:0 0 20%; border-right:1px solid lightgrey;'>技能</view>
+          <view class='text small'>{{cardInfo.skillE}}</view>
+        </view>
+        <view class='td'>
+          <view class='text bg-w' style='flex:0 0 20%; border-right:1px solid lightgrey;'>满破</view>
+          <view class='text small'>{{cardInfo.skillMaxE}}</view>
+        </view>
+      </view>
+    </view>
+    <view class='tr'>
+      <view class='th' style='flex:1'>
+        <view class="td">
+          <view class="text small bg-w">
+            <block wx:for="{{cardInfo.intro}}" wx:key="{{index}}">
+              <view>{{item}}</view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='tr' catchtap='showImg' style='padding-bottom:20rpx;'>
+      <view class="th" style='flex:1'>
+        <view class='td'>
+          <view class="title bg-w">查看卡面</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

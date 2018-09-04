@@ -1,0 +1,86 @@
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view>
+    <view class="weui-tab">
+      <view class="weui-navbar" style="background:{{model==1?'#7B7B7B':'#F0F0F0'}}">
+        <block wx:for="{{tabs}}" wx:key="{{index}}">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title" style="color:{{activeIndex == index ?(model==1?'lightgreen':'green'):(model==1?'white':'black')}}">{{item}}
+              <block wx:if="{{activeIndex != 1 && index !=1}}">
+                <text class="item1" style="margin-left:20rpx;" data-index='1' catchtap='changeView'>{{sortType==1?'效率优先':'掉率优先'}}</text>
+              </block>
+              <block wx:if="{{activeIndex != 0 && index !=0}}">
+                <text class="item1" style="margin-left:20rpx;" data-index='1' catchtap='switchCare'>{{flag==1?'已关注':'全部'}}</text>
+                <!-- <icon style='margin-left:10px;' type="info" size="20" color="{{color}}" bindtap="switchCare" /> -->
+              </block>
+            </view>
+          </view>
+        </block>
+
+        <view class="weui-navbar__slider" style="left: 0px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view hidden="{{activeIndex != 0}}">
+        <scroll-view class="weui-tab__panel " scroll-y="true" style="height: {{pageHeight}}px;">
+          <block wx:if="{{dropList.length == 0}}">
+            <view class="weui-form-preview" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+              <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                  <view class="weui-form-preview__label weui-form-preview__label1" style='color:{{model==1?"lightgreen":"green"}}'>尚未加入迦勒底豪华午餐</view>
+                </view>
+              </view>
+            </view>
+          </block>
+          <block wx:for="{{dropList}}" wx:key="id">
+            <block wx:if="{{index<5}}">
+              <view class="weui-form-preview" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+                <view class="weui-form-preview__hd">
+                  <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label weui-form-preview__label1" style='color:{{model==1?"lightgreen":"green"}}'>{{item.name}}</view>
+                    <view class="weui-form-preview__value_in-hd" style='font-size:30rpx;color:{{model==1?"lightgrey":"black"}}'>
+                      {{item.ap}}
+                    </view>
+                  </view>
+                </view>
+                <view class="weui-form-preview__bd">
+                  <block wx:for="{{item.stage}}" wx:key="{{index}}" wx:for-item="items">
+                    <view class="weui-form-preview__item">
+                      <view class="weui-form-preview__label" style='font-size:12px;text-align-last:left;'>战斗{{index+1}}/{{item.stage.length}}:{{items}}</view>
+                    </view>
+                  </block>
+                  <block wx:if="{{item.drops}}">
+                    <view class="weui-form-preview__item">
+                      <view class="weui-form-preview__label" style='font-size:10px;text-align-last:left;'>其他掉落:{{item.drops}}</view>
+                    </view>
+                  </block>
+                  <view class="weui-media-box__info">
+                    <text class="weui-media-box__info__meta">掉率：{{item.amount}}%</text>
+                    <text class="weui-media-box__info__meta_extra">{{item.mapAp}}AP</text>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </block>
+        </scroll-view>
+      </view>
+      <view hidden="{{activeIndex != 1}}">
+        <scroll-view class="weui-panel__bd weui-tab__panel" scroll-y="true" style="height: {{pageHeight}}px;" bindtouchstart="touchStart" bindtouchend="touchEnd">
+          <block wx:for="{{servantList}}" wx:key="id">
+            <block wx:if="{{item.flag==1||flag==0}}">
+              <navigator url="../servant/servant_detail?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                  <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:100rpx; height: 100rpx;"></image>
+                </view>
+                <view class="weui-cell__bd">
+                  <view style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}</view>
+                  <view class="rank" style="color:{{model==1?'lightgrey':'#CCC'}}">总计{{item.total}}/灵基{{item.rank}}/技能{{item.skill}}
+                    <block wx:if="{{item.clothFlag === 1}}">/灵衣{{item.cloth}}</block>
+                  </view>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+              </navigator>
+            </block>
+          </block>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+</view>

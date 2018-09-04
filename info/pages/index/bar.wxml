@@ -1,0 +1,18 @@
+<!--pages/event/event.wxml-->
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <block wx:for="{{barList}}" wx:key="{{index}}">
+    <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <view class="weui-cell">
+        <view class="weui-cell__bd" data-index="{{item.id}}" style='color:{{model==1?"lightgrey":"black"}}'>{{item.text}}</view>
+        <block>
+          <view class="weui-cell__ft">
+            <switch style='margin-left: 20px;' checked="{{item.flag == 1}}" catchchange="switchChange" data-index="{{item.id}}" />
+          </view>
+        </block>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{barList.length>0}}">
+    <button class="weui-btn" style='width:90%' type="primary" catchtap="confrim">确定</button>
+  </block>
+</view>

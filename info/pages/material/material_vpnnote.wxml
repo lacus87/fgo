@@ -1,0 +1,55 @@
+<view class="page" style="position:absolute;min-height:100%;width:100%;background:#F0F0F0;">
+    <scroll-view scroll-y="true" style="height: {{pageHeight}}px;width:95%;padding-left: 40rpx;" bindscrolltolower="showButton">
+      <view class="weui-article__section">
+        <view class="weui-article__section">
+          <view class="weui-article__h3 c--red">使用网络代理有一定风险，安装证书后https加密的数据（密码除外）对服务器可见，请详细阅读以下说明，并确保在知悉和接受其风险的情况下使用</view>
+          <view class="weui-article__h3">软件声明</view>
+          <view class="weui-article__p">
+            未来视MAX是一款用于游戏加速以及玩家数据同步的综合游戏服务性工具，未来视MAX将在后期为各位用户提供更多的ACG加速服务。注意:未来视MAX的加速服务与数据同步功能永远不会收取费用。
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h3">注意</view>
+          <view class="weui-article__p">
+            未来视MAX数据同步功能仅用于记录用户角色数据,战斗掉落数据以及抽卡数据，不会对游戏内的任何数据进行增加修改删除的操作。
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h3">注意</view>
+          <view class="weui-article__p">
+            未来视MAX数据同步功能使用代理的方式来去监听用户的游戏数据，进行记录并分析统计，代理仅允许游戏内的数据通过。
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__p">
+            为了给您提供更准确、更有个性化的数据同步分析服务，同步小助手会按照本隐私权政策的规定使用和披露您的个人信息。但本应用将以高度的勤勉、审慎义务对待这些信息。除本隐私权政策另有规定外，在未征得您事先许可的情况下，同步小助手不会将这些信息对外披露或向第三方提供。您在同意本应用服务使用协议之时，即视为您已经同意本隐私权政策全部内容。本隐私权政策属于本应用服务使用协议不可分割的一部分。
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h3">关于代理同步数据的原因说明</view>
+          <view class="weui-article__p">
+            我们尝试过多种办法来帮助玩家进行数据同步，其中包括使用图片识别，提交账号密码模拟登陆同步数据等，最终通过审议发现以的代理模式进行数据同步是最可行且安全的方式，也是效果最好的方式，基本可以实现用户数据的一键同步功能。
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h3">关于需要导入证书</view>
+          <view class="weui-article__p">
+            随着游戏开发者安全意识的提高，使用HTTPS的页游手游越来越多，HTTPS不仅让数据传输变得更安全,但是对未来视MAX这种对于游戏具体通讯内容进行做优化的app造成了麻烦。为了解决这个问题，我们需要用户安装证书，这样我们才可以解析游戏内的https数据。当然这个操作会引发一些安全隐患，这些网站的HTTPS通讯对于未来视数据同步助手来说内容会变成明文可见的。所以我们我们的代理流量通过目前只会针对以下域名。 *.biligame.net #b站游戏通用域名(目前仅支持fgo)
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h3">关于数据的使用</view>
+          <view class="weui-article__p">
+            1.数据使用 在您下载并使用同步小助手时，您根据本应用要求提供的个人游戏数据信息，包括Fgo的个人的卡牌数据，卡池抽取数据，过本素材数据，以用来统计与同步个人的第三方FGO数据，但本应用不会收集您的游戏账号及密码数据。
+          </view>
+          <view class="weui-article__p">
+            2. 信息存储和交换 同步小助手收集的有关您的信息和资料将保存在未来视MAX同步小助手的服务器上，这些信息和资料可能传送至您所在国家、地区或同步小助手收集信息和资料所在地。
+          </view>
+          <view class="weui-article__p">
+            3.信息安全 同步小助手采用的数据同步及服务方式，利用第三方服务器的方式进行数据过滤与上传，并对数据进行妥当安全的处理。并不会对您的私人数据进行记录。
+          </view>
+        </view>
+      </view>
+    </scroll-view >
+    <button disabled='{{showButton != 1}}' class="weui-btn" style='width:90%' type="primary" catchtap="confirmInfo" >同意</button>
+</view>

@@ -1,0 +1,62 @@
+<!--pages/event/event_info.wxml-->
+<view class='page' style="position:absolute;min-height:100%;width:100%;background:{{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="page__bd">
+    <scroll-view scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}" class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_access">
+        <view class="weui-cell__hd" data-index="1000">
+          <image src="/images/qb.jpg" style="margin-right: 5px;vertical-align: middle;width:40px; height: 40px;"></image>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="carts-num1">
+            <view style="color:{{model==1?'lightgrey':'black'}};font-size:16px;">*{{qpTotal}}【{{qpTotalDesc}}】</view>
+            <view class="rank" style="color:{{model==1?'lightgrey':'grey'}};font-size:15px;">(现有{{qpOwn}}+本次{{qpCount*count/10000+'万'}})</view>
+          </view>
+        </view>
+      </view>
+      <block wx:for="{{material}}" wx:key="{{index}}">
+        <navigator url="../material/material_drop?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{item.id}}">
+          <view class="weui-cell__hd">
+            <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:40px; height: 40px;"></image>
+          </view>
+          <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>{{item.name}}*{{item.count}}</view>
+          <view class="weui-cell__ft " style='font-size:12px;color:{{model==1?"lightgrey":"grey"}}'>共:{{item.totalCount}}(现有{{item.ownCount}}+本次{{item.count*count}})</view>
+        </navigator>
+      </block>
+    </scroll-view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <block wx:if="{{showCancel == 0}}">
+      <view class="weui-cell weui-cell_input" style="background: {{model==1?'#9D9D9D':'#FFFFFF'}}">
+        <view class="weui-cell__hd" style="width:80px;">
+          <view class="weui-label">大佬您好</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input type='number' class="weui-input" maxlength='3' bindinput='changeCount' placeholder="要肝几百池" />
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input">已肝{{historyCount}}池</text>
+        </view>
+        <view class="weui-cell__ft">
+          <image src='/images/weak.png' style='width:30px; height:30px;' catchtap='showCancelView'></image>
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{showCancel == 1}}">
+      <view class="weui-cell weui-cell_input" style="background: {{model==1?'#9D9D9D':'#FFFFFF'}}">
+        <view class="weui-cell__hd" style='width:80px;'>
+          <view class="weui-label">肝不动了</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input type='number' class="weui-input" maxlength='3' bindinput='reduceCount' placeholder="要取消几池" />
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input">已肝{{historyCount}}池</text>
+        </view>
+        <view class="weui-cell__ft">
+          <image src='/images/strong.png' style='width:25px; height:25px;' catchtap='showAddView'></image>
+        </view>
+      </view>
+    </block>
+  </view>
+  <button class="weui-btn" style='width:90%' type="primary" catchtap="setCount">确定</button>
+</view>

@@ -1,4 +1,5 @@
 //app.js
+var util = require('/utils/util.js');
 App({
   onLaunch: function () {
     var that = this;
@@ -36,14 +37,25 @@ App({
         curAccId = account[i].id;
       }
     }
+    var localMaterialCacheData = wx.getStorageSync('localMaterialCacheData');
+    if (localMaterialCacheData == undefined || localMaterialCacheData == '') {
+      localMaterialCacheData = [];
+    }
     wx.request({
-      url: that.globalData.url + '/fgo/material/getMaterialList.do',
+      url: that.globalData.url + '/material/getMaterialList.do?count='+localMaterialCacheData.length,
       method: 'GET',
       success: function (res) {
         if (res.statusCode != 200) {
           return;
         }
-        var materialList = res.data.data;
+        var materialList = localMaterialCacheData;
+        if(res.data.data){
+          materialList = res.data.data;
+          wx.setStorage({
+            key: "localMaterialCacheData",
+            data: res.data.data
+          })
+        }
         var material = wx.getStorageSync('material' + "_" + curAccId);
         for (var i = 0; i < materialList.length; i++) {
           var id = materialList[i].id + '';
@@ -58,14 +70,25 @@ App({
         that.globalData.materialList = materialList;
       }
     });
+    var localEventCacheData = wx.getStorageSync('localEventCacheData');
+    if (localEventCacheData == undefined || localEventCacheData == '') {
+      localEventCacheData = [];
+    }
     wx.request({
-      url: that.globalData.url + '/fgo/material/getEventList.do',
+      url: that.globalData.url + '/material/getEventList.do?count='+localEventCacheData.length,
       method: 'GET',
       success: function (res) {
         if (res.statusCode != 200) {
           return;
         }
-        var eventList = res.data.data;
+        var eventList = localEventCacheData;
+        if (res.data.data) {
+          eventList = res.data.data;
+          wx.setStorage({
+            key: "localEventCacheData",
+            data: res.data.data
+          })
+        }
         var allMaterial = [];
         var localEvent = wx.getStorageSync('event' + "_" + curAccId);
         if (localEvent == undefined || localEvent == '') {
@@ -92,6 +115,10 @@ App({
         that.calculateEventMat(eventList, curAccId);
       }
     });
+  },
+
+  onShow: function(){
+    util.syncAccount(this.globalData.url);
   },
   calculateEventMat: function (eventList, curAccId) {
     var that = this;
@@ -128,7 +155,7 @@ App({
     var that = this;
     if(index < eventList.length){
     	wx.request({
-            url: that.globalData.url + '/fgo/material/getEventMaterial2.do?eventId=' + eventList[index].id,
+            url: that.globalData.url + '/material/getEventMaterial2.do?eventId=' + eventList[index].id,
             method: 'GET',
             success: function (res) {
               var material = res.data.data;
@@ -148,11 +175,13 @@ App({
      }
   },
   globalData: {
+    cardList:[],
     servantList: [],
     eventList: [],
     materialList: [],
     lastTapTime: 0,
-    // url: 'http://127.0.0.1'
-    url: 'https://www.fgowiki.cn'
+    model: wx.getStorageSync("model"),
+    // url: 'http://127.0.0.1/fgo'
+    url: 'https://www.fgowiki.cn/fgo'
   }
 })

@@ -1,30 +1,51 @@
 {
-  "pages":[    
-    "pages/servant/servant",
-    "pages/servant/servant_detail",
-    "pages/servant/servant_material",
-    "pages/servant/servant_images",
-    "pages/setting/servant_setting",
-    "pages/setting/setting",        
-    "pages/setting/setting_account",
-    "pages/setting/setting_details",
+  "pages": [
+    "pages/index/index",
     "pages/setting/setting_help",
-    "pages/setting/setting_logs",      
+    "pages/setting/setting_logs",
     "pages/setting/setting_us",
-    "pages/setting/setting_mat_used", 
-    "pages/setting/setting_reward",            
-    "pages/material/material",        
-    "pages/material/material_info",
-    "pages/material/material_drop",
-    "pages/material/material_upload",
-    "pages/event/event",
-    "pages/event/event_info"
+    "pages/setting/setting_reward",
+    "pages/setting/setting"
+    
   ],
-  "window":{
-    "backgroundTextStyle":"black",
+  "subPackages": [
+    {
+      "root": "info",
+      "pages": [
+        "pages/index/bar",
+        "pages/index/exp_calculate",
+        "pages/servant/servant",
+        "pages/setting/setting_damage_calculate",
+        "pages/servant/servant_cared",
+        "pages/servant/servant_detail",
+        "pages/servant/servant_material",
+        "pages/servant/servant_images",
+        "pages/setting/servant_setting",
+        "pages/setting/setting_account",
+        "pages/setting/setting_details",
+        "pages/setting/setting_mat_used",
+        "pages/setting/setting_tools",
+        "pages/setting/programe",
+        "pages/material/material",
+        "pages/material/material_info",
+        "pages/material/material_drop",
+        "pages/material/material_upload",
+        "pages/material/material_vpnnote",
+        "pages/material/material_vpn",
+        "pages/event/event",
+        "pages/event/event_info",
+        "pages/event/event_pickup",
+        "pages/event/event_pickup_detail",
+        "pages/card/card",
+        "pages/card/card_detail"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundTextStyle": "black",
     "navigationBarBackgroundColor": "#000000",
     "navigationBarTitleText": "FGO素材规划",
-    "navigationBarTextStyle":"light"
+    "navigationBarTextStyle": "light"
   },
   "tabBar": {
     "color": "#8a8a8a",
@@ -35,20 +56,8 @@
       {
         "selectedIconPath": "images/servant_on.png",
         "iconPath": "images/servant_off.png",
-        "pagePath": "pages/servant/servant",
-        "text": "英灵"
-      },
-      {
-        "selectedIconPath": "images/material_on.png",
-        "iconPath": "images/material_off.png",
-        "pagePath": "pages/material/material",
-        "text": "素材"
-      },
-      {
-        "selectedIconPath": "images/event_on.png",
-        "iconPath": "images/event_off.png",
-        "pagePath": "pages/event/event",
-        "text": "活动"
+        "pagePath": "pages/index/index",
+        "text": "首页"
       },
       {
         "selectedIconPath": "images/programe_on.png",

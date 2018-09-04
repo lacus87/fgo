@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    questions: []
+    questions: [],
   },
 
   /**
@@ -27,6 +27,8 @@ Page({
       array.push({ "id": 8, name: "设置账号信息", show: 0 });
       array.push({ "id": 9, name: "规划英灵升级", show: 0 });
       array.push({ "id": 10, name: "查看规划结果", show: 0 });
+      array.push({ "id": 11, name: "宝具伤害计算", show: 0 });
+
       this.setData({
         questions: array,
         model: wx.getStorageSync("model")

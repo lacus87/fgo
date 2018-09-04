@@ -1,0 +1,7 @@
+{
+    "backgroundTextStyle": "black",
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTitleText": "卡池列表",
+    "navigationBarTextStyle": "light",
+    "enablePullDownRefresh": true
+}

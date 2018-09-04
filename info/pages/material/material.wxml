@@ -1,0 +1,134 @@
+<view class="page">
+  <view>
+    <view class="weui-tab">
+      <view class="weui-navbar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+        <block wx:for="{{tabs}}" wx:key="{{index}}">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title" style="color:{{activeIndex == index ?(model==1?'lightgreen':'green'):(model==1?'white':'black')}}">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <scroll-view class="weui-tab__panel" scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+        <view hidden="{{activeIndex != 0}}">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__hd" data-index="1000">
+              <image src="/images/qb.jpg" style="margin-right: 5px;vertical-align: middle;width:50px; height: 50px;"></image>
+            </view>
+            <view class="weui-cell__bd">
+              <view class="carts-num1">
+                <view style="color:{{model==1?'lightgrey':'black'}};">*</view>
+                <input type='number' maxlength="12" style='color:{{model==1?"lightgrey":"black"}};' value="{{qpCount}}" bindinput="bindQPChange" data-index="1000" />
+              </view>
+              <view class="rank" style="color:{{model==1?'lightgrey':'#CCC'}};">【{{qpDesc}}】</view>
+            </view>
+          </view>
+          <block wx:for="{{materialList}}" wx:key="{{item.id}}">
+            <block wx:if="{{item.type == '2'}}">
+              <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__hd" data-index="{{item.id}}" bindtap='getMaterialDetail'>
+                  <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:100rpx; height: 100rpx;"></image>
+                </view>
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}' data-index="{{item.id}}" bindtap='getMaterialDetail'>
+                  <view style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}</view>
+                  <view class="rank" style="color:{{model==1?'lightgrey':'#CCC'}}">总:{{item.count}}(活动:{{item.eventCount}})</view>
+                </view>
+                <view class="carts-num">
+                  <text class="minus {{minusStatuses}}" data-type="-" catchtap='bindNumDelete' data-index="{{item.id}}">-</text>
+                  <input type="number" style='color:{{model==1?"lightgrey":"black"}}' value="{{item.count-item.eventCount}}" bindchange="bindNumChange" data-index="{{item.id}}" />
+                  <text class="plus" data-type="+" catchtap='bindNumAdd' data-index="{{item.id}}">+</text>
+                </view>
+              </view>
+            </block>
+          </block>
+        </view>
+        <view hidden="{{activeIndex != 1}}">
+          <block wx:for="{{materialList}}" wx:key="{{item.id}}">
+            <block wx:if="{{item.type == '1'}}">
+              <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__hd" data-index="{{item.id}}" bindtap='getMaterialDetail'>
+                  <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:100rpx; height: 100rpx;"></image>
+                </view>
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}' data-index="{{item.id}}" bindtap='getMaterialDetail'>
+                  <view style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}</view>
+                  <view class="rank" style="color:{{model==1?'lightgrey':'#CCC'}}">总:{{item.count}}(活动:{{item.eventCount}})</view>
+                </view>
+                <view class="carts-num">
+                  <text class="minus {{minusStatuses}}" data-type="-" catchtap='bindNumDelete' data-index="{{item.id}}">-</text>
+                  <input type="number" style='color:{{model==1?"lightgrey":"black"}}' value="{{item.count-item.eventCount}}" bindchange="bindNumChange" data-index="{{item.id}}" />
+                  <text class="plus" data-type="+" catchtap='bindNumAdd' data-index="{{item.id}}">+</text>
+                </view>
+              </view>
+            </block>
+          </block>
+        </view>
+        <view hidden="{{activeIndex != 2}}">
+          <block wx:for="{{materialList}}" wx:key="{{item.id}}">
+            <block wx:if="{{item.type == '3'}}">
+              <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__hd" data-index="{{item.id}}" bindtap='getMaterialDetail'>
+                  <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:100rpx; height: 100rpx;"></image>
+                </view>
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}' data-index="{{item.id}}" bindtap='getMaterialDetail'>
+                  <view style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}</view>
+                  <view class="rank" style="color:{{model==1?'lightgrey':'#CCC'}}">总:{{item.count}}(活动:{{item.eventCount}})</view>
+                </view>
+                <view class="carts-num">
+                  <text class="minus {{minusStatuses}}" data-type="-" catchtap='bindNumDelete' data-index="{{item.id}}">-</text>
+                  <input type="number" style='color:{{model==1?"lightgrey":"black"}}' value="{{item.count-item.eventCount}}" bindchange="bindNumChange" data-index="{{item.id}}" />
+                  <text class="plus" data-type="+" catchtap='bindNumAdd' data-index="{{item.id}}">+</text>
+                </view>
+              </view>
+            </block>
+          </block>
+        </view>
+        <view hidden="{{activeIndex != 3}}">
+          <view style='display:flex;flex-direction: row; height:30px;justify-content:center;padding-top:10px;'>
+            <view>
+              <button class="weui-btn" type="warn" size="mini" catchtap='closeUploadInfo'>使用说明</button>
+            </view>
+            <view style='padding-left:20px;'>
+              <button class="weui-btn" type="default" size="mini" catchtap='uploadImg'>选择图片</button>
+            </view>
+            <view style='padding-left:20px;'>
+              <button class="weui-btn" type="primary" size="mini" catchtap='syncToLocal'>更新到本地</button>
+            </view>
+          </view>
+          <block wx:if="{{uploadInfoOpen == 'Y'}}">
+            <view class="info">1、该功能可解析游戏素材截图</view>
+            <view class="info">2、暂仅支持国服的简体中文</view>
+            <view class="info">3、仅供娱乐，部分素材可能会解析失败</view>
+            <view class="info">4、优先使用高精度的解析，达到次数上限（第三方服务按次收费）后会切换低精度的解析，低精度有较大概率导致素材识别不全，请勿恶意刷次数导致其他人无法使用。解析次数上限会在凌晨重置</view>
+            <view class='info c--red'>参考截图：</view>
+            <view class="info" style='height:85px;'>
+              <image src="/images/mat.jpg" style='width:142px; height:80px;'></image>
+            </view>
+          </block>
+          <block wx:if="{{uploadModel == 'basic'}}">
+            <view class='info c--red'>当前使用低精度模式解析</view>
+          </block>
+          <block wx:if="{{uploadModel == 'limit'}}">
+            <view class='info c--red'>当日已达解析次数上限</view>
+          </block>
+          <block wx:for="{{uploadMatArray}}" wx:key="id">
+            <view class="weui-cell weui-cell_access">
+              <view class="weui-cell__hd" data-index="{{item.id}}" bindtap='getMaterialDetail'>
+                <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:30px; height: 30px;"></image>
+              </view>
+              <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                <view style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.name}}*{{item.count}}</view>
+              </view>
+              <view class="weui-cell__ft" style='margin-left:50rpx;'>
+                <icon type="clear" size="20" color='#FF6600' bindtap="deleteUploadItem" data-id="{{item.id}}" />
+              </view>
+            </view>
+          </block>
+          <view style='padding-top:50rpx;text-align:center; '>
+            <button class="weui-btn" type="primary" size='mini' catchtap='syncAccount'>数据同步助手</button>
+          </view>
+
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

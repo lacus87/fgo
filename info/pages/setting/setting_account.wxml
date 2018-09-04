@@ -1,0 +1,105 @@
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+  <view class="weui-tab">
+    <view class="weui-navbar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+      <block wx:for="{{tabs}}" wx:key="{{index}}">
+        <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+          <view class="weui-navbar__title" style="color:{{activeIndex == index ?(model==1?'lightgreen':'green'):(model==1?'white':'black')}}">{{item}}</view>
+        </view>
+      </block>
+      <view class="weui-navbar__slider" style="left: 0px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    </view>
+    <scroll-view class="weui-tab__panel" scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <view hidden="{{activeIndex != 0}}">
+         <view>
+          <canvas style='width:100%;height:300px;' disable-scroll="true" class="canvas" canvas-id="accountInfo" />
+        </view>
+        <view class="weui-cells weui-cells_after-title">
+          <checkbox-group bindchange="checkboxChange" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">
+              <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+              <view class="weui-cell__hd weui-check__hd_in-checkbox">
+                <icon class="weui-icon-checkbox_circle" type="circle" size="15" wx:if="{{!item.checked}}"></icon>
+                <icon class="weui-icon-checkbox_success" type="success" size="15" wx:if="{{item.checked}}"></icon>
+              </view>
+              <view class="weui-cell__bd" style="color: {{model==1?'lightgrey':'black'}}">{{item.name}}
+                <block wx:for="{{item.count}}" wx:key="{{index}}">
+                  <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                </block>
+              </view>
+            </label>
+          </checkbox-group>
+        </view>
+       
+      </view>
+      <view hidden="{{activeIndex != 1}}">
+        <view class="weui-form-preview" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <view class="weui-form-preview__hd" data-index="5" >
+              <view class="weui-form-preview__item">
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+              </view>
+              <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta" style="width:80%">
+                  <progress percent="{{percent[0]}}" stroke-width="15" />
+                </view>
+                <text class="weui-media-box__info__meta_extra">{{ownCount[0]}}/{{totalCount[0]}}</text>
+              </view>
+            </view>
+            <view class="weui-form-preview__hd" data-index="4" >
+              <view class="weui-form-preview__item">
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+              </view>
+              <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta" style="width:80%">
+                  <progress percent="{{percent[1]}}" stroke-width="15" />
+                </view>
+                <text class="weui-media-box__info__meta_extra">{{ownCount[1]}}/{{totalCount[1]}}</text>
+              </view>
+            </view>
+            <view class="weui-form-preview__hd" data-index="3" >
+              <view class="weui-form-preview__item">
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+              </view>
+              <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta" style="width:80%">
+                  <progress percent="{{percent[2]}}" stroke-width="15" />
+                </view>
+                <text class="weui-media-box__info__meta_extra">{{ownCount[2]}}/{{totalCount[2]}}</text>
+              </view>
+            </view>
+            <view class="weui-form-preview__hd" data-index="2" >
+              <view class="weui-form-preview__item">
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+              </view>
+              <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta" style="width:80%">
+                  <progress percent="{{percent[3]}}" stroke-width="15" />
+                </view>
+                <text class="weui-media-box__info__meta_extra">{{ownCount[3]}}/{{totalCount[3]}}</text>
+              </view>
+            </view>
+            <view class="weui-form-preview__hd" data-index="1" >
+              <view class="weui-form-preview__item">
+                <image src="/images/star.png" style="width:15px; height: 15px;"></image>
+              </view>
+              <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta" style="width:80%">
+                  <progress percent="{{percent[4]}}" stroke-width="15" />
+                </view>
+                <text class="weui-media-box__info__meta_extra">{{ownCount[4]}}/{{totalCount[4]}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+    </scroll-view>
+  </view>
+</view>

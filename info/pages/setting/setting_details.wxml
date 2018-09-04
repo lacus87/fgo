@@ -1,0 +1,101 @@
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
+    <!--drawer content-->
+    <view class="drawer_title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'black'}}">{{reqCount}}</view>
+    <scroll-view scroll-y="true " style="height: {{modelArray.length*50>200?420:modelArray.length*100+20}}rpx;border-top: 1px solid #E0E0E0;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+      <block wx:for="{{modelArray}}" wx:key="{{index}}">
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <image src="{{item[4]}}" style="margin-right: 5px;vertical-align: middle;width:60rpx; height:60rpx;"></image>
+          </view>
+          <view class="weui-cell__bd" style="color:{{model==1?'lightgrey':'black'}}">*{{item[5]}}</view>
+          <view class="weui-cell__ft" style='font-size:30rpx;color:{{model==1?"lightgrey":"#8E8E8E"}}'>
+            <block wx:if="{{item[1] != '0'}}"> 技能{{item[1]}}</block>
+            <block wx:if="{{item[2] != '0'}}"> 灵基{{item[2]}}</block>
+            <block wx:if="{{item[3] != '0'}}"> 灵衣{{item[3]}}</block>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <view style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}" class="btn_ok" bindtap="powerDrawer" data-statu="close">确定</view>
+  </view>
+  <view>
+    <view class="weui-tab">
+      <view class="weui-navbar" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+        <block wx:for="{{tabs}}" wx:key="{{index}}">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title" style="color:{{activeIndex == index ?(model==1?'lightgreen':'green'):(model==1?'white':'black')}}">{{item}}
+            </view>
+            <block wx:if="{{activeIndex != 0 && index !=0}}">
+              <block wx:if="{{sort==1}}">
+                <image src='/images/speed.png' style='margin-left:10px;width:20px; height:20px;' data-index='2' bindtap="sort" />
+              </block>
+              <block wx:if="{{sort==2}}">
+                <image src='/images/type.png' style='margin-left:10px;width:20px; height:20px;' data-index='1' bindtap="sort" />
+              </block>
+            </block>
+          </view>
+        </block>
+
+        <view class="weui-navbar__slider " style="left: 0px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); "></view>
+      </view>
+      <view hidden="{{activeIndex !=1 }}">
+        <scroll-view class="weui-tab__panel " scroll-y="true " style="height: {{pageHeight}}px;background: {{model==1? '#7B7B7B': '#FFFFFF'}} ">
+          <block wx:if="{{materialData.drops.totalCount> 0}}">
+            <view class="weui-cell weui-cell_access">
+              <view class="weui-cell__bd">
+                <view style='color:{{model==1?"lightgrey":"black"}}'>战斗总数：{{materialData.drops.totalCount}}</view>
+                <view class="rank" style='color:{{model==1?"lightgrey":"grey"}}'>总消耗：{{materialData.drops.totalAp}}AP</view>
+              </view>
+            </view>
+          </block>
+          <block wx:for="{{mapList}}" wx:key="id">
+            <view class="weui-cell weui-cell_access">
+              <view class="weui-cell__bd">
+                <view style='color:{{model==1?"lightgrey":"black"}}'>{{item.name}}*{{item.count}}</view>
+                <view class="rank" style='color:{{model==1?"lightgrey":"grey"}}'>{{item.ap}}AP/总消耗{{item.totalAp}}AP</view>
+                <view class="rank1" style='color:{{model==1?"lightgrey":"grey"}}'>掉落：{{item.desc}}</view>
+              </view>
+            </view>
+          </block>
+        </scroll-view>
+      </view>
+      <view hidden="{{activeIndex != 0}}">
+        <scroll-view class="weui-panel__bd weui-tab__panel" scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+          <block wx:if="{{materialData.qp > 0}}">
+            <view class="weui-cell weui-cell_access">
+              <view class="weui-cell__hd">
+                <image src="/images/qb.jpg" style="margin-right: 5px;vertical-align: middle;width:80rpx; height: 80rpx;"></image>
+              </view>
+              <view class="weui-cell__bd">
+                <view style='color:{{model==1?"lightgrey":"black"}}'>*{{materialData.qp}}[{{materialData.qpStr}}]</view>
+                <view class="rank" style="font-size:24rpx;color:{{model==1?(qpFlag==1?'lightgrey':'#FF7575'):(qpFlag == 1?'#8E8E8E':'red')}}">{{qpDesc}}</view>
+              </view>
+              <view class="weui-cell__ft " style='font-size:30rpx;color:{{item.color}}'></view>
+            </view>
+          </block>
+          <block wx:for="{{materialData.material}}" wx:key="{{index}}">
+            <navigator url="../material/material_drop?id={{item.id}}" class="weui-cell weui-cell_access">
+              <view class="weui-cell__hd">
+                <image src="{{item.imgPath}}" style="margin-right: 5px;vertical-align: middle;width:80rpx; height: 80rpx;" data-index='{{item.id}}' data-count='{{item.name}}*{{item.count}}' data-statu="open" catchtap='powerDrawer'></image>
+              </view>
+              <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>{{item.name}}*{{item.count}}</view>
+              <view class="weui-cell__ft " style='font-size:24rpx;color:{{item.color}}'>{{item.desc}}</view>
+            </navigator>
+          </block>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+  <!--<modal hidden="{{hiddenmodalput}}" title="" confirm-text="确定" no-cancel="true" bindconfirm="confirmInfo" style="background-color: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+     <block wx:for="{{modelArray}}" wx:key="{{index}}">
+      <view class="weui-cell" style="width:95%;margin-left:-10px;position:relative">
+        <view class="weui-cell__bd" style='width:20px;font-size:14px;white-space:nowrap;overflow:hidden;'>{{item[0]}}</view>
+        <view class="weui-cell__ft"  style='font-size:12px;'>技能{{item[1]}}/灵基{{item[2]}}</view>
+      </view>
+    </block> 
+  </modal>-->
+
+
+</view>

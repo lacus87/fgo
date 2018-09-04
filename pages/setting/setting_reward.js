@@ -25,7 +25,7 @@ Page({
     });
     this.setData({
       model: wx.getStorageSync("model"),
-      url: app.globalData.url + "/fgo"
+      url: app.globalData.url
     })
     wx.getSystemInfo({
       success: function (res) {
@@ -88,8 +88,8 @@ Page({
   previewImage: function (e) {
     var url = this.data.url;
     wx.previewImage({
-      current: url+"/*****.png", // 当前显示图片的http链接   
-      urls: [url+ "/*****.png"] // 需要预览的图片http链接列表   
+      current: url+"/images/reward.png", // 当前显示图片的http链接   
+      urls: [url+ "/images/reward.png"] // 需要预览的图片http链接列表   
     })
   },  
 })

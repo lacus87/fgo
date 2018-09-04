@@ -1,9 +1,6 @@
 {
-    "window": {
-      "navigationBarBackgroundColor": "#ffffff",
-      "navigationBarTextStyle": "black",
-      "navigationBarTitleText": "个人规划",
-      "backgroundColor": "#eeeeee",
-      "backgroundTextStyle": "light"
-    }
+  "backgroundTextStyle": "black",
+  "navigationBarBackgroundColor": "#000000",
+  "navigationBarTitleText": "账号设置",
+  "navigationBarTextStyle": "light"
 }

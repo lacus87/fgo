@@ -1,0 +1,205 @@
+<view class="page" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="drawer_screen" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};">
+    <!--drawer content-->
+    <view class="drawer_title" style="align:center;height:30px;background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'black'}}">
+      规划排序
+      <text class="view_grid_info_item_text" style="width:30px;color:black;margin-left:20px;padding:3px;background-color:greenyellow;" catchtap="switchSortWay">{{sortWay[sortWayIndex]}}</text>
+      <block wx:if="{{sortCur == 0}}">
+        <image src='/images/up_sort.png' style='margin-left:10px;width:25px; height:25px;vertical-align:middle' data-index="1" catchtap="sortProgrameList" />
+      </block>
+      <block wx:if="{{sortCur == 1}}">
+        <image src='/images/down_sort.png' style='margin-left:10px;width:25px; height:25px;vertical-align:middle' data-index="0" catchtap="sortProgrameList" />
+      </block>
+    </view>
+    <scroll-view scroll-y="true " style="height: 210px;border-top: 1px solid #E0E0E0;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+      <block wx:for="{{modelArray}}" wx:key="{{index}}">
+        <view class="weui-cell">
+          <image src='{{item.imgPath}}' style='margin-left:5px;width:25px; height:26px;' />
+          <text style="font-size:12px; width:400rpx;margin-left:10px;color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
+          <block wx:if="{{index > 0}}">
+            <image src='/images/up_sort.png' style='margin-right:10px;width:20px; height:20px;' data-index="{{index}}" bindtap="upItem" />
+          </block>
+          <block wx:if="{{index < modelArray.length-1}}">
+            <image src='/images/down_sort.png' style='margin-right:10px;width:20px; height:20px;' data-index="{{index}}" bindtap="downItem" />
+          </block>
+        </view>
+      </block>
+    </scroll-view>
+    <view class="weui-form-preview__ft">
+      <view class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active" catchtap='powerDrawer' data-statu="close" data-oper='cancel'>取消</view>
+      <view class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" catchtap='powerDrawer' data-statu="close" data-oper='confirm'>确定</view>
+    </view>
+  </view>
+  <view class="filter-flex">
+    <view class="filter-tab" style='height:40px;'>
+      <text bindtap="setFilterPanel" data-findex="1" class="{{showfilterindex==1?'active':''}}">规划选择</text> 规划{{curProgrameId==''?'1':curProgrameId+1}}
+      <view style='width:200rpx'></view>
+    </view>
+    <view class="filter-content" wx:if="{{showfilter}}">
+      <view class="weui-cell filter-panel">
+        <view class="weui-cell__bd">
+          <radio-group class="radio-group" bindchange="changePrograme">
+            <label class="radio radio1">
+              <block wx:for="{{programeListArray}}" wx:key="item.id">
+                <view style='width:20%; padding-top:20rpx;'>
+                  <radio value="{{item.id}}" checked="{{curProgrameId == item.id}}" />{{item.text}}
+                </view>
+              </block>
+            </label>
+          </radio-group>
+        </view>
+      </view>
+    </view>
+    <view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
+  </view>
+
+  <scroll-view scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+    <view class='top' wx:if="{{batchOperModel == 0}}">
+      <image src='/images/icon/99.png' style='width:70rpx; height:70rpx;' catchtap='addServant'></image>
+      <view style='height:50rpx;'></view>
+      <image src='/images/input_on.png' style='width:50rpx; height:50rpx;margin:10rpx;' catchtap='showBatchOper'></image>
+      <view style='height:50rpx;'></view>
+      <image src='/images/down.png' style='width:70rpx; height:70rpx;' catchtap='allTop'></image>
+      <view style='height:50rpx;'></view>
+      <image src='/images/reset_off.png' wx:if="{{autoSync == 0}}" style='width:60rpx; height:60rpx;margin:4rpx;' catchtap='enableAutoSync'></image>
+      <image src='/images/reset.png' wx:if="{{autoSync == 1}}" style='width:60rpx; height:60rpx;margin:4rpx;' catchtap='disableAutoSync'></image>
+      <view style='height:50rpx;'></view>
+      <image src='/images/sort.png' style='width:60rpx; height:60rpx;margin:4rpx;' catchtap='powerDrawer' data-statu="open"></image>
+      <view style='height:80rpx;'></view>
+      <image src='/images/calculate.png' style='width:70rpx; height:70rpx;' catchtap='calculate'></image>
+      <view style='height:140rpx;'></view>
+      <image src='/images/clearAll.png' style='width:70rpx; height:70rpx;' catchtap='clearAll'></image>
+    </view>
+    <scroll-view scroll-y="true" style="height: {{pageHeight}}px;" class='top' wx:if="{{batchOperModel == 1}}">
+      <image src='/images/delete.png' style='width:60rpx; height:60rpx;margin:4rpx;' catchtap='cancelBatchOper'></image>
+      <view class='info'>选择</view>
+      <!-- <view class='{{chooseRank["0"]==1?"active":"text"}}' data-index="0" catchtap='chooseRankChange' >全选</view> -->
+      <view class='{{chooseRank["5"]==1?"active":"text"}}' data-index="5" catchtap='chooseRankChange'>五星</view>
+      <view class='{{chooseRank["4"]==1?"active":"text"}}' data-index="4" catchtap='chooseRankChange'>四星</view>
+      <view class='{{chooseRank["9"]==1?"active":"text"}}' data-index="9" catchtap='chooseRankChange'>其他</view>
+      <view class='info'>灵基</view>
+      <view class='{{selectedRank==0?"active":"text"}}' data-index="0" catchtap='batchRankChange'>初始</view>
+      <view class='{{selectedRank==1?"active":"text"}}' data-index="1" catchtap='batchRankChange'>一破</view>
+      <view class='{{selectedRank==2?"active":"text"}}' data-index="2" catchtap='batchRankChange'>二破</view>
+      <view class='{{selectedRank==3?"active":"text"}}' data-index="3" catchtap='batchRankChange'>三破</view>
+      <view class='{{selectedRank==4?"active":"text"}}' data-index="4" catchtap='batchRankChange'>满破</view>
+      <view class='info'>技能</view>
+      <view class='{{selectedSkill==1?"active":"text"}}' data-index="1" catchtap='batchSkillChange'>1</view>
+      <view class='{{selectedSkill==2?"active":"text"}}' data-index="2" catchtap='batchSkillChange'>2</view>
+      <view class='{{selectedSkill==3?"active":"text"}}' data-index="3" catchtap='batchSkillChange'>3</view>
+      <view class='{{selectedSkill==4?"active":"text"}}' data-index="4" catchtap='batchSkillChange'>4</view>
+      <view class='{{selectedSkill==5?"active":"text"}}' data-index="5" catchtap='batchSkillChange'>5</view>
+      <view class='{{selectedSkill==6?"active":"text"}}' data-index="6" catchtap='batchSkillChange'>6</view>
+      <view class='{{selectedSkill==7?"active":"text"}}' data-index="7" catchtap='batchSkillChange'>7</view>
+      <view class='{{selectedSkill==8?"active":"text"}}' data-index="8" catchtap='batchSkillChange'>8</view>
+      <view class='{{selectedSkill==9?"active":"text"}}' data-index="9" catchtap='batchSkillChange'>9</view>
+      <view class='{{selectedSkill==10?"active":"text"}}' data-index="10" catchtap='batchSkillChange'>10</view>
+    </scroll-view>
+    <view class="weui-grids" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+      <block wx:for="{{servantList}}" wx:key="{{index}}">
+        <view class="weui-grid" data-index='{{index}}' data-value='{{item.name}}' catchtap='{{batchOperModel == 1?"changeSelected":"changeCurrentId"}}'>
+          <image class='view_grid_img' src='{{item.imgPath}}' data-index='{{item.id}}' data-value='{{item.name}}' catchtap="showServantDetail">
+          </image>
+          <view class='view_grid_info1'>
+            <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+              <view>灵基:</view>
+              <view class='{{item.tarRank>item.rank?"c--f60":""}}'>{{item.rank}}-{{item.tarRank>item.rank?item.tarRank:item.rank}}</view>
+            </view>
+            <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+              <view>技能1:
+                <text class='{{item.tarSkill[0]>item.skill[0]?"c--f60":""}}'>{{item.skill[0]}}-{{item.tarSkill[0]>item.skill[0]?item.tarSkill[0]:item.skill[0]}}</text>
+              </view>
+              <view style='padding-left:20rpx;'>技能2:
+                <text class='{{item.tarSkill[1]>item.skill[1]?"c--f60":""}}'>{{item.skill[1]}}-{{item.tarSkill[1]>item.skill[1]?item.tarSkill[1]:item.skill[1]}}</text>
+              </view>
+              <view style='padding-left:20rpx;'>技能3:
+                <text class='{{item.tarSkill[2]>item.skill[2]?"c--f60":""}}'>{{item.skill[2]}}-{{item.tarSkill[2]>item.skill[2]?item.tarSkill[2]:item.skill[2]}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="weui-cell__ft">
+            <!-- <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}"> 
+              <image src='/images/input_on.png' style='margin:20rpx 20rpx;width:25px; height:25px;' data-index="{{index}}" catchtap='changeCurrentId' />-->
+
+            <icon type="clear" size="22" wx:if="{{batchOperModel == 0}}" style='margin:30rpx 10rpx;' catchtap="removeServant" data-index='{{index}}' data-value='{{item.name}}' />
+            <icon type="success" color="lightgrey" size="22" wx:if="{{batchOperModel == 1 && item.selected != 1}}" style='margin:30rpx 10rpx;' />
+            <icon type="success" size="22" wx:if="{{batchOperModel == 1 && item.selected == 1}}" style='margin:30rpx 10rpx;' />
+            <!-- </picker> -->
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="free-dialog {{ showDialog ? 'free-dialog--show' : '' }}">
+      <view class="free-dialog__mask" bindtap="toggleDialog" />
+      <view class="free-dialog__container">
+        <view style="padding:2% 2% 5%;">
+          <view bindtap='toggleDialog' class="free-button free-dialog-reset">取消</view>
+          <view bindtap='bindMultiPickerChange' class="free-button free-dialog-submit">确定</view>
+          <view class="weui-grids" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}};left: 5%;">
+            <view class="weui-grid">
+              <image class='view_grid_img' src='{{curServant.imgPath}}'>
+              </image>
+              <view class='view_grid_info1'>
+                <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+                  <view>灵基:</view>
+                  <view class='{{curServant.tarRank>curServant.rank?"c--f60":""}}'>{{curServant.rank}}-{{curServant.tarRank>curServant.rank?curServant.tarRank:curServant.rank}}</view>
+                </view>
+                <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
+                  <view>技能1:
+                    <text class='{{curServant.tarSkill[0]>curServant.skill[0]?"c--f60":""}}'>{{curServant.skill[0]}}-{{curServant.tarSkill[0]>curServant.skill[0]?curServant.tarSkill[0]:curServant.skill[0]}}</text>
+                  </view>
+                  <view style='padding-left:20rpx;'>技能2:
+                    <text class='{{curServant.tarSkill[1]>curServant.skill[1]?"c--f60":""}}'>{{curServant.skill[1]}}-{{curServant.tarSkill[1]>curServant.skill[1]?curServant.tarSkill[1]:curServant.skill[1]}}</text>
+                  </view>
+                  <view style='padding-left:20rpx;'>技能3:
+                    <text class='{{curServant.tarSkill[2]>curServant.skill[2]?"c--f60":""}}'>{{curServant.skill[2]}}-{{curServant.tarSkill[2]>curServant.skill[2]?curServant.tarSkill[2]:curServant.skill[2]}}</text>
+                  </view>
+                </view>
+              </view>
+
+            </view>
+            <view class="weui-grid">
+              <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300rpx;padding-top:20rpx;" value="{{multiIndex}}" bindchange="bindMultiPickerColumnChange">
+                <picker-view-column>
+                  <view wx:for="{{multiArray[0]}}" wx:key="{{index}}" style="line-height: 50px; text-align:center;">{{item}}</view>
+                </picker-view-column>
+                <picker-view-column>
+                  <view wx:for="{{multiArray[1]}}" wx:key="{{index}}" style="line-height: 50px; text-align:center;">{{item}}</view>
+                </picker-view-column>
+                <picker-view-column>
+                  <view wx:for="{{multiArray[2]}}" wx:key="{{index}}" style="line-height: 50px; text-align:center;">{{item}}</view>
+                </picker-view-column>
+              </picker-view>
+            </view>
+          </view>
+        </view>
+        <view style='width:100%; text-align:center;font-size:24rpx;' class='c--f60'>
+          可使用
+          <image src='/images/input_on.png' style='width:25rpx; height:25rpx;' />进行技能等级批量设置
+        </view>
+        <view style='width:100%; text-align:center;font-size:24rpx;' class='c--f60'>
+          可使用
+          <image src='/images/reset.png' style='width:25rpx; height:25rpx;' />关闭技能等级自动同步
+        </view>
+      </view>
+    </view>
+
+    <block wx:if="{{importFlag == 'Y'}}">
+      <block wx:for="{{importList}}" wx:key="{{index}}">
+        <block wx:if="{{item.data.length>0 && item.id != curProgrameId}}">
+          <view>
+            <view class="weui-grids" style="margin-top:20px">
+              <view class="weui-grid1" wx:for="{{item.data}}" wx:for-item="items" wx:key="{{index}}">
+                <view class="weui-grid__icon">
+                  <image src=" {{items.imgPath}}" mode="scaleToFill" />
+                </view>
+              </view>
+            </view>
+          </view>
+          <button style='width:50%;' type='primary' catchtap="importList" data-index="{{item.id}}">导入规划{{item.id==''?'1':item.id+1}}</button>
+        </block>
+      </block>
+    </block>
+  </scroll-view>
+</view>

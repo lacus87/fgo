@@ -8,17 +8,23 @@
       </view>
         <view style="background: #F0F0F0;font-size:14px;background:{{model==1?'#9D9D9D':'#F0F0F0'}}">
           <block wx:if="{{index == 0}}">
-            <view class="info">工具灵感来自于IOS工具“咕哒”，因为作者是个苦逼的安卓党所以只能自己做个类似的...</view>
+            <view class="info">工具灵感来自于IOS工具“咕哒”,因为作者是个苦逼的安卓党所以只能自己做个类似的...</view>
           </block>
           <block wx:if="{{index == 1}}">
-            <view class="info">英灵数据来自fgowiki，茹西教王的理想鄉，掉率数据来自效率剧场，活动数据来自NGA坛友LYC869整理，向各位同志勤勉的劳动表示感谢...</view>
+            <view class="info">FGOWIKI：www.fgowiki.com</view>
+            <view class="info">MOONCELL：www.fate.wiki</view>
+            <view class="info">茹西教主的理想乡：kazemai.github.io/fgo-vz/</view>
+            <view class="info">坛友LYC869：bbs.ngacn.cc/read.php?tid=11081996</view>
+            <view class="info">坛友喵喵(很萌的)：bbs.ngacn.cc/read.php?tid=10839193</view>
+            <view class="info">效率剧场：sites.google.com/view/fgo-domus-aurea</view>
+            <view class="info">宝具动画来自B站,感谢以下UP：口水歌6/迦勒底/塞伯坦分局</view>
           </block>
           <block wx:if="{{index == 2}}">
             <view class="info">85后大龄码农，06年FSN入坑，伪月厨，微氪，爱好模型，旅游，坐标大蓝鲸</view>
           </block>
           <block wx:if="{{index == 3}}">
             <view class="info c--red">为什么夜间模式这么丑</view>
-            <view class="info">如果能回到从前，我一定不会做这个，本人基本处于CSS色盲状态，有前端大神能帮调下么</view>
+            <view class="info">本人前端设计近乎色盲,见谅...</view>
             <view class="info c--red">会不会提供互动功能</view>
             <view class="info">不会，因为维护不过来（lan）</view>
             <view class="info c--red">发现有BUG怎么反馈</view>

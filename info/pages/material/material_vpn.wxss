@@ -1,0 +1,44 @@
+/* pages/material/material_vpn.wxss */
+.info{
+  font-size: 15px;
+  padding-left: 20px;
+  padding-top: 5px;
+  display: flex;
+}
+.info .important{
+  font-weight:bold;
+}
+.c--f60{color: #f60;}
+.c--green{color: #2aa515;}
+.c--red{color: red;}
+.c--grey{color: #ADADAD;}
+
+/*二级菜单外部容器样式*/
+   .ddclass { 
+ position: absolute; 
+ width: 100%; 
+ margin-top: 10px; 
+ left: 0; 
+ 
+} 
+
+  
+/*二级菜单普通样式*/
+  
+ .liclass { 
+ font-size: 14px; 
+ line-height: 34px; 
+ color: #575757; 
+ height: 34px; 
+ display: block; 
+ padding-left: 18px; 
+ background-color: #fff; 
+ border-bottom: 1px solid #dbdbdb; 
+} 
+  
+/*二级菜单高亮样式*/
+  
+ li.highlight { 
+ background-color: #f4f4f4; 
+ color: #48c23d; 
+}

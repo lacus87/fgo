@@ -1,16 +1,9 @@
-<page style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
-  <block wx:for="{{questions}}" wx:key="id">
-    <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-      <view style="background: #F0F0F0;font-size:14px;background:{{model==1?'#9D9D9D':'#F0F0F0'}}">
-        <view class="info">如果你喜欢本工具，请推荐给朋友，如果你想送点亮晶晶的东西...请长按打开的图片识别二维码</view>
+<page style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#9D9D9D':'#F0F0F0'}}">
+    
+        <view class="info">如果你喜欢本工具，请推荐给朋友，如果你想送点亮晶晶的东西...请长按打开的图片识别二维码，或保存图片使用微信扫一扫打赏</view>
         <view class="info c--red">请注意</view>
         <view class="info">1、不打赏并不会影响继续更新</view>
         <view class="info">2、打赏也不能让你开启新姿势</view>
         <view class="info">3、更不能让你榜上有名（根本没有榜）</view>
         <button class="weui-btn" style='width:90%' type="primary" catchtap="previewImage">打赏</button>
-
-      </view>
-
-    </view>
-  </block>
 </page>

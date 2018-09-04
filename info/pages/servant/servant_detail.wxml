@@ -1,0 +1,497 @@
+<view style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+  <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
+    <!--drawer content-->
+    <view class="drawer_title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'black'}}">{{reqCount}}</view>
+    <scroll-view scroll-y="true " style="height: 720rpx;border-top: 2rpx solid #E0E0E0;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+      <block wx:for="{{modelArray}}" wx:key="{{index}}">
+        <view class="weui-cell" style="height:40rpx;">
+          <view class="weui-cell__bd" style='font-size:15px;white-space:nowrap;overflow:hidden;color:{{model==1?"lightgrey":"black"}}'>{{item.desc}}</view>
+          <block wx:for="{{item.req}}" wx:key="{{index}}" wx:for-item="items">
+            <image src='{{items.imgPath}}' style='margin-left:4rpx;width:50rpx; height: 50rpx;' />*{{items.count}}
+          </block>
+        </view>
+      </block>
+    </scroll-view>
+    <view style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}" class="btn_ok" bindtap="powerDrawer" data-statu="close">确定</view>
+  </view>
+  <scroll-view scroll-y="true" style="height:{{height+'px'}}" hidden="{{skill != 1}}">
+    <view class="carts-list">
+      <view class="carts-item" style="{{model==1?'#7B7B7B':'#F0F0F0'}}">
+        <!-- //商品信息 -->
+        <view class="carts-cnt">
+          <swiper wx:if="{{clothList.length > 1}}" class="carts-image" indicator-dots="true" bindchange="changeServantSkillDesc">
+            <block wx:for="{{clothList}}" wx:key="{{index}}">
+              <swiper-item item-id="{{item.skillServantId}}">
+                <block wx:if="{{item.imgPath}}">
+                  <image class="carts-image" style="width:180rpx; height: 188rpx;" src="{{item.imgPath}}" catchtap='previewImages' />
+                  <view class="container_text" style='padding-left:130rpx; margin-top:0rpx;'>
+                    <icon type="info" size="18" color="white" catchtap='previewImages' />
+                  </view>
+                </block>
+              </swiper-item>
+            </block>
+          </swiper>
+          <block wx:if="{{servant.imgPath && clothList.length <= 1}}">
+            <image class="carts-image" style="width:180rpx; height: 188rpx;" src="{{servant.imgPath}}" catchtap='previewImages' />
+            <view class="container_text" style='padding-left:130rpx; margin-top:0rpx;'>
+              <icon type="info" size="18" color="white" catchtap='previewImages' />
+            </view>
+          </block>
+          <view class="carts-info">
+            <view class="carts-title clamp2" style="color:{{model==1?'lightgrey':'black'}}">攻击：{{servant.maxAtk}}</view>
+            <view class="carts-title clamp2" style="color:{{model==1?'lightgrey':'black'}}">血量：{{servant.maxHp}}</view>
+            <view class="carts-subtitle">
+              <text class="carts-price c--f60">灵基：</text>
+              <!-- //数量加减 -->
+              <image src='/images/00.png' class='{{servant_info[0]>0?"icon_img":"icon_img img-grey"}}' data-id='1' catchtap='bindNumChange'></image>
+              <image src='/images/02.png' class='{{servant_info[0]>1?"icon_img":"icon_img img-grey"}}' data-id='2' catchtap='bindNumChange'></image>
+              <image src='/images/03.png' class='{{servant_info[0]>2?"icon_img":"icon_img img-grey"}}' data-id='3' catchtap='bindNumChange'></image>
+              <image src='/images/04.png' class='{{servant_info[0]>3?"icon_img":"icon_img img-grey"}}' data-id='4' catchtap='bindNumChange'></image>
+              <image src='/images/reset.png' style='width:40rpx;height:40rpx;padding-left:20rpx;padding-top:10rpx;' data-id='0' catchtap='bindNumChange'></image>
+            </view>
+          </view>
+        </view>
+        <!-- //关注 -->
+        <icon class="carts-del" type="success" size="30" color="{{color}}" bindtap="setCare" />
+        <view wx:if="{{servant.clothFlag == 'Y'}}" style='position:absolute;right:80rpx;top: 20rpx;'>
+          <block wx:if="{{servant_info[4] != 1}}">
+            <image src='/images/cloth.png' class="img-grey" style='width:60rpx; height: 60rpx;' bindtap="setCloth" />
+          </block>
+          <block wx:if="{{servant_info[4] == 1}}">
+            <image src='/images/cloth.png' style='width:60rpx; height: 60rpx;' bindtap="setCloth" />
+          </block>
+        </view>
+        <view style='position:absolute;right:0rpx;top: 100rpx;'>
+          <block wx:if="{{topFlag == 1}}">
+            <image src='/images/down.png' style='width:80rpx; height: 80rpx;' bindtap="setDefault" />
+          </block>
+          <block wx:if="{{topFlag == 0}}">
+            <image src='/images/top.png' style='width:80rpx; height: 80rpx;' bindtap="setTop" />
+          </block>
+        </view>
+      </view>
+    </view>
+    <view class="carts-list">
+      <view class="itemList">
+        <view class="item1 {{skill==1?'active':''}}" data-index='1' catchtap='changeView'>技能</view>
+        <view class="item1 {{skill==2?'active':''}}" data-index='2' catchtap='changeView'>宝具</view>
+        <view class="item1 {{skill==3?'active':''}}" data-index='3' catchtap='changeView'>特攻</view>
+        <view class="item1 {{skill==4?'active':''}}" data-index='4' wx:if="{{servant.rarity > 3 &&servant.servantId>1001}}" catchtap='changeView'>卡池</view>
+        <view class="item1 {{skill==5?'active':''}}" data-index='5' wx:if="{{servant.cardInfo}}" catchtap='changeView'>礼装</view>
+      </view>
+    </view>
+    <view class="carts-list" hidden="{{skill != 1}}">
+      <view wx:for="{{servant.skillDesp}}" wx:key="id" class="carts-item2" data-title="{{item.skillName}}">
+        <view class="carts-item" style='margin-top:0rpx;padding-top:0rpx;'>
+          <view class="carts-text1">
+            <view class="carts-title1" style="color:{{model==1?'lightgrey':'black'}};">
+              <image class="carts-image1" src="{{imgUrl+item.imgPath}}" data-statu="open" catchtap='powerDrawer' style='width:94rpx;' />
+              <view class='carts-text1'>
+                <view class="carts-title1">
+                  <text>{{item.skillName}} （CD:</text>
+                  <text class="c--f60">{{item.skillCD-(item.tarLevel==10?2:(item.tarLevel>=6?1:0))}}</text>
+                  <text>）</text>
+                  <image wx:if="{{item.skillSrc=='NEW'}}" src="{{'/images/skill_up.png'}}" style='width: 50rpx;height: 50rpx;' catchtap='showOldSkill'></image>
+                  <image wx:if="{{item.skillSrc=='OLD'}}" class='img-grey' src="{{'/images/skill_up.png'}}" style='width: 50rpx;height: 50rpx;' catchtap='showNewSkill'></image>
+                </view>
+                <view style='font-size:20rpx;margin-left: 10rpx;' wx:if="{{item.skillTar}}">{{item.skillTar}}</view>
+              </view>
+              <text class='c--f60' style='font-size:24rpx;position:absolute;right:20rpx;'>等级：{{item.skillLevelUp}}</text>
+            </view>
+            <view class="carts-subtitle1" style="color:{{model==1?'lightgrey':'#7B7B7B'}}">
+              <block wx:for="{{item.skillDesc}}" wx:for-item="items" wx:key="{{index}}">
+                {{items}}
+                <view class="tr bg-w" style='height:40rpx;line-height:40rpx;'>
+                  <block wx:if="{{item.lv[9][index] == item.lv[0][index]}}">
+                    <view style="width:100%;color:black" class='td'>
+                      <text class="c--f60" style="font-size:20rpx">{{item.lv[0][index]}}</text>
+                    </view>
+                  </block>
+                  <block wx:else>
+                    <block wx:for="{{item.lv}}" wx:for-item="items2" wx:for-index="index2" wx:key="{{index2}}">
+                      <view style="width:100%;color:black" class='td' data-index='{{index2+1}}' catchtap='changeSkillLevel{{item.skillIndex}}'>
+                        <text class="{{index2==(item.tarLevel-1)?'c--f60':''}}
+                          style=" font-size:{{items2[index].length>4?'16rpx':'20rpx'}};">{{items2[index]}}</text>
+                      </view>
+                    </block>
+                  </block>
+                </view>
+              </block>
+            </view>
+          </view>
+        </view>
+        <view class="slide-item">
+          <view class="slidewrapName" style="color:{{model==1?'lightgrey':'black'}}">技能等级</view>
+          <slider style='width:100%;margin-top:0rpx;' block-size="20" class="slidewrap" min='1' max='10' show-value value="{{item.tarLevel}}" catchchange='changeSkillLevel{{item.skillIndex}}' />
+        </view>
+      </view>
+    </view>
+    <view  class="carts-list">
+      <view class="carts-item2">
+        <view wx:for="{{servant.skillAdd}}" wx:key="id" class="weui-cell ">
+          <view class="weui-cell__hd">
+            <image src="{{item.imgPath}}" class="carts-image1"></image>
+          </view>
+          <view class="weui-cell__bd">
+            <view style="color:{{item.flag==1?(model==1?'lightgreen':'green'):(model==1?'lightgrey':'black')}}">{{item.skillName}} [{{item.rank}}]
+              <text class='c--f60' style='font-size:24rpx;position:absolute;right:20rpx;'></text>
+            </view>
+            <view class="rank" style="color:{{model==1?'lightgrey':'#7B7B7B'}};font-size:24rpx">{{item.skillDesc}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <view style='height:20rpx;'></view>
+    </view>
+  </scroll-view>
+  <view hidden="{{skill == 1}}" style='padding-bottom:20rpx;'>
+    <view class="carts-list">
+      <view class="carts-item" style="{{model==1?'#7B7B7B':'#F0F0F0'}}">
+        <!-- //商品信息 -->
+        <view class="carts-cnt">
+          <swiper wx:if="{{clothList.length > 1}}" class="carts-image" indicator-dots="true" bindchange="changeServantSkillDesc">
+            <block wx:for="{{clothList}}" wx:key="{{index}}">
+              <swiper-item item-id="{{item.skillServantId}}">
+                <block wx:if="{{item.imgPath}}">
+                  <image class="carts-image" style="width:180rpx; height: 188rpx;" src="{{item.imgPath}}" catchtap='showImages' />
+                  <view class="container_text" style='padding-left:130rpx; margin-top:0rpx;'>
+                    <icon type="info" size="18" color="white" catchtap='showImages' />
+                  </view>
+                </block>
+              </swiper-item>
+            </block>
+          </swiper>
+          <block wx:if="{{servant.imgPath && clothList.length <= 1}}">
+            <image class="carts-image" style="width:180rpx; height: 188rpx;" src="{{servant.imgPath}}" catchtap='showImages' />
+            <view class="container_text" style='padding-left:130rpx; margin-top:0rpx;'>
+              <icon type="info" size="18" color="white" catchtap='showImages' />
+            </view>
+          </block>
+          <view class="carts-info">
+            <view class="carts-title clamp2" style="color:{{model==1?'lightgrey':'black'}}">攻击：{{servant.maxAtk}}</view>
+            <view class="carts-title clamp2" style="color:{{model==1?'lightgrey':'black'}}">血量：{{servant.maxHp}}</view>
+            <view class="carts-subtitle">
+              <text class="carts-price c--f60">灵基：</text>
+              <!-- //数量加减 -->
+              <image src='/images/00.png' class='{{servant_info[0]>0?"icon_img":"icon_img img-grey"}}' data-id='1' catchtap='bindNumChange'></image>
+              <image src='/images/02.png' class='{{servant_info[0]>1?"icon_img":"icon_img img-grey"}}' data-id='2' catchtap='bindNumChange'></image>
+              <image src='/images/03.png' class='{{servant_info[0]>2?"icon_img":"icon_img img-grey"}}' data-id='3' catchtap='bindNumChange'></image>
+              <image src='/images/04.png' class='{{servant_info[0]>3?"icon_img":"icon_img img-grey"}}' data-id='4' catchtap='bindNumChange'></image>
+              <image src='/images/reset.png' style='width:40rpx;height:40rpx;padding-left:20rpx;padding-top:10rpx;' data-id='0' catchtap='bindNumChange'></image>
+            </view>
+          </view>
+        </view>
+        <!-- //关注 -->
+        <icon class="carts-del" type="success" size="30" color="{{color}}" bindtap="setCare" />
+        <view wx:if="{{servant.clothFlag == 'Y'}}" style='position:absolute;right:80rpx;top: 20rpx;'>
+          <block wx:if="{{servant_info[4] != 1}}">
+            <image src='/images/cloth.png' class="img-grey" style='width:60rpx; height: 60rpx;' bindtap="setCloth" />
+          </block>
+          <block wx:if="{{servant_info[4] == 1}}">
+            <image src='/images/cloth.png' style='width:60rpx; height: 60rpx;' bindtap="setCloth" />
+          </block>
+        </view>
+        <view style='position:absolute;right:0rpx;top: 100rpx;'>
+          <block wx:if="{{topFlag == 1}}">
+            <image src='/images/down.png' style='width:80rpx; height: 80rpx;' bindtap="setDefault" />
+          </block>
+          <block wx:if="{{topFlag == 0}}">
+            <image src='/images/top.png' style='width:80rpx; height: 80rpx;' bindtap="setTop" />
+          </block>
+        </view>
+      </view>
+    </view>
+    <view class="carts-list">
+      <view class="itemList">
+        <view class="item1 {{skill==1?'active':''}}" data-index='1' catchtap='changeView'>技能</view>
+        <view class="item1 {{skill==2?'active':''}}" data-index='2' catchtap='changeView'>宝具</view>
+        <view class="item1 {{skill==3?'active':''}}" data-index='3' catchtap='changeView'>特攻</view>
+        <view class="item1 {{skill==4?'active':''}}" data-index='4' wx:if="{{servant.rarity > 3 &&servant.servantId>1001}}" catchtap='changeView'>卡池</view>
+        <view class="item1 {{skill==5?'active':''}}" data-index='5' wx:if="{{servant.cardInfo}}" catchtap='changeView'>礼装</view>
+      </view>
+    </view>
+    <view hidden="{{skill != 2}}" class="carts-list">
+      <view style='height:40rpx;'></view>
+      <view>
+        <view class="tr">
+          <view class="th">
+            <block wx:if="{{servant.treasure.tType}}">
+              <view style='height:100%;width:100rpx;'>
+                <image src="{{'/images/skill/'+servant.treasure.tType+'.png'}}" class="carts-image2 pic_background"></image>
+                <view class="container_text" wx:if="{{servant.treasure.treaHit}}">
+                  {{servant.treasure.treaHit}}Hits
+                </view>
+              </view>
+            </block>
+            <view style='margin-left:40rpx;'>
+              <view style="color:black">{{showOldTreasure?servant.treasure_old.evtName:servant.treasure.tName}}</view>
+              <view class="rank" style="color:grey;white-space:nowrap; width:440rpx;font-size:22rpx;">{{servant.treasure.eName}}</view>
+            </view>
+            <view style='margin-left:10rpx;' wx:if="{{servant.treasure_old && !showOldTreasure}}">
+              <image src="{{'/images/treasure_up.png'}}" style='width: 60rpx;height: 60rpx;' catchtap='showOldTreasure'></image>
+            </view>
+            <view style='margin-left:10rpx;' wx:if="{{servant.treasure_old && showOldTreasure}}">
+              <image src="{{'/images/treasure_up.png'}}" class='img-grey' style='width: 60rpx;height: 60rpx;' catchtap='showNewTreasure'></image>
+            </view>
+          </view>
+        </view>
+        <video wx:if="{{videoSrc}}" src="{{videoSrc}}" autoplay="true" controls style='width:{{width-20}}px; height:{{(width-20)*48/85}}px;'></video>
+        <view class='tr' catchtap='showVideo' wx:if="{{!videoSrc && servant.treasure.animeAddr}}">
+          <view class="td">
+            <view class="cards-info_title cards-info_bg-w">宝具动画</view>
+          </view>
+        </view>
+        <block wx:for="{{tDesc}}" wx:key="index">
+          <view class="tr">
+            <view class="td _min60" style="color:{{model==1?'lightgrey':'#7B7B7B'}};display: table;">
+              <view class="middle">{{item}}</view>
+            </view>
+          </view>
+          <block wx:if="{{tLv[index].length < 5}}">
+            <view class="tr bg-w">
+              <view class="td">{{tLv[index]}}</view>
+            </view>
+          </block>
+          <block wx:if="{{tLv[index].length == 5}}">
+            <view class="tr bg-w">
+              <block wx:for="{{tLv[index]}}" wx:for-item="items" wx:key="index">
+                <view class="td" style='width:20%'>{{items}}</view>
+              </block>
+            </view>
+          </block>
+        </block>
+        <view class="tr" hidden="{{!servant.treasure_update}}">
+          <view class="td _min60" style="color:{{model==1?'lightgrey':'#7B7B7B'}};display: table;">
+            <view class="middle">{{servant.treasure_update}} </view>
+          </view>
+        </view>
+        <view class="tr">
+          <view class='th'>
+            <view class="relative" id="{{i}}" wx:key="{{i}}" wx:for="i++" wx:for-index="i" wx:if="{{i < servant.treasure.q}}">
+              <image class="carts-image2 pic_background" src="/images/skill/Quick.png"></image>
+              <view class="container_text">
+                {{servant.treasure.qHit}}Hits
+              </view>
+            </view>
+            <view class="relative" id="{{i}}" wx:key="{{i}}" wx:for="i++" wx:for-index="i" wx:if="{{i < servant.treasure.a}}">
+              <image class="carts-image2 pic_background" src="/images/skill/Arts.png"></image>
+              <view class="container_text">
+                {{servant.treasure.aHit}}Hits
+              </view>
+            </view>
+            <view class="relative" id="{{i}}" wx:key="{{i}}" wx:for="i++" wx:for-index="i" wx:if="{{i < servant.treasure.b}}">
+              <image class="carts-image2 pic_background" src="/images/skill/Buster.png"></image>
+              <view class="container_text">
+                {{servant.treasure.bHit}}Hits
+              </view>
+            </view>
+            <view class="relative">
+              <image class="carts-image2 pic_background" src="/images/skill/Extra.png"></image>
+              <view class="container_text">
+                {{servant.treasure.exHit}}Hits
+              </view>
+            </view>
+            <view class="relative">
+              <image class="pic_background" style='width:90rpx; height:90rpx;padding-top:6rpx;' src="/images/skill/NP_Get.png"></image>
+              <view class="container_text">
+                {{servant.treasure.npGet}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view hidden="{{skill != 3}}">
+      <block wx:if="{{attackList.attack.length > 0 || attackList.attackEnemy.length > 0}}">
+        <view class="info important" style="color:{{model==1?'lightgrey':'black'}}">特攻对象</view>
+        <view class="weui-grids">
+          <block wx:for="{{attackList.attack}}" wx:key="{{index}}">
+            <block wx:if="{{item.clazz == 'SABER'}}">
+              <view class="weui-grid">
+                <view class="weui-grid__icon">
+                  <image src='{{item.imgPath}}' class='view_grid_img' />
+                </view>
+              </view>
+            </block>
+          </block>
+          <block wx:for="{{attackList.attack}}" wx:key="{{index}}">
+            <block wx:if="{{item.clazz == 'ARCHER'}}">
+              <view class="weui-grid">
+                <view class="weui-grid__icon">
+                  <image src='{{item.imgPath}}' class='view_grid_img' />
+                </view>
+              </view>
+            </block>
+          </block>
+          <block wx:for="{{attackList.attack}}" wx:key="{{index}}">
+            <block wx:if="{{item.clazz == 'LANCER'}}">
+              <view class="weui-grid">
+                <view class="weui-grid__icon">
+                  <image src='{{item.imgPath}}' class='view_grid_img' />
+                </view>
+              </view>
+            </block>
+          </block>
+          <block wx:for="{{attackList.attack}}" wx:key="{{index}}">
+            <block wx:if="{{item.clazz == 'RIDER'}}">
+              <view class="weui-grid">
+                <view class="weui-grid__icon">
+                  <image src='{{item.imgPath}}' class='view_grid_img' />
+                </view>
+              </view>
+            </block>
+          </block>
+          <block wx:for="{{attackList.attack}}" wx:key="{{index}}">
+            <block wx:if="{{item.clazz == 'CASTER'}}">
+              <view class="weui-grid">
+                <view class="weui-grid__icon">
+                  <image src='{{item.imgPath}}' class='view_grid_img' />
+                </view>
+              </view>
+            </block>
+          </block>
+          <block wx:for="{{attackList.attack}}" wx:key="{{index}}">
+            <block wx:if="{{item.clazz == 'ASSASSIN'}}">
+              <view class="weui-grid">
+                <view class="weui-grid__icon">
+                  <image src='{{item.imgPath}}' class='view_grid_img' />
+                </view>
+              </view>
+            </block>
+          </block>
+          <block wx:for="{{attackList.attack}}" wx:key="{{index}}">
+            <block wx:if="{{item.clazz == 'BERSERKER'}}">
+              <view class="weui-grid">
+                <view class="weui-grid__icon">
+                  <image src='{{item.imgPath}}' class='view_grid_img' />
+                </view>
+              </view>
+            </block>
+          </block>
+          <block wx:for="{{attackList.attack}}" wx:key="{{index}}">
+            <block wx:if="{{item.clazz != 'SABER'&&item.clazz != 'ARCHER'&& item.clazz != 'LANCER'&&item.clazz != 'BERSERKER'&&item.clazz != 'RIDER'&&item.clazz != 'CASTER'&&item.clazz != 'ASSASSIN'}}">
+              <view class="weui-grid">
+                <view class="weui-grid__icon">
+                  <image src='{{item.imgPath}}' class='view_grid_img' />
+                </view>
+              </view>
+            </block>
+          </block>
+        </view>
+        <view class="weui-grids">
+          <view class="weui-grid" style='height:80rpx;margin-bottom: 0rpx;' wx:for="{{attackList.attackEnemy}}" wx:key="{{index}}">
+            <view class="weui-grid__icon">
+              <image src='{{item.imgPath}}' class='view_grid_img' style='height:80rpx;' />
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:if="{{attackList.attacked.length > 0}}">
+        <view class="info important" style="color:{{model==1?'lightgrey':'black'}}">被特攻</view>
+        <view class="weui-grids">
+          <view class="weui-grid" wx:for="{{attackList.attacked}}" wx:key="{{index}}">
+            <view class="weui-grid__icon">
+              <image src='{{item.imgPath}}' class='view_grid_img' />
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view hidden="{{skill != 4}}" style='padding-top:20rpx;'>
+      <block wx:for="{{eventList}}" wx:key="id">
+        <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+          <view class="weui-cell" style='height:40rpx;'>
+            <view class="weui-cell__bd" bindtap='showDetail' data-index="{{item.id}}" style='color:{{model==1?"lightgrey":"black"}};font-size:22rpx;'>{{item.name}}</view>
+            <view class="weui-cell__ft">
+              <image wx:if="{{item.pickType == 1}}" src='/images/star.png' style='width:30rpx; height: 30rpx;'></image>
+              <text wx:if="{{item.status == 0}}" style='font-size:22rpx;'>已过期</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view hidden="{{skill != 5}}" style='padding-top:20rpx;'>
+      <view class="cards-info">
+        <view class='cards-info_tr'>
+          <view class="cards-info_th" style='flex:1'>
+            <view class='cards-info_td'>
+              <view class="cards-info_title cards-info_bg-w">{{servant.cardInfo.nameCn}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="cards-info_tr">
+          <view class="cards-info_th">
+         <view class='cards-info_td'>
+            <image class='cards-info_card_img' src='{{servant.cardInfo.avastar}}'  catchtap='showImg'></image>
+            </view>
+          </view>
+          <view class="cards-info_th" style='flex:1'>
+            <view class='cards-info_td three'>
+              <view class='cards-info_text cards-info_bg-w' style='flex:0 0 25%; border-right:1px solid lightgrey;'>画师</view>
+              <view class='cards-info_text'>{{servant.cardInfo.illust}}</view>
+            </view>
+            <view class='cards-info_td three'>
+              <view class='cards-info_text small cards-info_bg-w' style='border-right:1px solid lightgrey;'>稀有度</view>
+              <view class='cards-info_text small' style='border-right:1px solid lightgrey;'>{{servant.cardInfo.star}}星</view>
+              <view class='cards-info_text small cards-info_bg-w' style='border-right:1px solid lightgrey;'>COST</view>
+              <view class='cards-info_text small'>{{servant.cardInfo.cost}}</view>
+            </view>
+            <view class='cards-info_td three'>
+              <view class='cards-info_text small cards-info_bg-w' style='border-right:1px solid lightgrey;'>ATK</view>
+              <view class='cards-info_text small' style='border-right:1px solid lightgrey;'>{{servant.cardInfo.lv1Atk}}/{{servant.cardInfo.lvmaxAtk}}</view>
+              <view class='cards-info_text small cards-info_bg-w' style='border-right:1px solid lightgrey;'>HP</view>
+              <view class='cards-info_text small' style=''>{{servant.cardInfo.lv1Hp}}/{{servant.cardInfo.lvmaxHp}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="cards-info_tr">
+          <view class="cards-info_th" style='flex:1'>
+            <view class='cards-info_td'>
+              <view class='cards-info_text cards-info_bg-w' style='flex:0 0 20%; border-right:1px solid lightgrey;'>技能</view>
+              <view class='cards-info_text small'>{{servant.cardInfo.skillE}}</view>
+            </view>
+            <view class='cards-info_td'>
+              <view class='cards-info_text cards-info_bg-w' style='flex:0 0 20%; border-right:1px solid lightgrey;'>满破</view>
+              <view class='cards-info_text small'>{{servant.cardInfo.skillMaxE}}</view>
+            </view>
+          </view>
+        </view>
+        <view class='cards-info_tr'>
+          <view class='cards-info_th' style='flex:1'>
+            <view class="cards-info_td">
+              <view class="cards-info_text small cards-info_bg-w">
+                <block wx:for="{{servant.cardInfo.intro}}" wx:key="{{index}}">
+                  <view>{{item}}</view>
+                </block>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class='cards-info_tr' catchtap='showImg'>
+          <view class="cards-info_th" style='flex:1'>
+            <view class='cards-info_td'>
+              <view class="cards-info_title cards-info_bg-w">查看卡面</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="container-footer" hidden="{{skill != 1}}">
+    <view style='width:25%;'>
+      <button class="weui-btn" style='height:40px;vertical-align:middle;line-height:40px;' type="default" catchtap='setStatus'>设置</button>
+    </view>
+    <view style='padding-left:20rpx;width:25%'>
+      <block wx:if="{{topFlag == 1}}">
+        <button class="weui-btn" style='height:40px;vertical-align:middle;line-height:40px;' type="default" catchtap='setDefault'>还原</button>
+      </block>
+      <block wx:if="{{topFlag == 0}}">
+        <button class="weui-btn" style='height:40px;vertical-align:middle;line-height:40px;' type="default" catchtap='setTop'>310</button>
+      </block>
+    </view>
+    <view style='padding-left:20rpx;width:50%'>
+      <button class="weui-btn" style='height:40px;vertical-align:middle;line-height:40px;' type="primary" catchtap='calMaterial'>计算素材</button>
+    </view>
+  </view>
+</view>

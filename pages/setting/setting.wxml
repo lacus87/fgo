@@ -1,274 +1,71 @@
 <view class="page">
-  <view class="drawer_screen" wx:if="{{showModalStatus}}"></view>
-  <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}};">
-    <!--drawer content-->
-    <view class="drawer_title" style="align:center;height:30px;background: {{model==1?'#7B7B7B':'#F0F0F0'}};color:{{model==1?'lightgrey':'black'}}">
-      规划排序
-      <text class="view_grid_info_item_text" style="width:30px;color:black;margin-left:20px;padding:3px;background-color:greenyellow;" catchtap="switchSortWay">{{sortWay[sortWayIndex]}}</text>
-      <block wx:if="{{sortCur == 0}}">
-        <image src='/images/up_sort.png' style='margin-left:10px;width:25px; height:25px;vertical-align:middle' data-index="1" catchtap="sortProgrameList" />
-      </block>
-      <block wx:if="{{sortCur == 1}}">
-        <image src='/images/down_sort.png' style='margin-left:10px;width:25px; height:25px;vertical-align:middle' data-index="0" catchtap="sortProgrameList" />
-      </block>
-    </view>
-    <scroll-view scroll-y="true " style="height: 210px;border-top: 1px solid #E0E0E0;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
-      <block wx:for="{{modelArray}}" wx:key="{{index}}">
-        <view class="weui-cell">
-          <image src='{{item.imgPath}}' style='margin-left:5px;width:25px; height:26px;' />
-          <text style="font-size:12px; width:150px;margin-left:10px;color:{{model==1?'lightgrey':'black'}}">{{item.name}}</text>
-          <block wx:if="{{index > 0}}">
-            <image src='/images/up_sort.png' style='margin-right:10px;width:20px; height:20px;' data-index="{{index}}" bindtap="upItem" />
-          </block>
-          <block wx:if="{{index == 0}}">
-            <image src='' style='margin-right:10px;width:20px; height:20px;' />
-          </block>
-          <block wx:if="{{index < modelArray.length-1}}">
-            <image src='/images/down_sort.png' style='margin-right:10px;width:20px; height:20px;' data-index="{{index}}" bindtap="downItem" />
-          </block>
-        </view>
-      </block>
-    </scroll-view>
-    <view class="weui-form-preview__ft">
-      <view class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active" catchtap='powerDrawer' data-statu="close" data-oper='cancel'>取消</view>
-      <view class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" catchtap='powerDrawer' data-statu="close" data-oper='confirm'>确定</view>
-    </view>
-    <!-- <view style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}" class="btn_ok" bindtap="powerDrawer" data-statu="close">确定</view> -->
-  </view>
   <view>
-    <view class="weui-tab">
-      <view class="weui-navbar" style="background:{{model==1?'#7B7B7B':'#F0F0F0'}}">
-        <block wx:for="{{tabs}}" wx:key="{{index}}">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item}}
-              <block wx:if="{{activeIndex != 0 && index !=0}}">
-                <image src='/images/delete.png' style='width:25px; height:25px;vertical-align:middle' catchtap='programeDown'></image>
-                {{curProgrameId==''?'1':curProgrameId+1}}
-                <image src='/images/plus.png' style='width:25px; height:25px;vertical-align:middle' catchtap='programeUp'></image>
-              </block>
+    <scroll-view scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FOFOFO'}}">
+      <block wx:for="{{accountList}}" wx:key="id">
+        <block wx:if="{{item.status == 1}}">
+          <view class="weui-form-preview" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+            <view class="weui-form-preview__hd">
+              <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">
+                  <image src="/images/switch.png" style="flex: 0 0 80rpx; height: 80rpx;" catchtap='changeAccount'></image>
+                  <input type='text' value="{{item.name}}" style="margin-left:20px;font-size:35px;height:40px;color:{{model==1?'lightgreen':'green'}}" maxlength='16' bindblur='changeAccName'></input>
+                </view>
+                <view class="weui-form-preview__value_in-hd">
+                  <block wx:if="{{model == 0}}">
+                    <image src="/images/day.png" style="width:40px; height: 40px;" catchtap='changeModel'></image>
+                  </block>
+                  <block wx:if="{{model == 1}}">
+                    <image src="/images/night.png" style="width:40px; height: 40px;" catchtap='changeModel'></image>
+                  </block>
+                </view>
+              </view>
             </view>
           </view>
         </block>
-        <view class="weui-navbar__slider" style="left: 0px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-        <view hidden="{{activeIndex != 1}}">
-          <view class='top'>
-            <image src='/images/add_black.png' style='width:35px; height:35px;' catchtap='addServant'></image>
-            <view style='height:30px;'></view>
-            <image src='/images/down.png' style='width:35px; height:35px;' catchtap='allTop'></image>
-            <view style='height:30px;'></view>
-            <block wx:if="{{showLevel == 1}}">
-              <image src='/images/input_off.png' style='margin-left:5px;width:25px; height:25px;' catchtap='showInput'></image>
-            </block>
-            <block wx:if="{{showLevel == 0}}">
-              <image src='/images/input_on.png' style='margin-left:5px;width:25px; height:25px;' catchtap='closeInput'></image>
-            </block>
-            <view style='height:30px;'></view>
-            <image src='/images/sort.png' style='width:35px; height:35px;' catchtap='powerDrawer' data-statu="open"></image>
-            <view style='height:40px;'></view>
-            <image src='/images/calculate.png' style='width:35px; height:35px;' catchtap='calculate'></image>
-            <view style='height:70px;'></view>
-            <image src='/images/clearAll.png' style='width:35px; height:35px;' catchtap='clearAll'></image>
+      </block>
+      <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+            <text style="font-size:18px;margin-left:10px;">素材掉落</text>
+          </view>
+          <view class="weui-cell__ft">
+            <radio-group class="radio-group" bindchange="dropModelChange">
+              <label class="radio">
+                <radio value="1" checked="{{dropModel==1}}" />日服
+                <radio value="2" checked="{{dropModel==2}}" />国服
+              </label>
+            </radio-group>
           </view>
         </view>
       </view>
-      <view hidden="{{activeIndex != 0}}">
-        <scroll-view class="weui-tab__panel " scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#FOFOFO'}}">
-          <block wx:for="{{accountList}}" wx:key="id">
-            <block wx:if="{{item.status == 1}}">
-              <view class="weui-form-preview" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-                <view class="weui-form-preview__hd">
-                  <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">
-                      <image src="/images/switch.png" style="width:80px; height: 40px;" catchtap='changeAccount'></image>
-                      <input type='text' value="{{item.name}}" style="margin-left:20px;font-size:35px;height:40px;color:{{model==1?'lightgreen':'green'}}" maxlength='16' bindblur='changeAccName'></input>
-                    </view>
-                    <view class="weui-form-preview__value_in-hd">
-                      <block wx:if="{{model == 0}}">
-                        <image src="/images/day.png" style="width:40px; height: 40px;" catchtap='changeModel'></image>
-                      </block>
-                      <block wx:if="{{model == 1}}">
-                        <image src="/images/night.png" style="width:40px; height: 40px;" catchtap='changeModel'></image>
-                      </block>
-                    </view>
-                  </view>
-                </view>
-              </view>
-            </block>
-          </block>
-          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-cell">
-              <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
-                <text style="font-size:18px;margin-left:10px;">素材掉落</text>
-              </view>
-              <view class="weui-cell__ft">
-                <radio-group class="radio-group" bindchange="dropModelChange">
-                  <label class="radio">
-                    <radio value="1" checked="{{dropModel==1}}" />日服
-                    <radio value="2" checked="{{dropModel==2}}" />国服
-                  </label>
-                </radio-group>
-              </view>
-            </view>
+      <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" bindtap='showHelp' style='color:{{model==1?"lightgrey":"black"}}'>
+            <text style="font-size:18px;margin-left:10px;">使用帮助</text>
           </view>
-          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-cell">
-              <view class="weui-cell__bd" bindtap='gotoGraphs' style='color:{{model==1?"lightgrey":"black"}}'>
-                <text style="font-size:18px;margin-left:10px;">账号英灵</text>
-              </view>
-            </view>
-          </view>
-          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-cell">
-              <view class="weui-cell__bd" bindtap='gotoMatCost' style='color:{{model==1?"lightgrey":"black"}}'>
-                <text style="font-size:18px;margin-left:10px;">消耗素材</text>
-              </view>
-            </view>
-          </view>
-          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-cell">
-              <view class="weui-cell__bd" bindtap='uploadSetting' style='color:{{model==1?"lightgrey":"black"}}'>
-                <text style="font-size:18px;margin-left:10px;">数据备份</text>
-              </view>
-            </view>
-          </view>
-          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-cell">
-              <view class="weui-cell__bd" bindtap='showHelp' style='color:{{model==1?"lightgrey":"black"}}'>
-                <text style="font-size:18px;margin-left:10px;">使用帮助</text>
-              </view>
-            </view>
-          </view>
-          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-cell">
-              <view class="weui-cell__bd" bindtap='showLogs' style='color:{{model==1?"lightgrey":"black"}}'>
-                <text style="font-size:18px;margin-left:10px;">更新日志</text>
-              </view>
-            </view>
-          </view>
-          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-cell">
-              <view class="weui-cell__bd" bindtap='aboutUs' style='color:{{model==1?"lightgrey":"black"}}'>
-                <text style="font-size:18px;margin-left:10px;">关于FGO素材规划</text>
-              </view>
-            </view>
-          </view>
-          <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-cell">
-              <view class="weui-cell__bd" bindtap='gotoReward' style='color:{{model==1?"lightgrey":"black"}}'>
-                <text style="font-size:18px;margin-left:10px;">打赏作者</text>
-              </view>
-            </view>
-          </view>
-        </scroll-view>
+        </view>
       </view>
-      <view hidden="{{activeIndex != 1}}" style="background: #F0F0F0">
-        <scroll-view class="weui-panel__bd weui-tab__panel" scroll-y="true" style="height: {{pageHeight}}px;background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
-          <view class="weui-grids" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
-            <view class="weui-grid" wx:for="{{servantList}}" wx:key="{{index}}">
-              <block wx:if="{{showLevel == 1}}">
-                <view class='view_grid_img' style='background-image: url({{item.imgPath.length<30?(url+item.imgPath):item.imgPath}})' catchlongpress='removeServant' data-index='{{item.id}}' data-value='{{item.name}}' catchtap="showServantDetail">
-                  <view class='view_grid_info'>{{item.rank}}-{{item.skill[0]}}/{{item.skill[1]}}/{{item.skill[2]}}</view>
-                </view>
-                <view class='view_grid_info1'>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>灵基：</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='0' style='background-color:{{item.tarRank == 0?"orange":(model==1?"#CCC":"#FFFFFF")}}'>0</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='1' style='background-color:{{item.tarRank == 1?"orange":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='2' style='background-color:{{item.tarRank == 2?"orange":(model==1?"#CCC":"#FFFFFF")}}'>2</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='3' style='background-color:{{item.tarRank == 3?"orange":(model==1?"#CCC":"#FFFFFF")}}'>3</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='4' style='background-color:{{item.tarRank == 4?"orange":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='1' style='background-color:{{item.tarSkill[0] == 1?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='4' style='background-color:{{item.tarSkill[0] == 4?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='6' style='background-color:{{item.tarSkill[0] == 6?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>6</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='9' style='background-color:{{item.tarSkill[0] == 9?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>9</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='0' catchtap='skillUp' data-value='10' style='background-color:{{item.tarSkill[0] == 10?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>10</view>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='1' style='background-color:{{item.tarSkill[1] == 1?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='4' style='background-color:{{item.tarSkill[1] == 4?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='6' style='background-color:{{item.tarSkill[1] == 6?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>6</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='9' style='background-color:{{item.tarSkill[1] == 9?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>9</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='1' catchtap='skillUp' data-value='10' style='background-color:{{item.tarSkill[1] == 10?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>10</view>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='1' style='background-color:{{item.tarSkill[2] == 1?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='4' style='background-color:{{item.tarSkill[2] == 4?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='6' style='background-color:{{item.tarSkill[2] == 6?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>6</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='9' style='background-color:{{item.tarSkill[2] == 9?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>9</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' data-src='2' catchtap='skillUp' data-value='10' style='background-color:{{item.tarSkill[2] == 10?"greenyellow":(model==1?"#CCC":"#FFFFFF")}}'>10</view>
-                  </view>
-                </view>
-                <view class="view_grid_info_item_icon">
-                  <view style="width:30px; height: 2px;"></view>
-                  <image src="/images/next2.png" data-index='{{item.id}}' style="width:30px; height: 20px;" catchtap='upRank'></image>
-                  <view style="width:30px; height: 15px;"></view>
-                  <image src="/images/next.png" data-index='{{item.id}}' style="width:30px; height: 30px;" catchtap='upSkill'></image>
-                </view>
-              </block>
-              <block wx:if="{{showLevel == 0}}">
-                <view class='view_grid_img' style='background-image: url({{item.imgPath.length<30?(url+item.imgPath):item.imgPath}})' catchlongpress='removeServant' data-index='{{item.id}}' data-value='{{item.name}}'>
-                  <view class='view_grid_info'>{{item.rank}}-{{item.skill[0]}}/{{item.skill[1]}}/{{item.skill[2]}}</view>
-                </view>
-                <view class='view_grid_info1'>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>灵基：</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='0' style='background-color:{{item.tarRank == 0?"orange":(model==1?"#CCC":"#FFFFFF")}}'>0</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='1' style='background-color:{{item.tarRank == 1?"orange":(model==1?"#CCC":"#FFFFFF")}}'>1</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='2' style='background-color:{{item.tarRank == 2?"orange":(model==1?"#CCC":"#FFFFFF")}}'>2</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='3' style='background-color:{{item.tarRank == 3?"orange":(model==1?"#CCC":"#FFFFFF")}}'>3</view>
-                    <view class='view_grid_info_item_text' data-index='{{item.id}}' catchtap='rankUp' data-value='4' style='background-color:{{item.tarRank == 4?"orange":(model==1?"#CCC":"#FFFFFF")}}'>4</view>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <image src='/images/delete.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='0' catchtap='skillDown'></image>
-                    <view class='view_grid_info_item_input' style='background-color:greenyellow'>{{item.tarSkill[0]}}</view>
-                    <image src='/images/plus.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='0' catchtap='skillUpOne'></image>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <image src='/images/delete.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='1' catchtap='skillDown'></image>
-                    <view class='view_grid_info_item_input' style='background-color:greenyellow'>{{item.tarSkill[1]}}</view>
-                    <image src='/images/plus.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='1' catchtap='skillUpOne'></image>
-                  </view>
-                  <view class='view_grid_info_item' style="color:{{model==1?'lightgrey':'black'}}">
-                    <view>技能：</view>
-                    <image src='/images/delete.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='2' catchtap='skillDown'></image>
-                    <view class='view_grid_info_item_input' style='background-color:greenyellow'>{{item.tarSkill[2]}}</view>
-                    <image src='/images/plus.png' style='width:30px; height:20px;margin-top:2px;' data-index='{{item.id}}' data-src='2' catchtap='skillUpOne'></image>
-                  </view>
-                </view>
-                <view class="view_grid_info_item_icon">
-                  <view style="width:30px; height: 2px;"></view>
-                  <image src="/images/next2.png" data-index='{{item.id}}' style="width:30px; height: 20px;" catchtap='upRank'></image>
-                  <view style="width:30px; height: 15px;"></view>
-                  <image src="/images/next.png" data-index='{{item.id}}' style="width:30px; height: 30px;" catchtap='upSkill2'></image>
-                </view>
-              </block>
-            </view>
+      <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" bindtap='showLogs' style='color:{{model==1?"lightgrey":"black"}}'>
+            <text style="font-size:18px;margin-left:10px;">更新日志</text>
           </view>
-          <block wx:if="{{importFlag == 'Y'}}">
-            <block wx:for="{{importList}}" wx:key="{{index}}">
-              <block wx:if="{{item.data.length>0 && item.id != curProgrameId}}">
-                <view>
-                  <view class="weui-grids" style="margin-top:20px">
-                    <view class="weui-grid1" wx:for="{{item.data}}" wx:for-item="items" wx:key="{{index}}">
-                      <view class="weui-grid__icon">
-                        <image src=" {{items.imgPath}}" mode="scaleToFill" />
-                      </view>
-                    </view>
-                  </view>
-                </view>
-                <button style='width:50%;' type='primary' catchtap="importList" data-index="{{item.id}}">导入规划{{item.id==''?'1':item.id+1}}</button>
-              </block>
-            </block>
-          </block>
-        </scroll-view>
+        </view>
       </view>
-    </view>
+      <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" bindtap='aboutUs' style='color:{{model==1?"lightgrey":"black"}}'>
+            <text style="font-size:18px;margin-left:10px;">关于FGO素材规划</text>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#FFFFFF'}}">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" bindtap='gotoReward' style='color:{{model==1?"lightgrey":"black"}}'>
+            <text style="font-size:18px;margin-left:10px;">打赏作者</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
   </view>
 </view>
