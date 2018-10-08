@@ -46,6 +46,7 @@
             <block wx:if="{{item.id == 5}}">
               <block wx:if="{{servantLimit == 0}}">
                 <text style='font-size:26rpx;' data-index="{{item.id}}" bindtap='showDetail'>{{skillModel == 1?"按310":"按当前练度"}}</text>
+                <text style='font-size:26rpx;' data-index="{{item.id}}" bindtap='showDetail'> {{limitServantLv == 0?"满破":"100级"}}</text>
               </block>
               <block wx:if="{{servantLimit == 1}}">
                 <image src="{{chooseImg2}}" data-index="{{item.id}}" bindtap='showDetail' style="margin-right: 5px;vertical-align: middle;width:48rpx; height: 50rpx;">
@@ -270,7 +271,7 @@
               </view>
               <view class="weui-cell" wx:if="{{servantLimit==0}}">
                 <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
-                  <text style="font-size:15px;margin-left:10px;">已有英灵</text>
+                  <text style="font-size:15px;margin-left:10px;">技能等级</text>
                 </view>
                 <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
                   <radio-group class="radio-group" bindchange="skillModelChange">
@@ -283,12 +284,13 @@
               </view>
               <view class="weui-cell" wx:if="{{servantLimit==0}}">
                 <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
-                  <text style="font-size:15px;margin-left:10px;">其他英灵</text>
+                  <text style="font-size:15px;margin-left:10px;">英灵等级</text>
                 </view>
                 <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
-                  <radio-group class="radio-group" bindchange="dropModelChange">
+                  <radio-group class="radio-group" bindchange="limitServantLvChange">
                     <label class="radio">
-                      <radio value="1" checked="true" style='transform:scale(.8)' />按310
+                      <radio value="0" checked="{{limitServantLv==0}}" style='transform:scale(.8)' />满破
+                      <radio value="100" checked="{{limitServantLv==100}}" style='transform:scale(.8)' />100级
                     </label>
                   </radio-group>
                 </view>
@@ -305,6 +307,19 @@
                       <radio value="3" checked="{{limitTreaLv==3}}" style='transform:scale(.8)' />3
                       <radio value="4" checked="{{limitTreaLv==4}}" style='transform:scale(.8)' />4
                       <radio value="5" checked="{{limitTreaLv==5}}" style='transform:scale(.8)' />5
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view class="weui-cell" wx:if="{{servantLimit==1}}">
+                <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <text style="font-size:15px;margin-left:10px;">等级</text>
+                </view>
+                <view class="weui-cell__ft" style='color:{{model==1?"lightgrey":"black"}}'>
+                  <radio-group class="radio-group" bindchange="limitServantLvChange">
+                    <label class="radio">
+                      <radio value="0" checked="{{limitServantLv==0}}" style='transform:scale(.8)' />满破
+                      <radio value="100" checked="{{limitServantLv==100}}" style='transform:scale(.8)' />100级
                     </label>
                   </radio-group>
                 </view>

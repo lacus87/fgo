@@ -1,0 +1,21 @@
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#ffffff'}}">
+  <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+    <view class="weui-cell">
+      <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+        <text style='font-size:30rpx;'>【{{name}}】的成长曲线</text>
+      </view>
+    </view>
+  </view>
+  <!-- <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+    <view class="weui-cell">
+      <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+        <text style='font-size:26rpx;'>等级:【{{percent+1}}】 ATK:【{{servantAtks.atkList[percent]}}】 HP:【{{servantAtks.hpList[percent]}}】</text>
+      </view>
+    </view>
+  </view> -->
+  <view>
+    <canvas style='width:{{pageWidth}}px;height:{{pageWidth}}px;' disable-scroll="true" class="canvas" canvas-id="servantInfo" bindtouchstart="touchHandler"
+    bindtouchmove='touchHandler'/>
+  </view>
+
+</view>

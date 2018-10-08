@@ -74,6 +74,7 @@ Page({
     servantSkill2: [10, 10, 10],
     damageData: [],
     limitTreaLv: 1,
+    limitServantLv:0,
     sort: 1,
     showOwn: 0,
     showData: [],
@@ -620,12 +621,14 @@ Page({
         skillInfo.push(servant);
       }
     }
+    param.servantLv = this.data.limitServantLv;
     param.param = skillInfo;
     param.addParam = this.buffToString(this.data.buff[this.data.selectBuff]) + "|"
       + this.buffToString(this.data.card[this.data.selectCard]) + "|"
       + this.buffToString(this.data.cloth[this.data.selectCloth]) + "|"
       + "10:" + this.data.atk;
     if (param.progress == '1050') {
+      //魔神柱特殊buff
       param.addParam = param.addParam + "|51:100%";
     }
     var targetList = this.data.targetList;
@@ -774,6 +777,12 @@ Page({
   limitTreaLvChange: function (e) {
     this.setData({
       limitTreaLv: e.detail.value
+    })
+  },
+
+  limitServantLvChange: function (e) {
+    this.setData({
+      limitServantLv: e.detail.value
     })
   },
 

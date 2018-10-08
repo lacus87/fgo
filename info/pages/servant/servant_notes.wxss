@@ -1,0 +1,10 @@
+.img_star{
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.img-grey {
+  -webkit-filter: grayscale(1); /* Webkit */
+  filter: gray; /* IE6-9 */
+  filter: grayscale(1); /* W3C */
+}

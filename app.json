@@ -20,6 +20,8 @@
         "pages/servant/servant_detail",
         "pages/servant/servant_material",
         "pages/servant/servant_images",
+        "pages/servant/servant_notes",
+        "pages/servant/servant_atk",
         "pages/setting/servant_setting",
         "pages/setting/setting_account",
         "pages/setting/setting_details",
@@ -66,5 +68,6 @@
         "text": "设置"
       }
     ]
-  }
+  },
+  "cloud": true
 }

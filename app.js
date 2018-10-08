@@ -115,6 +115,17 @@ App({
         that.calculateEventMat(eventList, curAccId);
       }
     });
+    wx.login({
+      success: function (loginCode) {
+        //调用request请求api转换登录凭证  
+        wx.request({
+          url: that.globalData.url + '/servant/getOpenId.do?code=' + loginCode.code,
+          success: function (res) {
+            that.globalData.openId = res.data.data;
+          }
+        })
+      }
+    })
   },
 
   onShow: function(){
@@ -180,6 +191,7 @@ App({
     eventList: [],
     materialList: [],
     lastTapTime: 0,
+    openId:0,
     model: wx.getStorageSync("model"),
     // url: 'http://127.0.0.1/fgo'
     url: 'https://www.fgowiki.cn/fgo'

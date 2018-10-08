@@ -24,7 +24,7 @@ Page({
     material: {},
     uploadInfoOpen: 'N',
     uploadMatArray: [],
-    keyId: '',
+    keyId: app.globalData.openId,
     uploadModel: ''
   },
   tabClick: function (e) {
@@ -40,19 +40,6 @@ Page({
     var that = this;
     this.setData({
       model: wx.getStorageSync("model")
-    })
-    wx.login({
-      success: function (loginCode) {
-        //调用request请求api转换登录凭证  
-        wx.request({
-          url: app.globalData.url + '/servant/getOpenId.do?code=' + loginCode.code,
-          success: function (res) {
-            that.setData({
-              keyId: res.data.data
-            })
-          }
-        })
-      }
     })
   },
   onShow: function () {

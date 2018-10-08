@@ -724,20 +724,33 @@ Page({
   previewImages: function(){
     var id = this.data.id;
     id = id.substring(1, 4);
+    var url = app.globalData.url.replace("www.fgowiki.cn", "fgowiki.cn");
+    // var url = app.globalData.imgUrl;
     var images = [];
-    images.push(app.globalData.url + "/images/servant/detail/" + id + "A.jpg");
-    images.push(app.globalData.url + "/images/servant/detail/" + id + "B.jpg");
-    images.push(app.globalData.url + "/images/servant/detail/" + id + "C.jpg");
-    images.push(app.globalData.url + "/images/servant/detail/" + id + "D.jpg");
+    images.push(url + "/images/servant/detail/" + id + "A.jpg");
+    images.push(url + "/images/servant/detail/" + id + "B.jpg");
+    images.push(url + "/images/servant/detail/" + id + "C.jpg");
+    images.push(url + "/images/servant/detail/" + id + "D.jpg");
     var clothFlag = this.data.servant.clothFlag;
     if (clothFlag == 'Y') {
-      images.push(app.globalData.url + "/images/servant/detail/" + id + "Z.jpg");
+      images.push(url + "/images/servant/detail/" + id + "Z.jpg");
     }
     if (id == '001' || id == '220') {
-      images.push(app.globalData.url + "/images/servant/detail/" + id + "E.jpg");
+      images.push(url + "/images/servant/detail/" + id + "E.jpg");
     }
     wx.previewImage({
       urls: images // 需要预览的图片http链接列表   
     })
-  }
+  },
+
+  showServantNotes: function(){
+    wx.navigateTo({
+      url: "servant_notes?id=" + this.data.id + "&name=" + this.data.servant.name
+    });
+  },
+  showServantAtk: function () {
+    wx.navigateTo({
+      url: "servant_atk?id=" + this.data.id + "&name=" + this.data.servant.name
+    });
+  }   
 })

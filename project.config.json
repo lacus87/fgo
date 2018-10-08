@@ -1,14 +1,14 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.1",
+	"libVersion": "2.3.0",
 	"appid": "wx47209fe8bea2a0fe",
 	"projectname": "fgo",
 	"condition": {
@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
@@ -52,8 +52,8 @@
 				{
 					"id": 3,
 					"name": "工具",
-					"pathName": "info/pages/index/exp_calculate",
-					"query": "id=1012"
+					"pathName": "info/pages/setting/setting_damage_calculate",
+					"query": "id=1113&name=学妹"
 				}
 			]
 		}

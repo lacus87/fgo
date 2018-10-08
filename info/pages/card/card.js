@@ -340,7 +340,7 @@ Page({
     var showList = init==true?[]:this.data.showList;
     var length = showList.length;
     var globalList = this.data.cardList;
-    if (length >= globalList.length) {
+    if (length !=0 && length >= globalList.length) {
       wx.hideLoading();
       return;
     }

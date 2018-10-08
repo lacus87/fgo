@@ -39,8 +39,8 @@
             </view>
           </block>
           <view class="carts-info">
-            <view class="carts-title clamp2" style="color:{{model==1?'lightgrey':'black'}}">攻击：{{servant.maxAtk}}</view>
-            <view class="carts-title clamp2" style="color:{{model==1?'lightgrey':'black'}}">血量：{{servant.maxHp}}</view>
+            <view class="carts-title clamp2" style="color:{{model==1?'lightgreen':'blue'}};" catchtap='showServantAtk'>攻击：{{servant.maxAtk}}</view>
+            <view class="carts-title clamp2" style="color:{{model==1?'lightgreen':'blue'}};" catchtap='showServantAtk'>血量：{{servant.maxHp}}</view>
             <view class="carts-subtitle">
               <text class="carts-price c--f60">灵基：</text>
               <!-- //数量加减 -->
@@ -154,18 +154,18 @@
             <block wx:for="{{clothList}}" wx:key="{{index}}">
               <swiper-item item-id="{{item.skillServantId}}">
                 <block wx:if="{{item.imgPath}}">
-                  <image class="carts-image" style="width:180rpx; height: 188rpx;" src="{{item.imgPath}}" catchtap='showImages' />
+                  <image class="carts-image" style="width:180rpx; height: 188rpx;" src="{{item.imgPath}}" catchtap='previewImages' />
                   <view class="container_text" style='padding-left:130rpx; margin-top:0rpx;'>
-                    <icon type="info" size="18" color="white" catchtap='showImages' />
+                    <icon type="info" size="18" color="white" catchtap='previewImages' />
                   </view>
                 </block>
               </swiper-item>
             </block>
           </swiper>
           <block wx:if="{{servant.imgPath && clothList.length <= 1}}">
-            <image class="carts-image" style="width:180rpx; height: 188rpx;" src="{{servant.imgPath}}" catchtap='showImages' />
+            <image class="carts-image" style="width:180rpx; height: 188rpx;" src="{{servant.imgPath}}" catchtap='previewImages' />
             <view class="container_text" style='padding-left:130rpx; margin-top:0rpx;'>
-              <icon type="info" size="18" color="white" catchtap='showImages' />
+              <icon type="info" size="18" color="white" catchtap='previewImages' />
             </view>
           </block>
           <view class="carts-info">
@@ -479,10 +479,13 @@
     </view>
   </view>
   <view class="container-footer" hidden="{{skill != 1}}">
-    <view style='width:25%;'>
+    <view style='width:20%;'>
+      <button class="weui-btn" style='height:40px;vertical-align:middle;line-height:40px;' type="default" catchtap='showServantNotes'>评分</button>
+    </view>
+    <view style='padding-left:20rpx;width:20%;'>
       <button class="weui-btn" style='height:40px;vertical-align:middle;line-height:40px;' type="default" catchtap='setStatus'>设置</button>
     </view>
-    <view style='padding-left:20rpx;width:25%'>
+    <view style='padding-left:20rpx;width:20%'>
       <block wx:if="{{topFlag == 1}}">
         <button class="weui-btn" style='height:40px;vertical-align:middle;line-height:40px;' type="default" catchtap='setDefault'>还原</button>
       </block>
@@ -490,7 +493,7 @@
         <button class="weui-btn" style='height:40px;vertical-align:middle;line-height:40px;' type="default" catchtap='setTop'>310</button>
       </block>
     </view>
-    <view style='padding-left:20rpx;width:50%'>
+    <view style='padding-left:20rpx;width:40%'>
       <button class="weui-btn" style='height:40px;vertical-align:middle;line-height:40px;' type="primary" catchtap='calMaterial'>计算素材</button>
     </view>
   </view>

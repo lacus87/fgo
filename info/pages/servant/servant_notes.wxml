@@ -1,0 +1,36 @@
+<view class="page" style="position:absolute;min-height:100%;width:100%;background: {{model==1?'#7B7B7B':'#ffffff'}}">
+  <view>
+    <canvas style='width:{{pageWidth}}px;height:{{pageWidth}}px;' disable-scroll="true" class="canvas" canvas-id="servantInfo" />
+  </view>
+  <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}">
+    <view class="weui-cell">
+      <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+        <text>我的历史评分</text>
+      </view>
+      <icon size='22' type='info' catchtap='showNotesInfo'></icon>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}" wx:for="{{categories}}" wx:key="{{index}}">
+    <view class="weui-cell">
+      <view class="weui-cell__bd" style='color:{{model==1?"lightgrey":"black"}}'>
+        {{item}}:
+      </view>
+      <image src='/images/star.png' catchtap='setNotes' data-index='1' data-typeId='{{index}}' class='img_star {{servantNotes.preNotes[categorieKeys[index]]<1?"img-grey":""}}'></image>
+      <image src='/images/star.png' catchtap='setNotes' data-index='2' data-typeId='{{index}}' class='img_star {{servantNotes.preNotes[categorieKeys[index]]<2?"img-grey":""}}'></image>
+      <image src='/images/star.png' catchtap='setNotes' data-index='3' data-typeId='{{index}}' class='img_star {{servantNotes.preNotes[categorieKeys[index]]<3?"img-grey":""}}'></image>
+      <image src='/images/star.png' catchtap='setNotes' data-index='4' data-typeId='{{index}}' class='img_star {{servantNotes.preNotes[categorieKeys[index]]<4?"img-grey":""}}'></image>
+      <image src='/images/star.png' catchtap='setNotes' data-index='5' data-typeId='{{index}}' class='img_star {{servantNotes.preNotes[categorieKeys[index]]<5?"img-grey":""}}'></image>
+      <image src='/images/star.png' catchtap='setNotes' data-index='6' data-typeId='{{index}}' class='img_star {{servantNotes.preNotes[categorieKeys[index]]<6?"img-grey":""}}'></image>
+      <image src='/images/star.png' catchtap='setNotes' data-index='7' data-typeId='{{index}}' class='img_star {{servantNotes.preNotes[categorieKeys[index]]<7?"img-grey":""}}'></image>
+      <image src='/images/star.png' catchtap='setNotes' data-index='8' data-typeId='{{index}}' class='img_star {{servantNotes.preNotes[categorieKeys[index]]<8?"img-grey":""}}'></image>
+      <image src='/images/star.png' catchtap='setNotes' data-index='9' data-typeId='{{index}}' class='img_star {{servantNotes.preNotes[categorieKeys[index]]<9?"img-grey":""}}'></image>
+      <image src='/images/star.png' catchtap='setNotes' data-index='10' data-typeId='{{index}}' class='img_star {{servantNotes.preNotes[categorieKeys[index]]<10?"img-grey":""}}'></image>
+      <view style='width:100rpx;'></view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title" style="background: {{model==1?'#7B7B7B':'#F0F0F0'}}" wx:if="{{openId}}">
+    <view style='height:20rpx;'></view>
+    <button class="weui-btn" style='width:90%' type="primary" catchtap="submitNotes">{{hisNotes?"修改评分":"提交评分"}}</button>
+    <view style='height:40rpx;'></view>
+  </view>
+</view>
