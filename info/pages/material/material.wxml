@@ -124,7 +124,9 @@
             </view>
           </block>
           <view style='padding-top:50rpx;text-align:center; '>
-            <button class="weui-btn" type="primary" size='mini' catchtap='syncAccount'>数据同步助手</button>
+            <view class='info c--red'>因相关法律法规要求</view>
+            <view class='info c--red'>小程序不再提供和代理有关的功能</view>
+            <!-- <button class="weui-btn" type="primary" size='mini' catchtap='syncAccount'>数据同步助手</button> -->
           </view>
 
         </view>

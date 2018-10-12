@@ -10,7 +10,7 @@ Page({
     localSetting: [],
     remoteSetting: [],
     syncDate: '',
-    keyId: '',
+    keyId: app.globalData.openId,
     motto: '使用微信号关联本地配置(英灵、素材等)',
     userInfo: {},
     hasUserInfo: false,
@@ -25,7 +25,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var keyId = wx.getStorageSync("keyId");
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -33,34 +32,8 @@ Page({
           model: wx.getStorageSync("model"),
         });
       }
-    });
-
-    this.getLocalSetting();
-    if (keyId == undefined || keyId == '') {
-      wx.login({
-        success: function (loginCode) {
-          //调用request请求api转换登录凭证  
-          wx.request({
-            url: app.globalData.url + '/servant/getOpenId.do?code=' + loginCode.code,
-            success: function (res) {
-              that.setData({
-                keyId: res.data.data
-              })
-              wx.setStorageSync("keyId", res.data.data);
-              that.getRemoteSetting();
-            }
-          })
-        },
-        fail: function () {
-          wx.navigateback();
-        }
-      })
-    } else {
-      that.setData({
-        keyId: keyId
-      })
-      this.getRemoteSetting();
-    }
+    });    
+    this.getRemoteSetting();
     var userInfo = app.globalData.userInfo;
     if (userInfo != null) {
       this.setData({
@@ -68,6 +41,9 @@ Page({
         hasUserInfo: true
       })
     }
+    setTimeout(function(){
+      that.getLocalSetting();
+    },500)
   },
 
   getRemoteSetting: function () {
@@ -99,6 +75,7 @@ Page({
         "programe2": wx.getStorageSync('programe' + "_" + curAccId + "_2")
       });
     }
+    console.log(localSetting);
     this.setData({
       localSetting: localSetting
     })

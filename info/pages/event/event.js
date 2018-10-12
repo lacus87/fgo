@@ -71,6 +71,9 @@ Page({
     });
   },
   showDetail: function (e) {
+    wx.showLoading({
+      title: '加载素材中...',
+    })
     var id = e.currentTarget.dataset.index;
     var eventList = this.data.eventList;
     for (var i = 0; i < eventList.length; i++) {
@@ -82,7 +85,7 @@ Page({
     }
     this.setData({
       eventList: eventList
-    });
+    }, wx.hideLoading());
   },
   showEventDetail: function(e){
     var id = e.currentTarget.dataset.index;

@@ -63,4 +63,12 @@
       </view>
     </view>
   </view>
+  <view style='position: fixed;bottom: 0;width: 100%;'>
+      <view class="th" style='flex:1'>
+        <view class='td' style='height: 40px;line-height:40px;'>
+          <view class="title" catchtap='redirectLast' data-index='-1'>上一张</view>
+          <view class="title" catchtap='redirectLast' data-index='1'>下一张</view>
+        </view>
+      </view>
+    </view>
 </view>

@@ -1,5 +1,9 @@
 /* pages/servant/servant_detail.wxss */
 
+.carts-list{
+  margin-bottom: 80rpx;
+}
+
 .tr{
   display: flex;
   flex-direction: row;

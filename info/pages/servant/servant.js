@@ -49,7 +49,7 @@ Page({
     props: [{ name: "骑乘", checked: 0 }, { name: "人型", checked: 0 }, { name: "从者（不被EA克制）", checked: 0 }, { name: "半从者", checked: 0 }, { name: "拟似从者", checked: 0 }, { name: "龙", checked: 0 }, { name: "亚瑟", checked: 0 }, { name: "Saber脸", checked: 0 }, { name: "王", checked: 0 }, { name: "罗马", checked: 0 }, { name: "所爱之人", checked: 0 }, { name: "神性", checked: 0 }, { name: "魔性", checked: 0 }, { name: "猛兽", checked: 0 }, { name: "希腊神话系男性", checked: 0 }],
     cardType: [{ name: "Buster", checked: 0 }, { name: "Arts", checked: 0 }, { name: "Quick", checked: 0 }],
     cardSpec: [{ name: "群体", checked: 0 }, { name: "单体", checked: 0 }, { name: "辅助", checked: 0 }],
-    propAllMatch:false
+    propAllMatch:false,
   },
   onLoad: function () {
     var that = this;
@@ -99,6 +99,7 @@ Page({
             }
             servantList[i].additionDesc = array;
           }
+          that.setServantType(servantList);
           servantList = that.sortByCur(servantList, that.data.cur);
           app.globalData.servantList = servantList;
           that.setData({
@@ -129,6 +130,7 @@ Page({
         }
         servantList[i].additionDesc = array;
       }
+      that.setServantType(servantList);
       servantList = this.sortByCur(servantList, this.data.cur);
       app.globalData.servantList = servantList;
       this.setData({
@@ -147,6 +149,30 @@ Page({
       wx.setStorageSync('servantRarity', servantRarity);
     }
   },
+
+  setServantType: function(servantList){
+    for (var i = 0; i < servantList.length; i++){
+      var servant = servantList[i];
+      if (servant.clazz == 'SABER'){
+        servant.clazzType = 1;
+      } else if (servant.clazz == 'ARCHER') {
+        servant.clazzType = 2;
+      } else if (servant.clazz == 'LANCER'){
+        servant.clazzType = 3;
+      } else if (servant.clazz == 'RIDER') {
+        servant.clazzType = 4;
+      } else if (servant.clazz == 'CASTER') {
+        servant.clazzType = 5;
+      } else if (servant.clazz == 'ASSASSIN') {
+        servant.clazzType = 6;
+      } else if (servant.clazz == 'BERSERKER') {
+        servant.clazzType = 7;
+      } else {
+        servant.clazzType = 8;
+      }
+    }
+  },
+
   onShow: function () {
     var that = this;
     var servantList = this.data.loadList;
@@ -215,19 +241,15 @@ Page({
     }
   },
   setFilterPanel: function (e) { //展开筛选面板
+    wx.showLoading({
+      title: '加载中...',
+    })
     const d = this.data;
     const i = e.currentTarget.dataset.findex;
-    if (d.showfilterindex == i) {
-      this.setData({
-        showfilter: false,
-        showfilterindex: null
-      })
-    } else {
-      this.setData({
-        showfilter: true,
-        showfilterindex: i,
-      })
-    }
+    this.setData({
+      showfilter: d.showfilterindex == i?false:true,
+      showfilterindex: d.showfilterindex == i?null:i
+    }, wx.hideLoading());
   },
   hideFilter: function () { //关闭筛选面板
     this.setData({
@@ -453,6 +475,10 @@ Page({
   },
   showServantDetail: function (e) {
     //servant_detail?id={{item.id}}
+    wx.showLoading({
+      title: '页面跳转中...',
+      mask: true
+    })
     var id = e.currentTarget.dataset.index;
     wx.navigateTo({
       url: "servant_detail?id=" + id

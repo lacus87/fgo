@@ -129,7 +129,8 @@ App({
   },
 
   onShow: function(){
-    util.syncAccount(this.globalData.url);
+    return;
+    //util.syncAccount(this.globalData.url);
   },
   calculateEventMat: function (eventList, curAccId) {
     var that = this;

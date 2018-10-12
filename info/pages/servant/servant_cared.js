@@ -58,10 +58,13 @@ Page({
         ownList.push(servantList[i])
       }
     }
+    wx.showLoading({
+      title: '加载中...',
+    });
     this.setData({
       servantList: ownList,
       ownList: ownList
-    });
+    },wx.hideLoading());
   },
   switchServant: function () {
     var that = this;
