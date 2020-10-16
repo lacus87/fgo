@@ -194,7 +194,6 @@ App({
     lastTapTime: 0,
     openId:0,
     model: wx.getStorageSync("model"),
-    // url: 'http://127.0.0.1/fgo'
-    url: 'https://www.fgowiki.cn/fgo'
+    url: 'http://127.0.0.1/fgo'
   }
 })
